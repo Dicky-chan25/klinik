@@ -43,7 +43,7 @@ $mappp= "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2552.7933967249073
     <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
         <div class="container">
             <a class="navbar-brand" href="#page-top"><img src="{{ asset('') }}assets/img/icon.png" class="brand-image img-circle elevation-3 bg-white"
-                    width="55";height="55" /> KLINIK dr.Asep</a>
+                    width="55";height="55" /> KLINIK SEHAT</a>
             <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button"
                 data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive"
                 aria-expanded="false" aria-label="Toggle navigation">
@@ -90,7 +90,7 @@ $mappp= "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2552.7933967249073
             <!-- Masthead Avatar Image-->
             <img class="masthead-avatar mb-5 img-circle elevation-3 bg-white" src="{{ asset('') }}assets/img/icon.png" alt="..." />
             <!-- Masthead Heading-->
-            <h1 class="masthead-heading text-uppercase mb-0">Klinik dr.asep</h1>
+            <h1 class="masthead-heading text-uppercase mb-0">Klinik Sehat</h1>
             <!-- Icon Divider-->
             <div class="divider-custom divider-light">
                 <div class="divider-custom-line"></div>
@@ -175,7 +175,7 @@ $mappp= "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2552.7933967249073
                 </div>
                 <div class="col-lg-4 me-auto">
                     <p class="lead">Anda bisa mendaftar secara online tanpa perlu mengantri atau
-                        langsung datang keKlinik <a class="btn btn-outline-light" href="/pasien/antrian-pasien">
+                        langsung datang ke Klinik <a class="btn btn-outline-light" href="/pasien/antrian-pasien">
                             <i class="fas fa-users me-2"></i>
                             Cek Antrian disini
                         </a></p>
@@ -686,45 +686,46 @@ $mappp= "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2552.7933967249073
 <!-- Antrian -->
 
 
-<!--------------------------------------------------------modal kartu antrian----------------------------------------------------------------------------------->
-<div class="modal fade" id="antrian" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="antrianLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div id="kartuantrian">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">
-                        <img src="{{ asset('') }}assets/img/icon.png" style=”float:left;
-                            width="55";height="55"” />Klinik {{ env('APP_NAME') }}
-                    </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p class="h3">Nomor Antrian : <span
-                            class="text-primary">{{ Session::has('nomorAntrian') ? Session::get('nomorAntrian') : '' }}</span>
-                    </p>
-                    <p class="h3">Atas Nama : <span
-                            class="text-primary">{{ Session::has('nama') ? Session::get('nama') : '' }}</span></p>
-                    <p>Daftar pada jam : <span
-                            class="text-primary">{{ Session::has('timestamps') ? Session::get('timestamps') : '' }}</span>
-                    </p>
-                </div>
-                <div class="modal-footer">
-                    <p>Tanggal : <span
-                            class="text-primary">{{ Session::has('tanggaldaftar') ? Session::get('tanggaldaftar') : '' }}</span>
-                    </p>
+    <!--------------------------------------------------------modal kartu antrian----------------------------------------------------------------------------------->
+    <div class="modal fade" id="antrian" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="antrianLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div id="kartuantrian2">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">
+                            <img src="{{ asset('') }}assets/img/icon.png" style=”float:left;
+                                width="55";height="55"” />Klinik Sehat
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="h3">Nomor Antrian : <span
+                                class="text-primary">{{ Session::has('nomorAntrian') ? Session::get('nomorAntrian') : '' }}</span>
+                        </p>
+                        <p class="h3">Atas Nama : <span
+                                class="text-primary">{{ Session::has('nama') ? Session::get('nama') : '' }}</span>
+                        </p>
+                        <p>Daftar pada jam : <span
+                                class="text-primary">{{ Session::has('timestamps') ? Session::get('timestamps') : '' }}</span>
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <p>Tanggal : <span
+                                class="text-primary">{{ Session::has('tanggaldaftar') ? Session::get('tanggaldaftar') : '' }}</span>
+                        </p>
 
-                    <a type="button" class="btn btn-secondary" href="/pasien/antrian-pasien">
-                        <i class="fas fa-users me-2"></i>
-                        Cek Antrian
-                    </a>
-                    <button type="button" class="btn btn-primary" id="download">Simpan</button>
+                        <a type="button" class="btn btn-secondary" href="/pasien/antrian-pasien">
+                            <i class="fas fa-users me-2"></i>
+                            Cek Antrian
+                        </a>
+                        <button type="button" class="btn btn-primary" id="download">Simpan</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
  
 <!--------------------------------------------------------modal error----------------------------------------------------------------------------------->
 <div class="modal fade" id="error" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -868,11 +869,11 @@ $mappp= "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2552.7933967249073
             window.setInterval("updateClock()", 1);
         }
     </script>
-     <!--------------------------------------------------------fungsi download kartu antrian----------------------------------------------------------------------------------->
-     <script>
+    <!--------------------------------------------------------fungsi download kartu antrian----------------------------------------------------------------------------------->
+    <script>
         document.getElementById("download").addEventListener("click", function() {
             const imgName = prompt("Input nama gambar yang akan diunduh: ")
-            html2canvas(document.querySelector('#kartuantrian')).then(function(canvas) {
+            html2canvas(document.querySelector('#kartuantrian2')).then(function(canvas) {
 
                 console.log(canvas);
                 saveAs(canvas.toDataURL(), imgName + '.jpg');
@@ -895,5 +896,4 @@ $mappp= "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2552.7933967249073
             }
         }
     </script>
-</body>
 </html>

@@ -22,7 +22,7 @@
        <!-- Tempusdominus Bootstrap 4 -->
        <link rel="stylesheet" href="{{ asset('') }}assets/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
        <!-- iCheck -->
-       <link rel="stylesheet" href="{{ asset('') }}assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+       {{-- <link rel="stylesheet" href="{{ asset('') }}assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css"> --}}
        <!-- JQVMap -->
        <link rel="stylesheet" href="{{ asset('') }}assets/plugins/jqvmap/jqvmap.min.css">
        <!-- overlayScrollbars -->
@@ -238,7 +238,7 @@
                     <div class="modal-header">
                         <h5 class="modal-title" id="staticBackdropLabel">
                             <img src="{{ asset('') }}assets/img/icon.png" style=”float:left;
-                                width="55";height="55"” />Klinik {{ env('APP_NAME') }}
+                                width="55";height="55"” />Klinik Sehat
                         </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                             aria-label="Close"></button>
@@ -248,7 +248,7 @@
                         <p class="h3" style="color:RED;">Tidak Ditemukan</p>
                         <p class="p" style="color:rgb(129, 129, 129); font-style: italic;">"coba ingat
                             kembali,
-                            apakah anda sudah pernah berobat diklinik {{ env('APP_NAME') }} sebelumnya"</p>
+                            apakah anda sudah pernah berobat di Klinik Sehat sebelumnya"</p>
                     </div>
                 </div>
             </div>
@@ -284,7 +284,7 @@
                 <div class="col-lg-4">
                     <h4 class="text-uppercase mb-4">Tentang Klinik</h4>
                     <p class="lead mb-0">
-                        Klinik {{ env('APP_NAME') }} dibangun sejak tahun 2002 yang berada di kecamatan Antah
+                        Klinik Sehat dibangun sejak tahun 2023 yang berada di kecamatan Antah
                         Berantah
                     </p>
                 </div>

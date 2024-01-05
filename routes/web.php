@@ -26,7 +26,7 @@ use App\Http\Controllers\DashboardController;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+*/ 
 // -------------------------------------------------------- Login------------------------------------------------------------------------------
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/pasien/antrian-pasien', [PasienController::class, 'antrianpasien']);
@@ -162,7 +162,7 @@ Route::post('pasien/update/{id}', [PasienController::class, 'update'])->name('us
 
 Route::get('pasien/delete/{id}', [PasienController::class, 'destroy'])->name('users')->middleware('auth','checkrole:1,2');
 
-Route::post('/pasien/cekpasienlama', [PasienController::class, 'cekpasienlama'])->name('users')->middleware('auth','checkrole:1,2');
+Route::post('pasien/cekpasienlama', [PasienController::class, 'cekpasienlama'])->name('users')->middleware('auth','checkrole:1,2');
 
 // --------------------------------------------------------Dashboard------------------------------------------------------------------------------
 
@@ -198,7 +198,7 @@ Route::get('rekam/diagnosa', [RekamController::class, 'diagnosa'])->name('users'
 
 Route::get('rekam/diagnosatools/edit{id}', [RekamController::class, 'editdiagnosa'])->name('users')->middleware('auth','checkrole:1,2');
 
-Route::post('rekam/diagnosatools/update/{id}', [RekamController::class, ' updatediagnosa'])->name('users')->middleware('auth','checkrole:1,2');
+Route::post('rekam/diagnosatools/update/{id}', [RekamController::class, 'updatediagnosa'])->name('users')->middleware('auth','checkrole:1,2');
 
 
 

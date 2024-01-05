@@ -13,7 +13,7 @@
     <div class="container">
         <h1>Diagnosa Pasien</h1>
         <br>
-        <form action="rekam/diagnosatools/update/{{ $diagnosa->id }}" method="POST">
+        <form action="/rekam/diagnosatools/update/{{ $diagnosa->id }}" method="POST">
             @csrf
 
             </--------------------------------------------------------kodepasien-----------------------------------------------------------------------------------* />

@@ -44,14 +44,15 @@ class RekamController extends Controller
             'layanan' => 'required',
             'keluhan' => 'required',
             'dokter' => 'required',
-        	'g-recaptcha-response' => 'required|captcha'
-        ],
-        [
-            'g-recaptcha-response' => [
-                'required' => 'Please verify that you are not a robot.',
-                'captcha' => 'Captcha error! try again later or contact site admin.',
-            ],
-        ],
+        	// 'g-recaptcha-response' => 'required|captcha'
+        ]
+        // ,
+        // [
+        //     'g-recaptcha-response' => [
+        //         'required' => 'Please verify that you are not a robot.',
+        //         'captcha' => 'Captcha error! try again later or contact site admin.',
+        //     ],
+        // ],
         );
 
         $nomorAntrian = 1;
@@ -74,7 +75,7 @@ class RekamController extends Controller
 
         foreach ($pasientable as $row):
 
-            return redirect('pasien-lama')->with([
+            return redirect('pasien/pasien-lama')->with([
                 'addsuccess' => 'Data berhasil ditambahkan',
                 'nomorAntrian' => "00" . $nomorAntrian,
                 'nama' => $row->nama,
@@ -289,7 +290,7 @@ class RekamController extends Controller
     
             $rekam = Rekam::find($id);
             $rekam->diagnosa = $validated['diagnosa'];
-            $rekam->laporan = 1;
+            // $rekam->laporan = 1;
             $rekam->nomorantrian = 000;
     
             if($request->obat != ''){
