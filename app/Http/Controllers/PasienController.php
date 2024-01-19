@@ -16,11 +16,11 @@ class PasienController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
-     */
+     */ 
     
     public function index()
     {
-        $datapasien = Pasien::get();
+        $datapasien = Pasien::paginate();
         return view('pasien/index', compact('datapasien'));
     }
 

@@ -2,11 +2,6 @@
 <title>Dashboard Obat</title>
 @section('container')
 
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Total Stok Obat</h1>
-    </div>
-
-
     @if ($errors->any())
     @foreach ($errors->all() as $item)
         <div class="alert alert-danger" role="alert">
@@ -14,57 +9,54 @@
         </div>
     @endforeach
     @endif
-
+ 
     @if (session()->has('success'))  
       <div class="alert alert-success col-lg-10" role="alert">
         {{ session('success') }}
       </div> 
       @endif
 
-      
-    <div class="col-md">
-        <div class="card">
-          <div class="card-header">
-            <a href="/obat_page/obat_form" type="button" class="btn btn-success"><i class="fas fa-plus text-white"></i> 
+      <div class="card">
+        <div class="card-header mt-2">
+          <h2>Daftar Obat</h2>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body mb-5">
+            <a href="/obat_page/obat_form" type="button" class="btn btn-primary mb-1"><i class="fas fa-plus text-white"></i> 
                 <i class="fas fa-medkit text-white"></i>  Tambah Obat</a>
-          </div>
-          <!-- /.card-header -->
-          <div class="table-responsive">
-            <table class="table table-flush" id="products-list">
-                <thead class="thead-dark">
+          <table id="example1" class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>No</th>
+                <th>Tools</th>
+                <th>Kode Obat</th>
+                <th>Stok</th>
+                <th>Nama</th>
+                <th>Jenis</th>
+                <th>Status</th>
+                <th>Dosis</th>
+                <th>Harga</th>
+                <th>Tanggal Upload</th>
+                <th>Tanggal Expired</th>
+                {{-- <th>Photo</th> --}}
+            </tr> 
+            </thead>
+            <tbody>
+                @foreach ($obat as $index => $p)
                 <tr>
-                    <th>No</th>
-                    <th>Tools</th>
-                    <th>Kode Obat</th>
-                    <th>Stok</th>
-                    <th>Nama</th>
-                    <th>Jenis</th>
-                    <th>Status</th>
-                    <th>Dosis</th>
-                    <th>Harga</th>
-                    <th>Tanggal Buat</th>
-                    <th>Tanggal Expired</th>
-                    <th>Photo</th>
-                </tr>
-              </thead>
-              <tbody>
-                @foreach ($obat as $p)
-                <tr>
-                    <td> 1 </td>
+                    <td>{{ $obat->firstItem() + $index }}</td>
                     </-------------------------------------------------------- edit
                         -----------------------------------------------------------------------------------* />
                     <td>
                         <a href="/obat_page/edit/{{ $p->id }}" class="badge bg-warning" data-bs-toggle="tooltip">
                             <i class="fas fa-pen text-white"></i>
                         </a>
-
-                        <a href="{{-- edit stok --}}" class="badge bg-warning" data-bs-toggle="tooltip">
+                        {{-- <a href="#" class="btn btn-warning" data-bs-toggle="tooltip">
                             <i class="fas fa-cube text-white"></i>
-                        </a>
-
+                        </a> --}}
                         </-------------------------------------------------------- hapus
                             -----------------------------------------------------------------------------------* />
-                        <a href="/obat_page/delete/{{ $p->id }}" class="badge bg-danger border-0" onclick="return confirm('Are you sure?')">
+                        <a href="/obat_page/delete/{{ $p->id }}" class="badge bg-danger" onclick="return confirm('Are you sure?')">
                             <i class="bi bi-trash"></i></a>
 
                     </td>
@@ -88,49 +80,25 @@
                     <td> {{ "Rp " . number_format($p->harga,2,',','.'); }}</td>
                     <td> {{ $p->created_at->format('d/m/Y   H:i:s'); }}</td>
                     <td> {{ date("d/m/Y", strtotime($p->expired=='' ? 'Expired belum di Set' : $p->expired)); }}</td>
-                    <td><img src="{{ asset('storage/' . $p->image) }}" alt="" width="100%"></td>
+                    {{-- <td><img src="{{ asset('storage/' . $p->image) }}" alt="" width="100%"></td> --}}
                 </tr>
                     
                 @endforeach
               </tbody>
-            </table>
-          </div>
-          <!-- /.card-body -->
-          <div class="card-footer clearfix">
-          </div>
+
+          </table>
         </div>
-        <!-- /.card -->
-        <!-- /.card -->
+        <!-- /.card-body -->
       </div>
-      {{-- @push('scripts')
+      @push('datatable-scripts')
       <script>
-          $(document).ready(function() {
-              $('#products-list').DataTable({
-                  dom: 'lBfrtip',
-                  lengthMenu: [
-                      [50, 100, 1000, -1],
-                      ['50', '100', '1000', 'All']
-                  ],
-                  buttons: [{
-                          extend: 'excel',
-                          text: 'Excel',
-                          messageTop: 'Data Obat dicetak per Tanggal '+'{{  \Carbon\Carbon::now()->format("d-M(m)-Y") }}'
-                          
-                      },
-                      {
-                          extend: 'copy',
-                          text: 'Copy Isi',
-                          messageTop: 'Data Obat dicetak per Tanggal '+'{{  \Carbon\Carbon::now()->format("d-M(m)-Y") }}'
-                          
-                      },
-                  ],
-                  language: {
-                      "searchPlaceholder": "Cari nama obat",
-                      "zeroRecords": "Tidak ditemukan data yang sesuai",
-                      "emptyTable": "Tidak terdapat data di tabel"
-                  }
-              });
+          $(function () {
+            $("#example1").DataTable({
+              "responsive": true, "lengthChange": false, "autoWidth": false,
+              "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
           });
-      </script>
-        @endpush --}}
+        </script>
+        @endpush
+
 @endsection

@@ -15,9 +15,11 @@
             </div>
         @endif
     @endif
-    <div class="container">
-        <h1>Perubahan Poli / Spesialis</h1>
-        <br>
+    <div class="card">
+        <div class="card-header mt-3">
+        <h3>Form Edit Poli</h3>
+        </div> 
+        <div class="card-body mb-5">
         <form action="/poli/update/{{ $poli->id }}" method="post" enctype="multipart/form-data">
             @csrf
 

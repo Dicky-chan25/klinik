@@ -8,11 +8,13 @@
                 {{ $item }}
             </div>
         @endforeach
-
+ 
     @endif --}}
-    <div class="container">
-        <h1>Obat Baru</h1>
-        <br>
+    <div class="card">
+        <div class="card-header mt-3">
+        <h3>Edit Data Obat</h3>
+        </div>
+        <div class="card-body mb-5">
         <form action="/obat_page/update/{{ $data->id }}" method="post" enctype="multipart/form-data">
             @csrf
 
@@ -20,8 +22,13 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Kode Obat</label>
                 <div class="col-sm-5">
-                    <input type="text" class="form-control" name="kodeobat" placeholder="Kode obat.."
+                    <input type="text" class="form-control @error('kodeobat') is-invalid @enderror" id="kodeobat" name="kodeobat" required placeholder="Kode obat.." 
                     value="{{ old('kodeobat', $data->kodeobat) }}">
+                    @error('kodeobat')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
                 </div>
             </div>
             </--------------------------------------------------------Nama-----------------------------------------------------------------------------------* />
@@ -61,23 +68,31 @@
             </div>
 
         </--------------------------------------------------------Jenis-----------------------------------------------------------------------------------* />
+
         <div class="form-group row">
             <label class="col-form-label col-sm-2 pt-0">Jenis Obat</label>
             <div class="col-sm-5">
-                <select name="jenis" value="{{ old('jenis') }}" class="form-control @error('Jenis') is-invalid @enderror">
-                    <option selected value="">Pilih jenis...</option>
+                <select type="text"  class="form-control @error('jenis') is-invalid @enderror" id="jenis" name="jenis"  required >
+                    <option selected></option>
                     @foreach($jenis as $j)
                     <option value="{{ $j->id }}">{{ $j->jenisobat }}</option>
                     @endforeach
                 </select>
                 @error('Jenis')
                 <div class="invalid-feedback">
-                    "pilih jenis obat
+                    {{ $message }}
                 </div>
                 @enderror
             </div>
         </div>
-
+        <div class="form-group row">
+            <label class="col-form-label col-sm-2 pt-0"></label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" name="jenisobat" value="{{ $data->jenis->jenisobat }}"
+                    readonly>
+            </div>
+        </div>
+        
         </--------------------------------------------------------Stok-----------------------------------------------------------------------------------* />
         
             <div class="form-group row">
@@ -92,6 +107,7 @@
                     @enderror
                 </div>
             </div>
+        </--------------------------------------------------------Harga-----------------------------------------------------------------------------------* />
 
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Harga Obat</label>
@@ -105,7 +121,7 @@
                     @enderror
                 </div>
             </div>
-        </--------------------------------------------------------Photo-----------------------------------------------------------------------------------* />
+        {{--</--------------------------------------------------------Photo-----------------------------------------------------------------------------------* />
            
 
             <div class="mb-3">
@@ -116,12 +132,12 @@
                 @error('image')
                 <p class="text-danger">{{ $message }}</p>
                 @enderror
-              </div> 
+              </div> --}}
 
             <div class="form-group row">
                 <div class="col-sm-10">
-                    <button type="submit" class="btn btn-primary">Tambah</button>
-                    <a href="/obat-total-stok" class="btn btn-warning">Kembali</a>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                    <a href="/obat_page/total_stok" class="btn btn-warning">Kembali</a>
                 </div>
             </div>
         </form>
@@ -130,8 +146,8 @@
 
     
     @endsection
-    <script>
-        function previewImage()
+    {{-- <script>
+    function previewImage()
 {
   const image = document.querySelector('#image');
   const imgPreview = document.querySelector('.img-preview');
@@ -182,4 +198,15 @@
             return /^-?\d*$/.test(value);
         }, "Isi dengan Angka");
      </script>
+     @push('select2-scripts')
+        <script>
+                //Initialize Select2 Elements
+                $('.select2').select2()
 
+                //Initialize Select2 Elements
+                $('.select2bs4').select2({
+                theme: 'bootstrap4'
+                })
+        </script>
+     @endpush
+ --}}

@@ -14,14 +14,15 @@
             {{ session('success') }}
         </div>
     @endif
-    <div class="container">
-        <h1>Data Diagnosa Pasien Harian</h1>
-        </-------------------------------------------------------- Tabel
-            -----------------------------------------------------------------------------------* />
-        <br />
-        <div class="table-responsive">
-            <table class="table table-flush" id="products-list">
-                <thead class="thead-dark">
+
+    <div class="card">
+        <div class="card-header mt-3">
+            <h3>Data Diagnosa Pasien Harian</h3>
+            </div> 
+            <div class="card-body mb-5">
+        
+            <table class="table table-bordered" id="products-list">
+                <thead>
                     <tr>
                         <th>No</th>
                         <th>Diagnosa</th>
@@ -58,9 +59,6 @@
                 </tbody>
             </table>
         </div>
-
-
-
     </div>
     @push('scripts')
         <script>

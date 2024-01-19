@@ -3,9 +3,6 @@
 
 @section('container')
 
-    <div class="container">
-        <h1>Daftar Harian Pasien</h1>
-        <br>
 
         @if (session()->has('failed'))
             <div class="alert alert-danger mb-3" role="alert">
@@ -17,8 +14,12 @@
             </div>
         @endif
         
-
-        <a href="/tambahpasienadmin" type="button" class="btn btn-success mb-2">
+<div class="card">
+    <div class="card-header mt-3">
+        <h3>Daftar Harian Pasien</h3>
+    </div> 
+        <div class="card-body mb-5">
+            <a href="/tambahpasienadmin" type="button" class="btn btn-success mb-2">
             <i class="fas fa-plus text-white"></i> <i class="fas fa-address-book text-white"></i>  Tambah Pasien Baru</a></a>
 
     <!--------------------------------------------------------Bagian Isi Konten----------------------------------------------------------------------------------->
@@ -145,7 +146,6 @@
             </div>
         </div>
     </div>
-</div>
 <!--------------------------------------------------------modal kartu antrian----------------------------------------------------------------------------------->
 <div class="modal fade" id="antrian" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="antrianLabel" aria-hidden="true">
@@ -212,7 +212,7 @@
         </div>
     </div>
 </div>
-
+        </div>
     </div>
     <!--------------------------------------------------------Bootstrap JS----------------------------------------------------------------------------------->
     <!-- Bootstrap core JS-->

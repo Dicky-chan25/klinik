@@ -347,8 +347,9 @@ class RekamController extends Controller
                 $pasien->kodepasien = $request->kodepasien.$pasien->kodepasien;
                 $pasien->save();
             }
-    
-            return back()->with('success', 'Sukses memberi diagnosa');
+            return redirect('/rekam/diagnosa')->with('success', 'Sukses memberi diagnosa');
+
+            // return back()->with('success', 'Sukses memberi diagnosa');
           
         }
 }

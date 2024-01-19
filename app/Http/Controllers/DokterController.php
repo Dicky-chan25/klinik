@@ -16,7 +16,7 @@ class DokterController extends Controller
      */ 
     public function index()
     {
-        $dokter = Dokter::get();
+        $dokter = Dokter::paginate();
         return view('dokter_page/index', compact('dokter'));
     }
 

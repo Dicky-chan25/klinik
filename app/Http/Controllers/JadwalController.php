@@ -14,7 +14,7 @@ class JadwalController extends Controller
      */
     public function index()
     {
-        $jadwal = Jadwal::get();
+        $jadwal = Jadwal::paginate();
         return view('jadwal/index', compact('jadwal'));
     }
 
@@ -82,7 +82,15 @@ class JadwalController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'jadwalpraktek' => 'required'
+        ]);
+
+        $jadwal = Jadwal::find($id);
+        $jadwal->jadwalpraktek = $validated['jadwalpraktek'];
+        $jadwal->save();
+
+        return redirect('jadwal/index')->with('success', 'Data TerUpdate');
     }
 
     /**

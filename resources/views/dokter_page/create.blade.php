@@ -10,9 +10,11 @@
     @endforeach
     
     @endif
-    <div class="container">
-        <h1>Dokter Baru</h1>
-        <br>
+    <div class="card">
+        <div class="card-header mt-3">
+        <h3>Tambah Dokter Baru</h3>
+        </div>
+        <div class="card-body mb-5">
         <form action="/dokter_page/index" method="post">
             @csrf
      
@@ -28,7 +30,7 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Alamat</label>
                 <div class="col-sm-5">
-                    <input type="text" class="form-control @error('Alamat') is-invalid @enderror" name="Alamat"
+                    <input type="text" class="form-control @error('Alamat') is-invalid @enderror" name="Alamat" required
                         placeholder="Alamat" value="{{ old('Alamat') }}">
                     @error('Alamat')
                         <div class="invalid-feedback">
@@ -43,7 +45,7 @@
             <div class="form-group row">
                 <label class="col-form-label col-sm-2 pt-0">Spesialis</label>
                 <div class="col-sm-3">
-                    <select name="Spesialis" class="form-control @error('Spesialis') is-invalid @enderror">
+                    <select name="Spesialis" class="form-control @error('Spesialis') is-invalid @enderror" required>
                         <option selected value="">pilih poli / spesialis</option>
                         @foreach($poli as $p)
                             <option value="{{ $p->id }}">{{ $p->name }}</option>
@@ -61,7 +63,7 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Telepon</label>
                 <div class="col-sm-3">
-                    <input type="number" class="form-control @error('Telepon') is-invalid @enderror" id="notelp"
+                    <input type="number" class="form-control @error('Telepon') is-invalid @enderror" id="notelp" required
                         name="Telepon" placeholder="Nomer Telepon (aktif)" value="{{ old('Telepon') }}">
                     @error('Telepon')
                         <div class="invalid-feedback">
@@ -76,7 +78,7 @@
             <div class="form group row">
                 <label class="col-form-label col-sm-2 pt-0">Jadwal Praktek</label>
                 <div class="col-sm-8">
-                    <select name="Jadwal" class="form-control @error('Jadwal') is-invalid @enderror">
+                    <select name="Jadwal" class="form-control @error('Jadwal') is-invalid @enderror" required>
                         <option selected value="">pilih jadwal...</option>
                         @foreach ($jadwalvariabel as $jadwal)
                         <option value="{{ $jadwal->id }}">{{ $jadwal->jadwalpraktek }}</option>

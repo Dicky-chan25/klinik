@@ -1,4 +1,6 @@
 <footer class="main-footer">
-
-    <strong>Copyright &copy; 2023 <a href="#">Klinik Sehat</a>.</strong>
-</footer>
+    <div class="float-right d-none d-sm-block">
+      <b>Klinik</b> Sehat
+    </div>
+    <strong>Copyright &copy; {{ (int)date('Y') }}.</strong>
+  </footer>

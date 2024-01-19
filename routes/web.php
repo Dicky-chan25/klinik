@@ -106,6 +106,10 @@ Route::post('jenis_obat/index', [JenisController::class, 'store'])->name('users'
 
 Route::get('jenis_obat/create', [JenisController::class, 'create'])->name('users')->middleware('auth','checkrole:1,2,3');
 
+Route::get('jenis_obat/edit/{id}', [JenisController::class, 'edit'])->name('users')->middleware('auth','checkrole:1,2,3');
+
+Route::get('jenis_obat/update/{id}', [JenisController::class, 'update'])->name('users')->middleware('auth','checkrole:1,2,3');
+
 Route::get('jenis_obat/delete/{id}', [JenisController::class, 'destroy'])->middleware('auth','checkrole:1,2,3');
 
 // --------------------------------------------------------Dokter------------------------------------------------------------------------------
@@ -129,6 +133,10 @@ Route::get('jadwal/index', [JadwalController::class, 'index'])->name('users')->m
 Route::post('jadwal/index', [JadwalController::class, 'store'])->name('users')->middleware('auth','checkrole:1,2');
 
 Route::get('jadwal/create', [JadwalController::class, 'create'])->name('users')->middleware('auth','checkrole:1,2');
+
+Route::get('jadwal/edit/{id}', [JadwalController::class, 'edit'])->middleware('auth','checkrole:1,2');
+
+Route::post('jadwal/update/{id}', [JadwalController::class, 'update'])->middleware('auth','checkrole:1,2');
 
 Route::get('jadwal/delete/{id}', [JadwalController::class, 'destroy'])->middleware('auth','checkrole:1,2');
 

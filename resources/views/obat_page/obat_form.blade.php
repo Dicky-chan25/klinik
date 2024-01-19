@@ -10,9 +10,11 @@
         @endforeach
 
     @endif --}}
-    <div class="container">
-        <h1>Obat Baru</h1>
-        <br>
+    <div class="card">
+        <div class="card-header mt-3">
+        <h3>Form Tambah Obat</h3>
+        </div> 
+        <div class="card-body mb-5">
         <form action="/obat_page/total_stok" method="post" enctype="multipart/form-data">
             @csrf
 
@@ -20,16 +22,26 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Kode Obat</label>
                 <div class="col-sm-5">
-                    <input type="text" class="form-control" name="kodeobat" placeholder="Kode obat.."
+                    <input type="text" class="form-control  @error('kodeobat') is-invalid @enderror" name="kodeobat" id="kodeobat" placeholder="Kode obat.." required
                         value="{{ old('kodeobat') }}">
+                        @error('kodeobat')
+                        <div class="invalid-feedback">
+                            
+                        </div>
+                        @enderror
                 </div>
             </div>
             </--------------------------------------------------------Nama-----------------------------------------------------------------------------------* />
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Nama Obat</label>
                 <div class="col-sm-5">
-                    <input type="text" class="form-control" name="namaobat" placeholder="Nama obat.." 
+                    <input type="text" class="form-control  @error('namaobat') is-invalid @enderror" name="namaobat" id="namaobat" placeholder="Nama obat.." required
                         value="{{ old('namaobat') }}">
+                        @error('namaobat')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                        @enderror
                 </div>
             </div>
             
@@ -37,11 +49,11 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Tanggal Expired</label>
                 <div class="col-sm-5">
-                    <input type="date" class="form-control @error('expired') is-invalid @enderror" name="expired"
+                    <input type="date" class="form-control @error('expired') is-invalid @enderror" name="expired" required
                         placeholder="Tanggal Expired" value="{{ old('expired') }}">
                     @error('expired')
                         <div class="invalid-feedback">
-                            "tanggal expired masih kosong
+                            {{ $message }}
                         </div>
                     @enderror
                 </div>
@@ -51,10 +63,10 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Dosis</label>
                 <div class="col-sm-5">
-                    <input type="text" name="dosis" class="form-control"placeholder="Dosis..." value="{{ old('dosis') }}">
+                    <input type="text" name="dosis" class="form-control @error('dosis') is-invalid @enderror" placeholder="Dosis..." value="{{ old('dosis') }}">
                     @error('dosis')
                         <div class="invalid-feedback">
-                            "dosis masih kosong
+                           {{ $message }}
                         </div>
                     @enderror
                 </div>
@@ -64,7 +76,7 @@
         <div class="form-group row">
             <label class="col-form-label col-sm-2 pt-0">Jenis Obat</label>
             <div class="col-sm-5">
-                <select name="jenis" value="{{ old('jenis') }}" class="form-control @error('Jenis') is-invalid @enderror">
+                <select name="jenis" value="{{ old('jenis') }}" class="form-control @error('jenis') is-invalid @enderror">
                     <option selected value="">Pilih jenis...</option>
                     @foreach($jenis as $j)
                     <option value="{{ $j->id }}">{{ $j->jenisobat }}</option>
@@ -83,7 +95,7 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Stok Obat</label>
                 <div class="col-sm-3">
-                    <input type="number" class="form-control @error('stok') is-invalid @enderror" id="stok"
+                    <input type="number" class="form-control @error('stok') is-invalid @enderror" id="stok" required
                         name="stok" placeholder="Masukkan Jumlah Awal..." value="{{ old('stok') }}" >
                         @error('stok')
                         <div class="invalid-feedback">
@@ -96,7 +108,7 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Harga Obat</label>
                 <div class="col-sm-7">
-                    <input type="text" class="form-control @error('harga') is-invalid @enderror" id="harga"
+                    <input type="text" class="form-control @error('harga') is-invalid @enderror" id="harga" required
                         name="harga" placeholder="Harga obat.." value="{{ old('harga') }}">
                     @error('harga')
                         <div class="invalid-feedback">
@@ -108,7 +120,7 @@
         </--------------------------------------------------------Photo-----------------------------------------------------------------------------------* />
            
 
-            <div class="mb-3">
+            {{-- <div class="mb-3">
                 <label for="image" class="form-label">Gambar Obat</label>
                 <img class="img-preview img-fluid mb-3 col-sm-5">
                 <input class="form-control @error('image') is-invalid @enderror" type="file" id="image"
@@ -116,12 +128,12 @@
                 @error('image')
                 <p class="text-danger">{{ $message }}</p>
                 @enderror
-              </div> 
+              </div>  --}}
 
             <div class="form-group row">
                 <div class="col-sm-10">
                     <button type="submit" class="btn btn-primary">Tambah</button>
-                    <a href="/obat-total-stok" class="btn btn-warning">Kembali</a>
+                    <a href="/obat_page/total_stok" class="btn btn-warning">Kembali</a>
                 </div>
             </div>
         </form>
@@ -131,22 +143,22 @@
     
     @endsection
     <script>
-        function previewImage()
-{
-  const image = document.querySelector('#image');
-  const imgPreview = document.querySelector('.img-preview');
+//         function previewImage()
+// {
+//   const image = document.querySelector('#image');
+//   const imgPreview = document.querySelector('.img-preview');
 
-  imgPreview.style.display = 'block';
+//   imgPreview.style.display = 'block';
 
-  const oFReader = new FileReader();
-  oFReader.readAsDataURL(image.files[0]);
+//   const oFReader = new FileReader();
+//   oFReader.readAsDataURL(image.files[0]);
 
-  oFReader.onload = function(oFREvent)
-  {
-    imgPreview.src = oFREvent.target.result;
-  }
+//   oFReader.onload = function(oFREvent)
+//   {
+//     imgPreview.src = oFREvent.target.result;
+//   }
 
-}
+// }
         function setInputFilter(textbox, inputFilter, errMsg) {
             ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop", "focusout"].forEach(
                 function(event) {

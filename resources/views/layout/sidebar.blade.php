@@ -1,7 +1,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="/apotek" class="brand-link">
-      <img src="{{ asset('') }}assets/dist/img/klinik.png" class="brand-image img-circle elevation-3 bg-white" style="opacity: .8">
+      <img src="{{ asset('') }}assets/dist/img/klinik.png" class="brand-image img-circle elevation-3 bg-white" >
       <span class="brand-text font-weight-light">Klinik Sehat</span>
     </a>
 
@@ -32,25 +32,18 @@
       @can('superadmin')
         <!-- Sidebar Menu -->
         <nav class="mt-2">
-          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="true">
             <!-- Add icons to the links using the .nav-icon class
                  with font-awesome or any other icon font library -->
-           
-            
-            
+
             <li class="nav-item">
               <a href="/apotek" class="nav-link">
                 <i class="bi bi-house-heart"></i>
                 <p>Dashboard</p>
               </a>
             </li>
+
             <li class="nav-item">
-              <a href="/user_page/index" class="nav-link">
-                <i class="bi bi-person-vcard"></i>
-                <p>Data User</i></p>
-              </a>
-            </li>
-            <li class="nav-item menu-open">
               <a href="/pasien/index" class="nav-link">
                 <i class="bi bi-person-hearts"></i>
                 <p>Pasien <i class="right fas fa-angle-left"></i></p>
@@ -62,24 +55,18 @@
                     <p>Pendaftaran</p>
                   </a>
                 </li>
-              </ul>
-              <ul class="nav nav-treeview">
                 <li class="nav-item">
                   <a href="/rekam/antrian-pasien-admin" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Antrian Pasien</p>
                   </a>
                 </li>
-              </ul>
-              <ul class="nav nav-treeview">
                 <li class="nav-item">
                   <a href="/pasien/index" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Data Pasien</p>
                   </a>
                 </li>
-              </ul>
-              <ul class="nav nav-treeview">
                 <li class="nav-item">
                   <a href="/rekam/diagnosa" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
@@ -88,7 +75,8 @@
                 </li>
               </ul>
             </li>
-            <li class="nav-item menu-open">
+
+            <li class="nav-item">
               <a href="/dokter_page/index" class="nav-link">
                 <i class="bi bi-person-heart"></i>
                 <p>Data Dokter <i class="right fas fa-angle-left"></i></p>
@@ -117,8 +105,17 @@
                   </a>
                 </li>
               </ul>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Tindakan</p>
+                  </a>
+                </li>
+              </ul>
             </li>
-            <li class="nav-item menu-open">
+
+            <li class="nav-item">
               <a href="/obat_page/total_stok" class="nav-link">
                 <i class="bi bi-capsule"></i>
                 <p>Farmasi <i class="right fas fa-angle-left"></i></p>
@@ -140,19 +137,29 @@
                 </li>
               </ul>
             </li>
+
             <li class="nav-item">
               <a href="#" class="nav-link">
                 <i class="bi bi-credit-card-2-back"></i>
                 <p>Data Pembayaran</p>
               </a>
             </li>
+            
             <li class="nav-item">
               <a href="#" class="nav-link">
                 <i class="bi bi-gear"></i>
-                <p>Setting</p>
+                <p>Setting<i class="right fas fa-angle-left"></i></p>
               </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="/user_page/index" class="nav-link">
+                    <i class="bi bi-person-vcard"></i>
+                    <p>Data User</i></p>
+                  </a>
+                </li>
+              </ul>
             </li>
-          </ul>
+            </ul>
         </nav>   
       @endcan
 
@@ -169,12 +176,6 @@
               <a href="/apotek" class="nav-link">
                 <i class="bi bi-house-heart"></i>
                 <p>Dashboard</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="/user_page/index" class="nav-link">
-                <i class="bi bi-person-vcard"></i>
-                <p>Data User</i></p>
               </a>
             </li>
             <li class="nav-item menu-open">
@@ -203,14 +204,6 @@
                   <a href="/pasien/index" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Data Pasien</p>
-                  </a>
-                </li>
-              </ul>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="/rekam/diagnosa" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Diagnosa Pasien</p>
                   </a>
                 </li>
               </ul>
@@ -281,10 +274,16 @@
         <!-- Sidebar Menu -->
         <nav class="mt-2">
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-            <li class="nav-item menu-open">
+            <li class="nav-item">
+              <a href="/apotek" class="nav-link">
+                <i class="bi bi-house-heart"></i>
+                <p>Dashboard</p>
+              </a>
+            </li>
+            <li class="nav-item">
               <a href="/obat_page/total_stok" class="nav-link">
                 <i class="bi bi-capsule"></i>
-                <p>Farmasi</p>
+                <p>Farmasi <i class="right fas fa-angle-left"></i></p>
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">

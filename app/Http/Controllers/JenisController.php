@@ -16,7 +16,7 @@ class JenisController extends Controller
      */
     public function index()
     {
-        $data = Jenis::paginate(10);
+        $data = Jenis::paginate();
         return view('jenis_obat/index',[
             'jenis' => $data,
             'count' => 0
@@ -75,7 +75,7 @@ class JenisController extends Controller
     {
         $data = Jenis::find($id);
 
-        return view('jenis-obat-form-update', [
+        return view('jenis_obat/edit', [
             'jenis' => $data
         ]);
     }
@@ -97,7 +97,7 @@ class JenisController extends Controller
         $jenis->jenisobat = $validated['jenis'];
         $jenis->save();
 
-        return redirect('obat-jenis')->with('success', 'Data TerUpdate');
+        return redirect('jenis_obat/index')->with('success', 'Data TerUpdate');
     }
 
     /**

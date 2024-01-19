@@ -11,9 +11,11 @@
 @endif
 
 
-<div class="container">
-<h1>Pilihan Baru untuk Jenis Obat</h1>
-<br>
+<div class="card">
+    <div class="card-header mt-3">
+    <h3>Pilihan Baru untuk Jenis Obat</h3>
+    </div>
+    <div class="card-body mb-5">
 <form method="post" action="/jenis_obat/index" class="mb-5" enctype="multipart/form-data">
     @csrf
 </--------------------------------------------------------Kode Obat-----------------------------------------------------------------------------------* />

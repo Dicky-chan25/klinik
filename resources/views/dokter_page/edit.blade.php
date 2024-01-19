@@ -10,9 +10,11 @@
         @endforeach
 
     @endif
-    <div class="container">
-        <h1>Perubahan Data Dokter</h1>
-        <br>
+    <div class="card">
+        <div class="card-header mt-3">
+        <h3>Edit Data Dokter</h3>
+        </div>
+        <div class="card-body mb-5">
         <form action="/dokter_page/update/{{ $dokter->id }}" method="post" enctype="multipart/form-data">
             @csrf
 
@@ -51,7 +53,7 @@
             </--------------------------------------------------------Telepon-----------------------------------------------------------------------------------* />
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Telepon</label>
-                <div class="col-sm-3">
+                <div class="col-sm-5">
                     <input type="number" class="form-control" id="notelp" name="Telepon"
                         placeholder="Nomer Telepon (aktif)" value="{{ $dokter->telepon }}">
                 </div>
@@ -61,16 +63,16 @@
             </--------------------------------------------------------Jadwal lama-----------------------------------------------------------------------------------* />
 
             <div class="form group row">
-                <label class="col-form-label col-sm-2 pt-0">Jadwal Praktek Lama</label>
-                <div class="col-sm-8">
+                <label class="col-sm-2 col-form-label">Jadwal Praktek Lama</label>
+                <div class="col-sm-5">
                     <input class="form-control" value="{{ $dokter->jadwal->jadwalpraktek ?? "-" }}" readonly>
                 </div>
             </div>
-
+<br>
         </--------------------------------------------------------Jadwal baru-----------------------------------------------------------------------------------* />
             <div class="form group row">
-                <label class="col-form-label col-sm-2 pt-0">Jadwal Praktek Baru</label>
-                <div class="col-sm-8">
+                <label class="col-sm-2 col-form-label">Jadwal Praktek Baru</label>
+                <div class="col-sm-5">
                     <select name="Jadwal" class="form-control" value="{{ $dokter->jadwal->jadwalpraktek ?? "-"}}"
                         required oninvalid="this.setCustomValidity('Pilih Jadwal Praktek')" oninput="setCustomValidity('')">
                         <option selected value="">tentukan jadwal praktek baru...</option>
@@ -80,7 +82,7 @@
                     </select>
                 </div>
             </div>
-            <br>
+            
 
             <div class="form-group row">
                 <div class="col-sm-10">

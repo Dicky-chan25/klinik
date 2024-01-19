@@ -22,10 +22,13 @@
         </div>
     @endif
 
-    <div class="container">
-        <h4>Rekam Medis Pasien atas nama:</h4>
-        <h1>{{ $pasien->nama }}</h1>
-        <br>
+
+        <div class="card">
+            <div class="card-header mt-3">
+            <h3>Rekam Medis Pasien atas nama:</h3>
+            <h3>{{ $pasien->nama }}</h3>
+            </div>
+            <div class="card-body">
 
         </--------------------------------------------------------kodepasien-----------------------------------------------------------------------------------* />
         <div class="form-group row">
@@ -132,10 +135,16 @@
         </div>
         {{-- </form> --}}
     </div>
-    <div class="container">
+</div>
 
+    <div class="card">
+        <div class="card-header">
+            <h2>Riwayat Rekam Medis</h2>
+          </div>
+        <!-- /.card-header -->
+        <div class="card-body mb-5">
         <div class="table-responsive">
-            <table class="table table-flush" id="products-list">
+            <table class="table table-flush"  id="example1" id="products-list">
                 <thead class="thead-dark">
                     <tr>
                         <th>No</th>
@@ -236,6 +245,7 @@
 
                 </tbody>
             </table>
+        </div>
         </div>
     </div>
 

@@ -14,18 +14,15 @@
             {{ session('success') }}
         </div>
     @endif
-    <div class="container">
-        <h1>Database Pasien</h1>
-        <br>
-
-        </-------------------------------------------------------- Tabel
-            -----------------------------------------------------------------------------------* />
-        {{-- <a href="/pasien/tambahpasienform" type="button" class="btn btn-success">
-            <i class="fas fa-plus text-white"></i> <i class="fas fa-address-book text-white"></i>  Tambah Pasien</a>
-        <br /> --}}
+    <div class="card">
+        <div class="card-header mt-2">
+          <h2>Database Pasien</h2>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body mb-5">
         <div class="table-responsive">
-            <table class="table table-flush" id="products-list">
-                <thead class="thead-dark">
+            <table id="example1" class="table table-flush" id="products-list">
+                <thead>
                     <tr>
                         <th>No</th>
                         <th>Kode Pasien</th>
@@ -71,8 +68,8 @@
             </table>
         </div>
     </div>
-    </div>
-
+    {{ $datapasien->links() }}
+ 
     @endsection
 
     @push('scripts')
@@ -103,4 +100,14 @@
                 });
             });
         </script>
+          @push('datatable-scripts')
+          <script>
+              $(function () {
+                $("#example1").DataTable({
+                  "lengthChange": false, "autoWidth": false,
+                  "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+                }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+              });
+            </script>
+            @endpush
     @endpush

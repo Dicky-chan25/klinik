@@ -2,13 +2,12 @@
 <title>Create User</title>
 @section('container')
 
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center ml-2 pt-3 pb-2 mb-3">
-        <h1 class="h2">Create User</h1>
-    </div>
 
-
-
-        <div class="col-lg-8">
+    <div class="card">
+        <div class="card-header mt-3">
+        <h3>Form Tambah User</h3>
+        </div> 
+        <div class="card-body mb-5">
             <form method="post" action="/user_page/index" class="mb-5" enctype="multipart/form-data">
                 @csrf
                 <div class="mb-3">
@@ -49,8 +48,8 @@
                 <input type='hidden' class="form-control" id="role_id"
                 name="role_id" required value='3'>
                 </div>
-       
-                <button type="submit" class="btn btn-primary">Create name</button>
+                <a href="/user_page/index" class="btn btn-warning">Kembali</a>
+                <button type="submit" class="btn btn-primary">Tambah</button>
             </form>
         </div>
 

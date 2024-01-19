@@ -160,7 +160,7 @@ $mappp= "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2552.7933967249073
             <!-- Icon Divider-->
             <div class="divider-custom divider-light">
                 <div class="divider-custom-line"></div>
-                <div class="divider-custom-icon"><i class="fas fa-pencil"></i></div>
+                <div class="divider-custom-icon"><i class="bi bi-pencil-square"></i></div>
                 <div class="divider-custom-line"></div>
             </div>
             <!--------------------------------------------------------Daftar sebagai Pasien----------------------------------------------------------------------------------->

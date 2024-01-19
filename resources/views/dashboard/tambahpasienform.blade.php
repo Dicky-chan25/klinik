@@ -11,9 +11,11 @@
         @endforeach
 
     @endif
-    <div class="container">
-        <h1>Pasien Baru</h1>
-        <br>
+    <div class="card">
+        <div class="card-header mt-3">
+        <h3>Form Tambah Pasien Baru</h3>
+        </div> 
+        <div class="card-body mb-5">
         <form action="tambahpasien" method="post">
             @csrf
             </--------------------------------------------------------Nama-----------------------------------------------------------------------------------* />

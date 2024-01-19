@@ -11,16 +11,18 @@
 @endif
 
 
-<div class="container">
-<h1>Tambah Poli</h1>
-<br>
+<div class="card">
+    <div class="card-header mt-3">
+    <h3>Form Tambah Poli</h3>
+    </div> 
+    <div class="card-body mb-5">
 <form method="post" action="/poli/index" class="mb-5" enctype="multipart/form-data">
     @csrf
 </--------------------------------------------------------Kode Obat-----------------------------------------------------------------------------------* />
     <div class="form-group row">
-        <label class="col-sm-2 col-form-label">Poli</label>
+        <label class="col-sm-1 col-form-label">Poli</label>
         <div class="col-sm-5">
-            <input type="text" class="form-control" name="name" placeholder="poli obat.." required="required"
+            <input type="text" class="form-control" name="name" placeholder="poli .." required="required"
                 value="{{ old('poli') }}" oninvalid="this.setCustomValidity('Poli tidak boleh kosong')" oninput="setCustomValidity('')">
         </div>
     </div>

@@ -14,18 +14,17 @@
             {{ session('success') }}
         </div>
     @endif
-    <div class="container">
-        <h1>Semua Jadwal Praktek</h1>
-        <br>
 
-        </-------------------------------------------------------- Tabel
-            -----------------------------------------------------------------------------------* />
-        <a href="/jadwal/create" type="button" class="btn btn-success">
-            <i class="fas fa-plus text-white"></i> <i class="fas fa-calendar text-white"></i>  Tambah Jadwal Praktek</a>
-
-        <div class="table-responsive">
-            <table class="table table-flush" id="products-list">
-                <thead class="thead-dark">
+    <div class="card">
+        <div class="card-header mt-3">
+        <h2>Semua Jadwal Praktek</h2>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body mb-5">
+            <a href="/jadwal/create" class="btn btn-primary mb-1">
+            <i class="fas fa-plus text-white"></i> <i class="fas fa-database text-white"></i>  Tambah Jadwal Praktek</a>
+            <table id="example1" class="table table-bordered table-striped">
+                <thead>
                     <tr>
                         <th>No</th>
                         <th>Jadwal</th>
@@ -38,40 +37,31 @@
                             <td> {{ $loop->iteration }} </td>
                             <td> {{ $jp->jadwalpraktek }} </td>
                             <td class="text-sm">
-                                <a href="jadwal/edit/{{ $jp->id }}" class="badge bg-warning" data-bs-toggle="tooltip"
+                                <a href="/jadwal/edit/{{ $jp->id }}" class="btn btn-warning" data-bs-toggle="tooltip"
                                     data-bs-original-title="Edit Pasien">
                                     <i class="bi bi-pencil-square"></i>
                                 </a>
 
-                                <a href="/jadwal/delete/{{ $jp->id }}" class="badge bg-danger border-0" onclick="return confirm('Are you sure?')"><i class="bi bi-trash"></i></a>
+                                <a href="/jadwal/delete/{{ $jp->id }}" class="btn btn-danger border-0" onclick="return confirm('Are you sure?')"><i class="bi bi-trash"></i></a>
 
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
+
             </table>
         </div>
-        </div>
-
-
-
     </div>
-    @push('scripts')
-        <script>
-            $(document).ready(function() {
-                $('#products-list').DataTable({
-                    lengthMenu: [
-                        [10, 100, -1],
-                        ['10', '100', 'All']
-                    ],
-                    
-                    language: {
-                        "searchPlaceholder": "Cari jadwal",
-                        "zeroRecords": "Tidak ditemukan jadwal",
-                        "emptyTable": "Tidak terdapat jadwal di tabel"
-                    }
-                });
-            });
-        </script>
-    @endpush
+
 @endsection
+
+@push('datatable-scripts')
+<script>
+    $(function () {
+        $("#example1").DataTable({
+        "responsive": true, "lengthChange": false, "autoWidth": false,
+        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    });
+    </script>
+    @endpush

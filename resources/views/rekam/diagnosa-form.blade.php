@@ -10,9 +10,11 @@
         @endforeach
 
     @endif
-    <div class="container">
-        <h1>Diagnosa Pasien</h1>
-        <br>
+    <div class="card">
+        <div class="card-header mt-3">
+        <h3>Diagnosa Pasien</h3>
+        </div>
+        <div class="card-body mb-5">
         <form action="/rekam/diagnosatools/update/{{ $diagnosa->id }}" method="POST">
             @csrf
 
@@ -127,6 +129,17 @@
             </div>
 
             <!--------------------------------------------------------Obat----------------------------------------------------------------------------------- -->
+            <div class="col col-md-9">
+                @foreach($obat as $o)
+                  <div class="form-check">
+                    <div class="checkbox">
+                    <label for="checkbox1" class="form-check-label ">
+                      <input type="checkbox" name="obat[]" value="{{ $o->id }}">{{ $o->namaobat . ' (Sisa stok: ' . $o->stok . ')' }}
+                    </label>
+                    </div>
+                    </div>
+                    @endforeach
+                    </div>
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Obat</label>
                 <div class="col-sm-5">
@@ -274,6 +287,7 @@
             </div>
         </form>
     </div>
+</div>
 @endsection
     <script>
         function setInputFilter(textbox, inputFilter, errMsg) {

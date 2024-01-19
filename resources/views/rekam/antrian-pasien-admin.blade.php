@@ -16,13 +16,13 @@
         </div>
     @endif
     
-    <div class="container">
-        <h1>Data Antrian Pasien Harian</h1>
-        <br>
+    <div class="card">
+        <h2 class="mt-3 ml-3">Data Antrian Pasien Harian</h2>
 
         </-------------------------------------------------------- Tabel
             -----------------------------------------------------------------------------------* />
         <br />
+        <div class="card-body mb-5">
         <div class="table-responsive">
             <table class="table table-flush" id="products-list">
                 <thead class="thead-dark">
@@ -53,17 +53,15 @@
                     @foreach($datarekam as $row)
                         <tr>
                             <td>{{ $count = $count + 1 }}</td>
-                            <td><a href="/rekam/antrian-pasien-edit-form/edit/{{  $row->id }}" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-original-title="Lihat Pasien">
-                                <i class="fas fa-pen text-white"></i>
-                            </a>
-                          
-                            <form action="/antrian/delete/{{  $row->id }}">
-                                @csrf
-                                <button type="submit" class="btn btn-danger"
-                                    onClick="return confirm('Yakin ingin hapus data?')">
-                                    <i class="fas fa-trash"></i></button>
-                            </form>
+                            <td>
+                                <a href="/rekam/antrian-pasien-edit-form/edit/{{  $row->id }}" class="badge bg-warning" data-bs-toggle="tooltip">
+                                    <i class="fas fa-pen text-white"></i>
+                                </a>
+                                <a href="/antrian/delete/{{  $row->id }}" class="badge bg-danger" onclick="return confirm('Are you sure?')">
+                                    <i class="bi bi-trash"></i></a>
+        
                             </td>
+
                             <td>{{ $row->nomorantrian }}</td>
                             <td>{{ $row->updated_at->format('H:i:s -- d/m/Y'); }}</td>   
                             <td>{{ $row->pasien->nama }}</td>
@@ -90,10 +88,8 @@
                 </tbody>
             </table>
         </div>
-
-
-
     </div>
+</div>
     @push('scripts')
         <script>
             $(document).ready(function() {

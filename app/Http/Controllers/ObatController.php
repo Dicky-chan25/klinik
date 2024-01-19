@@ -16,7 +16,7 @@ class ObatController extends Controller
      */
     public function index()
     {
-        $obat = Obat::all();
+        $obat = Obat::paginate();
         if(request('search')){
             $obat->where('namaobat', 'like','%' . request('search') . '%');
         }
@@ -70,13 +70,13 @@ class ObatController extends Controller
             'stok' => 'required',
             'dosis' => 'required',
             'harga' => 'required',
-            'image' => 'image',
+            // 'image' => 'image',
 
         ]);
 
-        if($request->file('image')) {
-            $validatedData['image'] = $request->file('image')->store('post-images');
-        }
+        // if($request->file('image')) {
+        //     $validatedData['image'] = $request->file('image')->store('post-images');
+        // }
         
         Obat::create([
             'kodeobat' => $validated['kodeobat'],
@@ -85,7 +85,7 @@ class ObatController extends Controller
             'expired' => $validated['expired'],
             'stok' => $validated['stok'],
             'dosis' => $validated['dosis'],
-            'image' => $validated['image'],
+            // 'image' => $validated['image'],
             'harga' => $validated['harga']
         ]);
 
@@ -132,14 +132,14 @@ class ObatController extends Controller
 
         $validated = $request->all();
         
-        if ($image = $request->file('image')) {
-            $destinationPath = 'image/';
-            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
-            $image->move($destinationPath, $profileImage);
-            $validated['image'] = "$profileImage";
-        }else{
-            unset($validated['image']);
-        }
+        // if ($image = $request->file('image')) {
+        //     $destinationPath = 'image/';
+        //     $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+        //     $image->move($destinationPath, $profileImage);
+        //     $validated['image'] = "$profileImage";
+        // }else{
+        //     unset($validated['image']);
+        // }
 
         $date = date('Y-m-d H:i:s');
 
@@ -152,9 +152,9 @@ class ObatController extends Controller
         $data->created_at = $date;
         $data->harga = $request->harga;
         
-        if($image != ''){
-            $data->image = $validated['image'];
-        }
+        // if($image != ''){
+        //     $data->image = $validated['image'];
+        // }
 
         $data->save();
 

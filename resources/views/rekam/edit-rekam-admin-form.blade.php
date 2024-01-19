@@ -17,9 +17,11 @@
         </div>
     @endif
 
-        <div class="container">
-        <h1>Edit Rekam</h1>
-        <br>
+    <div class="card">
+        <div class="card-header mt-3">
+        <h3>Edit Riwayat Rekam Pasien</h3>
+        </div>
+        <div class="card-body mb-5">
         <form action="/updaterekamadmin" method="POST">
             @csrf
         </--------------------------------------------------------kodepasien-----------------------------------------------------------------------------------* />

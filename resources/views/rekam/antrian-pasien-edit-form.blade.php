@@ -11,9 +11,11 @@
         @endforeach
 
     @endif
-    <div class="container">
-        <h1>Edit Antrian Pasien</h1>
-        <br>
+    <div class="card">
+        <div class="card-header mt-3">
+        <h3>Edit Antrian Pasien</h3>
+        </div>
+        <div class="card-body mb-5">
         <form action="/rekam/update/{{ $rekam->id }}" method="POST">
             @csrf
         </--------------------------------------------------------kodepasien-----------------------------------------------------------------------------------* />
@@ -93,7 +95,7 @@
         <div class="form-group row">
             <div class="col-sm-10">
                 <button type="submit" class="btn btn-primary">Update</button>
-                <a href="/antrian-pasien-admin" class="btn btn-warning">Kembali</a>
+                <a href="/rekam/antrian-pasien-admin" class="btn btn-warning">Kembali</a>
             </div>
         </div>
         </form>

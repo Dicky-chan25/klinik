@@ -2,10 +2,11 @@
 <title>User Detail {{ $users->name }}</title>
 @section('container')
 
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center ml-2 pt-3 pb-2 mb-3">
-        <h1 class="h2">Detail User {{ $users->name }}</h1>
-    </div>
 
+    <div class="card">
+      <div class="card-header mt-3">
+        <h3>Detail User {{ $users->name }}</h3>
+        </div> 
     <table class="table col-lg-8">
         <tbody>
           <tr>
@@ -38,5 +39,10 @@
           </tr>
         </tbody>
       </table>
+      <div class="form-group row">
+        <div class="col-sm-10">
+            <a href="/user_page/index" class="btn btn-warning">Kembali</a>
+        </div>
+    </div>
     </div>
 @endsection
