@@ -43,7 +43,8 @@ $mappp= "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2552.7933967249073
     <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
         <div class="container">
             <a class="navbar-brand" href="#page-top"><img src="{{ asset('') }}assets/img/icon.png" class="brand-image img-circle elevation-3 bg-white"
-                    width="55";height="55" /> KLINIK SEHAT</a>
+                    width="55";height="55"></a>
+            <a class="navbar-brand" href="#page-top"><h3>Praktik Mandiri <br>dr. Asep </h3></a>
             <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button"
                 data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive"
                 aria-expanded="false" aria-label="Toggle navigation">
@@ -90,7 +91,7 @@ $mappp= "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2552.7933967249073
             <!-- Masthead Avatar Image-->
             <img class="masthead-avatar mb-5 img-circle elevation-3 bg-white" src="{{ asset('') }}assets/img/icon.png" alt="..." />
             <!-- Masthead Heading-->
-            <h1 class="masthead-heading text-uppercase mb-0">Klinik Sehat</h1>
+            <h1 class="masthead-heading text-uppercase mb-0">Praktik Mandiri dr. Asep</h1>
             <!-- Icon Divider-->
             <div class="divider-custom divider-light">
                 <div class="divider-custom-line"></div>

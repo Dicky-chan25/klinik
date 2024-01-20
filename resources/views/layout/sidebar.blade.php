@@ -35,13 +35,50 @@
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="true">
             <!-- Add icons to the links using the .nav-icon class
                  with font-awesome or any other icon font library -->
-
+            </-----------------------------------------------Dashboard------------------------------------------/>
             <li class="nav-item">
               <a href="/apotek" class="nav-link">
                 <i class="bi bi-house-heart"></i>
                 <p>Dashboard</p>
               </a>
             </li>
+
+          </-----------------------------------------------Master Data------------------------------------------/>
+
+            <li class="nav-item">
+              <a href="/pasien/index" class="nav-link">
+                <i class="bi bi-person-hearts"></i>
+                <p>Master Data <i class="right fas fa-angle-left"></i></p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="/pasien/index" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Data Pasien</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="/dokter_page/index" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Data Dokter</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="/jadwal/index" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Jadwal Dokter</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="/poli/index" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Daftar Poli</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+          </-----------------------------------------------Pasien------------------------------------------/>
 
             <li class="nav-item">
               <a href="/pasien/index" class="nav-link">
@@ -67,6 +104,46 @@
                     <p>Data Pasien</p>
                   </a>
                 </li>
+              </ul>
+            </li>
+
+          </-----------------------------------------------Perawat------------------------------------------/>
+
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="bi bi-gear"></i>
+                <p>Perawat<i class="right fas fa-angle-left"></i></p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="/rekam/antrian-pasien-admin" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Antrian Pasien</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Diagnosa Pasien</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+          </-----------------------------------------------Dokter------------------------------------------/>
+
+            <li class="nav-item">
+              <a href="/dokter_page/index" class="nav-link">
+                <i class="bi bi-person-heart"></i>
+                <p>Data Dokter <i class="right fas fa-angle-left"></i></p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="/rekam/antrian-pasien-admin" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Antrian Pasien</p>
+                  </a>
+                </li>
                 <li class="nav-item">
                   <a href="/rekam/diagnosa" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
@@ -76,44 +153,7 @@
               </ul>
             </li>
 
-            <li class="nav-item">
-              <a href="/dokter_page/index" class="nav-link">
-                <i class="bi bi-person-heart"></i>
-                <p>Data Dokter <i class="right fas fa-angle-left"></i></p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="/dokter_page/index" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Dokter</p>
-                  </a>
-                </li>
-              </ul>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="/jadwal/index" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Jadwal Dokter</p>
-                  </a>
-                </li>
-              </ul>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="/poli/index" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Daftar Poli</p>
-                  </a>
-                </li>
-              </ul>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="#" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Tindakan</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
+          </-----------------------------------------------Farmasi------------------------------------------/>
 
             <li class="nav-item">
               <a href="/obat_page/total_stok" class="nav-link">
@@ -138,13 +178,31 @@
               </ul>
             </li>
 
+          </-----------------------------------------------Pembayaran------------------------------------------/>
+
             <li class="nav-item">
               <a href="#" class="nav-link">
                 <i class="bi bi-credit-card-2-back"></i>
                 <p>Data Pembayaran</p>
               </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <i class="bi bi-person-vcard"></i>
+                    <p>Antrian Pembayaran</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <i class="bi bi-person-vcard"></i>
+                    <p>Riwayat Pembayaran</p>
+                  </a>
+                </li>
+              </ul>
             </li>
-            
+
+          </-----------------------------------------------Setting------------------------------------------/>
+
             <li class="nav-item">
               <a href="#" class="nav-link">
                 <i class="bi bi-gear"></i>
@@ -154,7 +212,13 @@
                 <li class="nav-item">
                   <a href="/user_page/index" class="nav-link">
                     <i class="bi bi-person-vcard"></i>
-                    <p>Data User</i></p>
+                    <p>Data User</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="/user_page/index" class="nav-link">
+                    <i class="bi bi-person-vcard"></i>
+                    <p>Edit Layout</p>
                   </a>
                 </li>
               </ul>
