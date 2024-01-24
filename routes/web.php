@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\HomeC;
+use App\Http\Controllers\LandingPageC;
+use App\Http\Controllers\Module\DoctorC;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +17,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+// landing page
+Route::get('/', [LandingPageC::class, 'index']);
+
+//  as guest
+Route::group(['middleware' => 'guest'], function() {
+    Route::get('/register', [AuthController::class, 'register'])->name('register');
+    Route::post('/register', [AuthController::class, 'registerPost'])->name('register');
+    Route::get('/login', [AuthController::class, 'login'])->name('login');
+    Route::post('/login', [AuthController::class, 'loginPost'])->name('login');
+});
+
+// after login
+Route::group(['middleware' => 'auth'], function() {
+    Route::get('/home', [HomeC::class, 'index'])->name('home');
+    Route::get('/doctor', [DoctorC::class, 'index'])->name('doctor')->middleware(['auth', 'is-active']);
 });
