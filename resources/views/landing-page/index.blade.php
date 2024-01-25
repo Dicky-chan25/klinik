@@ -8,9 +8,14 @@
     <link rel="stylesheet" href="{{ asset('css/landingpage/index.css') }}">
 </head>
 <body>
-    @include('landing-page.navbar')
-
-    @include('landing-page.header')
+    <div class="ribbon-info">
+        <p>Selected clinic <strong style="font-family: 'PoppinsMedium' !important">OPEN ON SUNDAY</strong>. Book Appointment Now</p>
+    </div>
+    <div class="bg-header">
+        @include('landing-page.navbar')
+        @include('landing-page.header')
+        @include('landing-page.about')
+    </div>
 
     @include('landing-page.consultation')
     

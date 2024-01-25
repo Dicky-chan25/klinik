@@ -4,6 +4,7 @@
 @import url("../landingpage/component/navbar/base.css");
 @import url("../landingpage/component/footer/base.css");
 @import url("../landingpage/component/header/base.css");
+@import url("../landingpage/component/about/base.css");
 @import url("../landingpage/component/consultation/base.css");
 
 @import url("../landingpage/responsive/400.css");
@@ -40,4 +41,22 @@ body {
 
 .hidden {
 	display: none;
+}
+
+.bg-header {
+    background-color: #F8F3EC;
+    padding-left:30px;
+    padding-right:30px;
+
+}
+
+.general-title {
+    font-family: "PoppinsSemiBold" !important;
+    font-size: 32px;
+}
+.general-subtitle {
+    font-family: "OpenSansLight" !important;
+    font-size: 14px;
+    margin-top: 10px;
+    margin-bottom: 20px;
 }

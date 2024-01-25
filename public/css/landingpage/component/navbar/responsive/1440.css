@@ -6,14 +6,13 @@
         text-align: center;
         color: white;
     }
-    
+
     .nav-row {
         display: flex;
         flex-direction: row;
         padding-top: 30px;
         padding-bottom: 30px;
-        padding-left: 50px;
-        padding-right: 50px;
+        margin: 0 150px;
         justify-content: space-between;
         align-items: center;
     }

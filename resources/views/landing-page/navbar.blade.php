@@ -1,7 +1,4 @@
 {{-- Navbar --}}
-<div class="ribbon-info">
-    <p>Selected clinic <strong style="font-family: 'PoppinsMedium' !important">OPEN ON SUNDAY</strong>. Book Appointment Now</p>
-</div>
 <div class="nav-row">
     <div class="nav-container-logo">
         <img class="nav-logo" src="{{asset('img/nav-logo.png')}}" alt="nav-logo">

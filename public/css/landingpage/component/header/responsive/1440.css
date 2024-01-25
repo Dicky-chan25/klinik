@@ -1,3 +1,66 @@
 @media (min-width: 1440px) {
+    .header-row {
+        display: flex;
+        flex-direction: row;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        justify-content: center;
+        gap: 14rem;
+        align-items: center;
+    }
 
+    .header-content {
+        width: 500px;
+    }
+    .header-img {
+        width: 500px;
+    }
+    .header-section {
+        width: 400px;
+    }
+
+    .header-title {
+        font-family: "PoppinsSemiBold" !important;
+        font-size: 42px;
+    }
+    .header-title2 {
+        margin-top: -10px;
+        font-family: "PoppinsSemiBold" !important;
+        font-size: 42px;
+        margin-bottom: 10px;
+        color: #1a6dc1;
+    }
+
+    .header-subtitle {
+        font-family: "OpenSansLight" !important;
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+
+    .header-btn {
+        background-color: #1a6dc1;
+        padding-top: 14px;
+        padding-bottom: 14px;
+        padding-right: 30px;
+        padding-left: 30px;
+        border-radius: 100px;
+        font-family: "OpenSansRegular" !important;
+        font-size: 14px;
+        border: none;
+        color: white;
+    }
+
+    .header-btn:hover {
+        background-color: #125191;
+        padding-top: 14px;
+        padding-bottom: 14px;
+        padding-right: 30px;
+        padding-left: 30px;
+        border-radius: 100px;
+        font-family: "OpenSansRegular" !important;
+        font-size: 14px;
+        border: none;
+        color: white;
+        cursor: pointer;
+    }
 }

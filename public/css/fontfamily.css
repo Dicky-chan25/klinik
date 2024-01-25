@@ -11,8 +11,8 @@
     src: url(../../font/poppins/Poppins-Light.ttf);
 }
 @font-face {
-    font-family: PoppinsBold;
-    src: url(../../font/poppins/Poppins-Bold.ttf);
+    font-family: PoppinsSemiBold;
+    src: url(../../font/poppins/Poppins-SemiBold.ttf);
 }
 
 @font-face {
