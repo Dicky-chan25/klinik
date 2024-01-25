@@ -10,7 +10,7 @@
         <p class="nav-item">Tentang</p>
     </div>
     <div class="nav-button">
-        <button class="nav-btn-login">Login</button>
+        <a href="{{route('login')}}"  class="nav-btn-login">Login</a>
     </div>
 </div>
 {{-- End Navbar --}}

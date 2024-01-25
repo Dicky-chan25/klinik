@@ -65,5 +65,9 @@
         font-size: 14px;
         border: none;
         color: white;
+        text-decoration: none;
+    }
+    .nav-btn-login:hover {
+        background-color: #1e4b85;
     }
 }
