@@ -1,3 +1,70 @@
 @media (min-width: 1440px) {
+    .ribbon-info {
+        background-color: #1a6dc1;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        text-align: center;
+        color: white;
+    }
+    
+    .nav-row {
+        display: flex;
+        flex-direction: row;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        padding-left: 50px;
+        padding-right: 50px;
+        justify-content: space-between;
+        align-items: center;
+    }
 
+    .nav-container-logo {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 20px;
+        width: 240px;
+    }
+
+    .nav-logo {
+        height: 60px;
+    }
+    .nav-logo-text {
+        font-family: "PoppinsMedium" !important;
+        font-size: 18px;
+    }
+    .nav-menu {
+        display: flex;
+        flex-direction: row;
+        gap: 2rem;
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        margin-top: 20px;
+    }
+
+    .nav-item {
+        font-family: "PoppinsMedium" !important;
+        font-size: 14px;
+    }
+
+    .nav-item:hover {
+        font-family: "PoppinsMedium" !important;
+        font-size: 14px;
+        color: #1a6dc1;
+        cursor: pointer;
+    }
+
+    .nav-btn-login {
+        background-color: #182940;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-right: 30px;
+        padding-left: 30px;
+        border-radius: 6px;
+        font-family: "OpenSansRegular" !important;
+        font-size: 14px;
+        border: none;
+        color: white;
+    }
 }

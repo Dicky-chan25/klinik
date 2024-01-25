@@ -15,7 +15,7 @@ html * {
     padding: 0;
     margin: 0;
     scroll-behavior: smooth !important;
-    font-family: PoppinsRegular, sans-serif !important;
+    font-family: PoppinsLight, sans-serif !important;
 }
 
 *, html {
