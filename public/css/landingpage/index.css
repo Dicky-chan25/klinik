@@ -1,0 +1,9 @@
+@import url("landingpage/component/navbar/base.css");
+@import url("landingpage/component/footer/base.css");
+@import url("landingpage/component/header/base.css");
+@import url("landingpage/component/consultation/base.css");
+
+@import url("landingpage/responsive/400.css");
+@import url("landingpage/responsive/768.css");
+@import url("landingpage/responsive/1440.css");
+
