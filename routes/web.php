@@ -35,11 +35,15 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/doctor', [DoctorC::class, 'index'])->name('doctor')->middleware(['auth', 'is-active']);
 
     Route::prefix('settings')->group(function () {
+
         Route::get('/userlevels', [HomeC::class, 'index'])->name('userlevels');
         Route::get('/menus', [HomeC::class, 'index'])->name('menus');
+
         Route::get('/users', [UserC::class, 'index'])->name('users');
         Route::get('/users/create', [UserC::class, 'create'])->name('users-create');
         Route::post('/users/create', [UserC::class, 'createPost'])->name('users-create');
+        Route::get('/users/{id}', [UserC::class, 'edit'])->name('users-edit');
+        Route::post('/users/{id}', [UserC::class, 'editPut'])->name('users-edit-submit');
         Route::get('/users/delete/{id}', [UserC::class, 'delete'])->name('users-delete');
     });
 });

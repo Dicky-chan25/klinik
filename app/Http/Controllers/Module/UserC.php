@@ -84,9 +84,11 @@ class UserC extends Controller
         return view('dashboard.settings.users.create', compact('dataUserLevel'));
     }
 
-    public function edit()
+    public function edit($id)
     {
-        return view('dashboard.settings.users.edit');
+        $dataUserLevel = UserLevels::get();
+        $dataDetail = User::find($id);
+        return view('dashboard.settings.users.edit', compact('dataUserLevel', 'dataDetail'));
     }
 
     public function createPost(UserReq $req)
@@ -117,7 +119,38 @@ class UserC extends Controller
         }
     }
 
-    public function delete($id){
+    public function editPut(Request $req, $id)
+    {
+        try {
+            $detailUser = User::where('id', $id)->first();
+            $user = new User();
+            $firstName = $req->fname;
+            $lastName = $req->lname;
+            $userName = $req->username;
+            $email = $req->email;
+            $password = $req->pwd;
+            $levelId = $req->userlevel;
+
+            User::where('id',$detailUser->id)->update([
+                'firstname' => $firstName == null ? $detailUser->firstname : $firstName,
+                'lastname' => $lastName == null ? $detailUser->lastname : $lastName,
+                'username' => $userName == null ? $detailUser->username : $userName,
+                'email' => $email == null ? $detailUser->email : $email,
+                'password' => $password == null ? $detailUser->password : Hash::make($password),
+                'level_id' => $levelId == null ? $detailUser->level_id : $levelId,
+            ]);
+
+            Session::flash('success', 'Updated User Successfully');
+            return redirect()->route('users');
+        } catch (\Throwable $th) {
+            dd($th);
+            Session::flash('error', 'Something Error, Please Refresh Page');
+            return back();
+        }
+    }
+
+    public function delete($id)
+    {
         User::where('id', $id)->delete();
         Session::flash('success', 'Deleted Successfully');
         return back();

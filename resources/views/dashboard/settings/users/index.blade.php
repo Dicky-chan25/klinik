@@ -33,15 +33,16 @@
 <script>
     var id;
     var userName;
-    $(".submit-delete").on('click', function() {
-        window.location.href='/settings/users/delete/'+id
-    });
+
+    // delete passing data to modal
     $(".user-delete").on('click', function() {
-        
         id = $('.user-delete').data("id");
         userName = $('.user-delete').data("username");
         $("#delete-data-name").text('Apakah Anda yakin ingin menghapus ' + userName + '?');
-
+    });
+    // submit delete function
+    $(".submit-delete").on('click', function() {
+        window.location.href='/settings/users/delete/'+id
     });
 </script>
 @endsection

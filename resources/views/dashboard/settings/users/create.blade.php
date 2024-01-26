@@ -21,5 +21,4 @@
     
     @include('dashboard.settings.users.component.form')
     
-    
 @endsection
