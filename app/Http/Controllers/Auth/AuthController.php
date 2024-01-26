@@ -29,6 +29,7 @@ class AuthController extends Controller
             $user = new User();
             $firstName= $req->fname;
             $lastName = $req->lname;
+            $userName = $req->username;
             $email = $req->email;
             $password = $req->pwd;
             $repeatPassword = $req->rpwd;
@@ -39,9 +40,12 @@ class AuthController extends Controller
                 return back();
             }
 
-            $user->name = $firstName.$lastName;
+            $user->firstname = $firstName;
+            $user->lastname = $lastName;
+            $user->username = $userName;
             $user->email = $email;
             $user->password = Hash::make($password);
+            $user->level_id = 2; // this is patient
             $user->save();
             Session::flash('success', 'Register Successfully, Please Login with your Account!');
             return redirect('/login');

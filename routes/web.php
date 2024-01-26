@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\HomeC;
 use App\Http\Controllers\LandingPageC;
 use App\Http\Controllers\Module\DoctorC;
+use App\Http\Controllers\Module\UserC;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,4 +33,12 @@ Route::group(['middleware' => 'guest'], function() {
 Route::group(['middleware' => 'auth'], function() {
     Route::get('/home', [HomeC::class, 'index'])->name('home');
     Route::get('/doctor', [DoctorC::class, 'index'])->name('doctor')->middleware(['auth', 'is-active']);
+
+    Route::prefix('settings')->group(function () {
+        Route::get('/userlevels', [HomeC::class, 'index'])->name('userlevels');
+        Route::get('/menus', [HomeC::class, 'index'])->name('menus');
+        Route::get('/users', [UserC::class, 'index'])->name('users');
+        Route::get('/users/create', [UserC::class, 'create'])->name('users-create');
+        Route::post('/users/create', [UserC::class, 'createPost'])->name('users-create');
+    });
 });

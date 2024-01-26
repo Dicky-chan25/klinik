@@ -61,6 +61,16 @@
                                         @enderror
                                     </div>
                                 </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-6">
+                                        <input @error('username') style="border:1px solid red;" @enderror type="text"
+                                            class="form-control form-control-user" id="username" name="username"
+                                            placeholder="Last Name" value="{{ old('username') }}">
+                                        @error('username')
+                                        <span class=" text-danger" style="font-size: 12px">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
                                 <div class="form-group">
                                     <input @error('email') style="border:1px solid red;" @enderror type="email"
                                         class="form-control form-control-user" id="email" name="email"

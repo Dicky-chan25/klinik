@@ -35,7 +35,8 @@
                     <div class="card-body p-0">
                         <!-- Nested Row within Card Body -->
                         <div class="row">
-                            <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                            <div class="col-lg-6 d-none d-lg-block"></div>
+                            {{-- <div class="col-lg-6 d-none d-lg-block bg-login-image"></div> --}}
                             <div class="col-lg-6">
 
                                 @include('widget.alert')
@@ -47,18 +48,21 @@
                                     <form class="user" method="POST" action="{{ route('login') }}">
                                         @csrf
                                         <div class="form-group">
-                                            <input @error('email') style="border:1px solid red;" @enderror type="email"
-                                                class="form-control form-control-user" id="email" name="email"
-                                                placeholder="Enter Email Address..." value="{{ old('email') }}">
+                                            <input @error('email') style="border:1px solid red;" @enderror
+                                                type="email" class="form-control form-control-user" id="email"
+                                                name="email" placeholder="Enter Email Address..."
+                                                value="{{ old('email') }}">
                                             @error('email')
-                                            <span class=" text-danger" style="font-size: 12px">{{ $message }}</span>
+                                                <span class=" text-danger"
+                                                    style="font-size: 12px">{{ $message }}</span>
                                             @enderror
                                         </div>
                                         <div class="form-group">
                                             <input @error('pwd') style="border:1px solid red;" @enderror type="password"
-                                                class="form-control form-control-user" id="pwd" name="pwd" placeholder="Password">
+                                                class="form-control form-control-user" id="pwd" name="pwd"
+                                                placeholder="Password">
                                             @error('pwd')
-                                            <span class="text-danger" style="font-size: 12px">{{ $message }}</span>
+                                                <span class="text-danger" style="font-size: 12px">{{ $message }}</span>
                                             @enderror
                                         </div>
                                         {{-- <div class="form-group">

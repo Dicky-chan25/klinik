@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 class HomeC extends Controller
 {
     public function index(){
+        
         return view('dashboard.home.index');
     }
 }
