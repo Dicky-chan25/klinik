@@ -20,17 +20,7 @@
                      <button type="button" class="btn btn-info" data-toggle="modal" data-target="#filterUser">
                          Filter
                      </button>
-                     <form class="mx-2">
-                         <div class="input-group">
-                             <input type="text" class="form-control bg-light border-0 small"
-                                 placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                             <div class="input-group-append">
-                                 <button class="btn btn-primary" type="button">
-                                     <i class="fas fa-search fa-sm"></i>
-                                 </button>
-                             </div>
-                         </div>
-                     </form>
+                     @include('dashboard.settings.users.component.search')
                  </div>
              </div>
 
@@ -58,10 +48,13 @@
                                      <i class="fas fa-edit"></i>
                                  </a>
                                  <!-- Button Delete -->
-                                 <button type="button" class="btn btn-danger" data-toggle="modal"
-                                     data-target="#deleteUser">
-                                     <i class="fas fa-trash"></i>
-                                 </button>
+                                <a class="btn btn-danger user-delete" href="#" 
+                                    data-target="#deleteUser" data-toggle="modal" 
+                                    data-id="{{$item->userId}}"
+                                    data-username="{{$item->uName}}"
+                                >
+                                    <i class="fas fa-trash"></i>
+                                </a>
                              </td>
                          </tr>
                      @endforeach
@@ -75,3 +68,5 @@
          </div>
      </div>
  </div>
+
+

@@ -23,7 +23,25 @@
             <span class="text-sm">{{ $success }}</span>
         </div>
     @endif
-    
+
     @include('dashboard.settings.users.component.table')
-    
+@endsection
+
+
+
+@section('script')
+<script>
+    var id;
+    var userName;
+    $(".submit-delete").on('click', function() {
+        window.location.href='/settings/users/delete/'+id
+    });
+    $(".user-delete").on('click', function() {
+        
+        id = $('.user-delete').data("id");
+        userName = $('.user-delete').data("username");
+        $("#delete-data-name").text('Apakah Anda yakin ingin menghapus ' + userName + '?');
+
+    });
+</script>
 @endsection

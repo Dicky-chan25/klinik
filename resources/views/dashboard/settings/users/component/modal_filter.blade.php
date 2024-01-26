@@ -12,12 +12,12 @@
                  <div class="modal-body">
                      <div class="form-group">
                          <label for="fromDate">Dari Tanggal</label>
-                         <input name="fromDate" type="date" class="form-control" id="fromDate"
+                         <input name="fromDate" value="{{$fromdate}}" type="date" class="form-control" id="fromDate"
                              placeholder="fromDate">
                      </div>
                      <div class="form-group">
                          <label for="toDate">Sampai Tanggal</label>
-                         <input name="toDate" type="date" class="form-control" id="toDate" placeholder="toDate">
+                         <input name="toDate" value="{{$todate}}" type="date" class="form-control" id="toDate" placeholder="toDate">
                      </div>
                  </div>
                  <div class="modal-footer">

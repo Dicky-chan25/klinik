@@ -40,5 +40,6 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('/users', [UserC::class, 'index'])->name('users');
         Route::get('/users/create', [UserC::class, 'create'])->name('users-create');
         Route::post('/users/create', [UserC::class, 'createPost'])->name('users-create');
+        Route::get('/users/delete/{id}', [UserC::class, 'delete'])->name('users-delete');
     });
 });

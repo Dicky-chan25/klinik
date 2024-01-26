@@ -16,22 +16,32 @@ use Illuminate\Support\Facades\Session;
 class UserC extends Controller
 {
 
-   public function filter($fromdate, $todate)
+    public function filter($fromdate, $todate, $search)
     {
         $dateFilter = '';
         $searchFilter = '';
         $endWhereQry = 'users.status in (0,1)';
-        if($fromdate != null && $todate != null){
-            $filterfromdate = implode(' ',[str_replace('-','/',$fromdate), '00:00:00']);
-            $filtertodate = implode(' ',[str_replace('-','/',$todate), '23:59:00']);
+        if ($fromdate != null && $todate != null) {
+            $filterfromdate = implode(' ', [str_replace('-', '/', $fromdate), '00:00:00']);
+            $filtertodate = implode(' ', [str_replace('-', '/', $todate), '23:59:00']);
             $dateFilter = "DATE(users.created_at) BETWEEN '$filterfromdate' AND '$filtertodate' AND ";
         }
+        if ($search != '') {
+            $searchFilter = "
+            users.firstname LIKE '$search%'
+            OR users.lastname LIKE '$search%'
+            OR users.username LIKE '$search%'
+            OR users.email LIKE '$search%'
+            OR user_levels.levelname LIKE '$search%'
+            AND ";
+        }
 
-        $query = $dateFilter.$searchFilter.$endWhereQry;
+        $query = $dateFilter . $searchFilter . $endWhereQry;
         return $query;
     }
 
-    public function index(Request $request) {
+    public function index(Request $request)
+    {
         // validate role user, 
         if (is_null($request->segment(2))) {
             $segment = $request->segment(1);
@@ -42,6 +52,7 @@ class UserC extends Controller
         $access = MenuAccess::where('level_id', Auth::user()->level_id)->where('menu_id', $menu->id)->first();
         $fromdate = $request->fromDate == null ? '' : $request->fromDate;
         $todate = $request->toDate == null ? '' : $request->toDate;
+        $search = $request->search == null ? '' : $request->search;
 
         $dataResult = User::select(
             'users.id as userId',
@@ -52,30 +63,38 @@ class UserC extends Controller
             'user_levels.levelname as levelName',
             'users.created_at as createdAt',
         )->leftJoin(
-            'user_levels','users.level_id', 'user_levels.id'
-        )->whereRaw($this->filter($fromdate,$todate))
-        ->paginate(10);
+            'user_levels',
+            'users.level_id',
+            'user_levels.id'
+        )->whereRaw($this->filter($fromdate, $todate, $search))
+            ->paginate(10);
 
         return view('dashboard.settings.users.index', compact(
             'dataResult',
-            'access'
+            'access',
+            'search',
+            'fromdate',
+            'todate'
         ));
     }
 
-    public function create() {
+    public function create()
+    {
         $dataUserLevel = UserLevels::get();
         return view('dashboard.settings.users.create', compact('dataUserLevel'));
     }
-    
-    public function edit() {
+
+    public function edit()
+    {
         return view('dashboard.settings.users.edit');
     }
 
-    public function createPost(UserReq $req) {
+    public function createPost(UserReq $req)
+    {
         try {
             $req->validated();
             $user = new User();
-            $firstName= $req->fname;
+            $firstName = $req->fname;
             $lastName = $req->lname;
             $userName = $req->username;
             $email = $req->email;
@@ -92,10 +111,15 @@ class UserC extends Controller
 
             Session::flash('success', 'Created User Successfully');
             return redirect()->route('users');
-            
         } catch (\Throwable $th) {
             Session::flash('error', 'Something Error, Please Refresh Page');
             return back();
         }
+    }
+
+    public function delete($id){
+        User::where('id', $id)->delete();
+        Session::flash('success', 'Deleted Successfully');
+        return back();
     }
 }
