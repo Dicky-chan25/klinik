@@ -1,0 +1,76 @@
+@media (min-width: 1366px) {
+    .cons-row {
+        margin-top: 2rem;
+        display: flex;
+        flex-direction: row;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        justify-content: center;
+        gap: 1rem;
+        /* align-items: center; */
+    }
+
+    .cons-content {
+        width: 500px;
+        background-color: #DEF3FF;
+        border-radius: 30px;
+    }
+    .cons-img {
+        width: 700px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .cons-section {
+        width: 700px;
+        border-radius: 30px;
+    }
+    .cons-padding {
+        padding: 40px;
+    }
+    .cons-title {
+        font-family: "PoppinsMedium" !important;
+        font-size: 20px;
+        margin-bottom: 30px;
+    }
+    .cons-row-step{
+        display: flex;
+        flex-direction: row;
+        gap: 2rem;
+        /* justify-content: space-between; */
+        align-items: start;
+        /* align-items: center; */
+        padding-bottom: 20px;
+        border-bottom: 1px solid #b4c6d0;
+        margin-bottom: 20px;
+    }
+    .cons-step{
+        font-family: "OpenSansBold" !important;
+        font-size: 12px;
+    }
+    .cons-step-desc{
+        font-family: "OpenSansRegular" !important;
+        font-size: 12px;
+        max-width: 300px;
+    }
+
+    .cons-btn {
+        width: 100%;
+        background-color: #1a6dc1;
+        padding-top: 14px;
+        padding-bottom: 14px;
+        padding-right: 30px;
+        padding-left: 30px;
+        border-radius: 100px;
+        font-family: "OpenSansRegular" !important;
+        font-size: 14px;
+        border: none;
+        color: white;
+    }
+
+    .header-btn:hover {
+        background-color: #125191;
+        cursor: pointer;
+    }
+
+}

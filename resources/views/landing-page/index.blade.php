@@ -19,6 +19,8 @@
 
     @include('landing-page.consultation')
     
-    @include('landing-page.footer')
+    <div class="bg-header">
+        @include('landing-page.footer')
+    </div>
 </body>
 </html>

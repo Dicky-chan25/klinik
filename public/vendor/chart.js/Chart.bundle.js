@@ -17603,7 +17603,7 @@ var moment = createCommonjsModule(function (module, exports) {
                 case 'week'   : return days / 7     + milliseconds / 6048e5;
                 case 'day'    : return days         + milliseconds / 864e5;
                 case 'hour'   : return days * 24    + milliseconds / 36e5;
-                case 'minute' : return days * 1440  + milliseconds / 6e4;
+                case 'minute' : return days * 1366  + milliseconds / 6e4;
                 case 'second' : return days * 86400 + milliseconds / 1000;
                 // Math.floor prevents floating point math errors here
                 case 'millisecond': return Math.floor(days * 864e5) + milliseconds;

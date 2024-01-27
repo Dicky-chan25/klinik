@@ -1,4 +1,4 @@
-@media (min-width: 1440px) {
+@media (min-width: 1366px) {
     .ribbon-info {
         background-color: #1a6dc1;
         padding-top: 20px;
@@ -12,8 +12,10 @@
         flex-direction: row;
         padding-top: 30px;
         padding-bottom: 30px;
-        margin: 0 150px;
-        justify-content: space-between;
+        /* margin: 0 50px;
+        justify-content: space-between; */
+        justify-content: center;
+        gap: 57rem;
         align-items: center;
     }
 
