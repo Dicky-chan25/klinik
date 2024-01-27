@@ -6,25 +6,30 @@
         <h1 class="h3 mb-0 text-gray-800">Users</h1>
     </div>
 
-    @if (isset($errors) && $errors->any())
-        <div class="alert alert-danger" role="alert">
-            @foreach ($errors->all() as $error)
-                {{ $error }}
-            @endforeach
-        </div>
-    @endif
-    @if ($err = Session::get('error'))
-        <div class="alert alert-danger" role="alert">
-            <span class="text-sm">{{ $err }}</span>
-        </div>
-    @endif
-    @if ($success = Session::get('success'))
-        <div class="alert alert-success" role="alert">
-            <span class="text-sm">{{ $success }}</span>
-        </div>
+    @if ($access->read == 1)
+        @if (isset($errors) && $errors->any())
+            <div class="alert alert-danger" role="alert">
+                @foreach ($errors->all() as $error)
+                    {{ $error }}
+                @endforeach
+            </div>
+        @endif
+        @if ($err = Session::get('error'))
+            <div class="alert alert-danger" role="alert">
+                <span class="text-sm">{{ $err }}</span>
+            </div>
+        @endif
+        @if ($success = Session::get('success'))
+            <div class="alert alert-success" role="alert">
+                <span class="text-sm">{{ $success }}</span>
+            </div>
+        @endif
+
+        @include('dashboard.settings.users.component.table')
+    @else
+        <p>Cannot access this page :(</p>
     @endif
 
-    @include('dashboard.settings.users.component.table')
 @endsection
 
 
@@ -34,11 +39,17 @@
     var id;
     var userName;
 
+    function delUser(id, userName){
+        
+        console.log(id);
+        console.log(userName);
+    }
+
     // delete passing data to modal
     $(".user-delete").on('click', function() {
-        id = $('.user-delete').data("id");
-        userName = $('.user-delete').data("username");
-        $("#delete-data-name").text('Apakah Anda yakin ingin menghapus ' + userName + '?');
+        id = $(this).data("delid");
+        userName = $(this).data("delusername");
+        $("#delete-user-name").text('Apakah Anda yakin ingin menghapus ' + userName + '?');
     });
     // submit delete function
     $(".submit-delete").on('click', function() {

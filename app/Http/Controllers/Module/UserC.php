@@ -8,6 +8,7 @@ use App\Models\MenuAccess;
 use App\Models\Menus;
 use App\Models\User;
 use App\Models\UserLevels;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -20,7 +21,7 @@ class UserC extends Controller
     {
         $dateFilter = '';
         $searchFilter = '';
-        $endWhereQry = 'users.status in (0,1)';
+        $endWhereQry = 'users.status in (0,1) AND users.deleted_at IS NULL';
         if ($fromdate != null && $todate != null) {
             $filterfromdate = implode(' ', [str_replace('-', '/', $fromdate), '00:00:00']);
             $filtertodate = implode(' ', [str_replace('-', '/', $todate), '23:59:00']);
@@ -50,6 +51,8 @@ class UserC extends Controller
         }
         $menu = Menus::select('id')->where('routepath', $segment)->first();
         $access = MenuAccess::where('level_id', Auth::user()->level_id)->where('menu_id', $menu->id)->first();
+        
+        // filter and search detection
         $fromdate = $request->fromDate == null ? '' : $request->fromDate;
         $todate = $request->toDate == null ? '' : $request->toDate;
         $search = $request->search == null ? '' : $request->search;
@@ -123,7 +126,6 @@ class UserC extends Controller
     {
         try {
             $detailUser = User::where('id', $id)->first();
-            $user = new User();
             $firstName = $req->fname;
             $lastName = $req->lname;
             $userName = $req->username;
@@ -151,7 +153,10 @@ class UserC extends Controller
 
     public function delete($id)
     {
-        User::where('id', $id)->delete();
+        User::where('id', $id)->update([
+            'deleted_by_id' => Auth::user()->id, 
+            'deleted_at' => Carbon::now()
+        ]);
         Session::flash('success', 'Deleted Successfully');
         return back();
     }

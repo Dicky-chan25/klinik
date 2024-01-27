@@ -6,33 +6,29 @@
     <div class="card-body">
         <div class="table-responsive">
 
-            @include('dashboard.settings.users.component.modal_delete')
-            @include('dashboard.settings.users.component.modal_filter')
+            @include('dashboard.settings.userlevels.component.modal_delete')
+            @include('dashboard.settings.userlevels.component.modal_filter')
 
             <div class="d-flex justify-content-between my-2">
-                @if ($access->create == 1)
-                    <div class="btn btn-primary">
-                        <a href="{{ route('users-create') }}" class="text-light">
-                            Create
-                        </a>
-                    </div>
-                @endif
+                <div class="btn btn-primary">
+                    <a href="{{ route('userlevels-create') }}" class="text-light">
+                        Create
+                    </a>
+                </div>
                 <div class="d-flex">
                     <!-- Button Delete -->
                     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#filterUser">
                         Filter
                     </button>
-                    @include('dashboard.settings.users.component.search')
+                    @include('dashboard.settings.userlevels.component.search')
                 </div>
             </div>
 
             <table class="table" width="100%" cellspacing="0">
                 <thead>
                     <tr>
-                        <th>Nama Lengkap</th>
-                        <th>username</th>
-                        <th>email</th>
-                        <th>Level User</th>
+                        <th>Nama Level</th>
+                        <th>status</th>
                         <th>di buat tanggal</th>
                         <th>action</th>
                     </tr>
@@ -40,24 +36,27 @@
                 <tbody>
                     @foreach ($dataResult as $item)
                     <tr>
-                        <td>{{ $item->fName.' '.$item->lName }}</td>
-                        <td>{{ $item->uName }}</td>
-                        <td>{{ $item->email }}</td>
                         <td>{{ $item->levelName }}</td>
+                        <td>
+                            @if ($item->status == 1)
+                                <span class="badge badge-primary p-2">Aktif</span>
+                            @elseif($item->status == 0)
+                                <span class="badge badge-secondary p-2">Nonaktif</span>
+                            @endif
+                        </td>
                         <td>{{ $item->createdAt }}</td>
                         <td>
-                            @if ($access->edit == 1)
-                            <a href="{{route('users-edit',['id'=>$item->userId ])}}" class="btn btn-warning">
+                            <a href="{{route('userlevels-detail',['id'=>$item->levelId ])}}" class="btn btn-info">
+                                <i class="fas fa-list"></i>
+                            </a>
+                            <a href="{{route('userlevels-edit',['id'=>$item->levelId ])}}" class="btn btn-warning">
                                 <i class="fas fa-edit"></i>
                             </a>
-                            @endif
-                            @if ($access->delete == 1)
-                                <!-- Button Delete -->
-                                <a class="btn btn-danger user-delete" href="#" data-target="#deleteUser" data-toggle="modal"
-                                    data-deluserid="{{$item->userId}}" data-delusername="{{$item->uName}}">
-                                    <i class="fas fa-trash"></i>
-                                </a>
-                            @endif
+                            <!-- Button Delete -->
+                            <a class="btn btn-danger userlevel-delete" href="#" data-target="#deleteUser" data-toggle="modal"
+                                data-dellevelid="{{$item->levelId}}" data-deluserlevel="{{$item->levelName}}">
+                                <i class="fas fa-trash"></i>
+                            </a>
                         </td>
                     </tr>
                     @endforeach

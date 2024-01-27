@@ -24,6 +24,10 @@ class User extends Authenticatable
         'level_id',
         'email',
         'password',
+        'created_by_id',
+        'edited_by_id',
+        'deleted_by_id',
+        'deleted_at',
     ];
 
     /**
