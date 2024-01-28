@@ -25,6 +25,12 @@ require __DIR__ . '/dashboard/settings/menus.php';
 // landing page
 Route::get('/', [LandingPageC::class, 'index']);
 
+Route::get('/newpatient/{step}', [LandingPageC::class, 'newPatient'])->name('new-patient');
+Route::post('/newpatient/{step}', [LandingPageC::class, 'newPatientPost'])->name('new-patient');
+
+Route::get('/queue', [LandingPageC::class, 'queue'])->name('queue');
+Route::post('/queue', [LandingPageC::class, 'queue'])->name('queue');
+
 //  as guest
 Route::group(['middleware' => 'guest'], function() {
     Route::get('/register', [AuthController::class, 'register'])->name('register');

@@ -22,7 +22,7 @@
 
 </head>
 
-<body id="bg-gradient-primary">
+<body id="bg-gradient-primary"  style="background:  linear-gradient(90deg, rgba(105,229,245,1), rgba(0,175,255,1) 0% 100%)">
 
     <div class="container">
 
@@ -112,7 +112,7 @@
                                 <a class="small" href="forgot-password.html">Forgot Password?</a>
                             </div> --}}
                             <div class="text-center">
-                                <a class="small" href="login.html">Already have an account? Login!</a>
+                                <a class="small" href="{{route('login')}}">Already have an account? Login!</a>
                             </div>
                         </div>
                     </div>

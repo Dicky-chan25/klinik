@@ -16,7 +16,7 @@
         width: 500px;
     }
     .header-section {
-        width: 400px;
+        width: 500px;
     }
 
     .header-title {
@@ -48,6 +48,7 @@
         font-size: 14px;
         border: none;
         color: white;
+        text-decoration: none;
     }
 
     .header-btn:hover {
