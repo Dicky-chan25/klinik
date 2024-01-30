@@ -47,6 +47,8 @@
     .nav-item {
         font-family: "PoppinsMedium" !important;
         font-size: 14px;
+        text-decoration: none;
+        color: #182940;
     }
 
     .nav-item:hover {

@@ -1,5 +1,5 @@
 {{-- About --}}
-<div class="about-row">
+<div class="about-row" id="about">
     <div class="container-title">
         <p class="general-title">Tentang Kami</p>
         <p class="general-subtitle">Klinik Sehat dibangun sejak tahun 2023 yang berada dikecamatan Pakuhaji Kabupaten Tangerang</p>

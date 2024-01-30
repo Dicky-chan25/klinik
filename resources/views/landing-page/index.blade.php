@@ -6,8 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Praktik Mandiri Dokter Asep</title>
     <link rel="stylesheet" href="{{ asset('css/landingpage/index.css') }}">
-    <!-- UIkit CSS -->
-    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.17.11/dist/css/uikit.min.css" /> --}}
 
 </head>
 <body>
@@ -26,8 +24,5 @@
         @include('landing-page.footer')
     </div>
 </body>
-<!-- UIkit JS -->
-{{-- <script src="https://cdn.jsdelivr.net/npm/uikit@3.17.11/dist/js/uikit.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/uikit@3.17.11/dist/js/uikit-icons.min.js"></script> --}}
 
 </html>

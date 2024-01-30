@@ -5,9 +5,10 @@
         <p class="nav-logo-text">Praktik Mandiri Dokter Asep</p>
     </div>
     <div class="nav-menu">
-        <p class="nav-item">Home</p>
-        <p class="nav-item">Konsultasi</p>
-        <p class="nav-item">Tentang</p>
+        <a href="/" class="nav-item">Home</a>
+        <a href="#about" class="nav-item">Tentang</a>
+        <a href="#step" class="nav-item">Tahapan</a>
+        <a href="{{route('history')}}" class="nav-item">Antrian</a>
     </div>
     <div class="nav-button">
         <a href="{{route('login')}}"  class="nav-btn-login">Login</a>
