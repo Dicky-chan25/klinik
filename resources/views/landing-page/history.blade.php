@@ -3,7 +3,7 @@
 @section('landing-page-form-layout')
 <div class="bg-header">
     @include('landing-page.navbar')
-    <div class="container-queue">
+    <div class="container-general-header">
         <p class="general-title">Pendaftaran Pasien</p>
         {{-- <p class="general-subtitle">Jika Anda belum pernah mendaftar sebelumnya, Anda harus melakukan registrasi
             terlebih dahulu, klik tombol di bawah jika sudah pernah registrasi</p>

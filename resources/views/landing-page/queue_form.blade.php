@@ -3,7 +3,7 @@
 @section('landing-page-form-layout')
     <div class="bg-header">
         @include('landing-page.navbar')
-        <div class="container-queue">
+        <div class="container-general-header">
             <p class="general-title">Pendaftaran Pasien</p>
             <p class="general-subtitle">Dengan mengisi formulir ini, Anda menyatakan bahwa akan melakukan pemeriksaan berdasarkan data inputan yang Anda masukkan</p>
         </div>

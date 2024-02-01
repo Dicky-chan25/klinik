@@ -20,6 +20,44 @@ class LandingPageC extends Controller
     public function index(){
         return view('landing-page.index');
     }
+
+    public function queueReady($id){
+
+        try {
+            //code...
+            $dataResult = QueuePatient::select(
+                // queue data
+                'c_queue.queue as queue',
+                // patient data
+                'c_patient.patientname as patientName',
+                // service data
+                'c_service.name_service as serviceName',
+                // poli data
+                'c_polis.poliname as poliName',
+                // doctor data
+                'c_doctor.doctorname as doctorName',
+            )
+            ->leftJoin('c_patient','c_queue.patient_id','c_patient.id')
+            ->leftJoin('c_service','c_queue.service_id','c_service.id')
+            ->leftJoin('c_polis','c_service.poli_id','c_polis.id')
+            ->leftJoin('c_doctor','c_service.doctor_id','c_doctor.id')
+            ->where('c_queue.queue', $id)
+            ->first();
+
+            // check if data not ready
+            if (is_null($dataResult)) {
+                # code...
+                return redirect()->to('/');
+            }
+            
+            return view('landing-page.queue_ready', compact('dataResult'));
+        } catch (\Throwable $th) {
+            //throw $th;
+            return redirect()->to('/');
+        }
+        
+    }
+
     public function newPatient(){
         $religion =  DB::table('m_religion')->get();
         $education =  DB::table('m_education')->get();
@@ -43,8 +81,11 @@ class LandingPageC extends Controller
             'religion','education','career','services'
         ));
     }
-    // public function newPatientPost(Request $req){
-    public function newPatientPost(NewPatientReq $req){
+    public function newPatientPost(Request $req){
+        $queueFinal = 10;
+        Session::flash('success', 'Antrian berhasil dibuat');
+        return redirect()->to('/queue_ready/'.$queueFinal);
+    // public function newPatientPost(NewPatientReq $req){
         try {
             $req->validated();
             $bpjs = $req->bpjs;
@@ -61,7 +102,6 @@ class LandingPageC extends Controller
             $address = $req->address;
             $services = $req->service;   
     
-           
             DB::beginTransaction();
             
             // insert to patient table
@@ -121,7 +161,7 @@ class LandingPageC extends Controller
         
             DB::commit();
             Session::flash('success', 'Antrian berhasil dibuat');
-            return redirect()->back();
+            return redirect()->route('history');
         } catch (\Throwable $th) {
             dd($th);
             DB::rollBack();

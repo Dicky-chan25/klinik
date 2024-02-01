@@ -25,6 +25,8 @@ require __DIR__ . '/dashboard/settings/menus.php';
 // landing page
 Route::get('/', [LandingPageC::class, 'index']);
 
+Route::get('/queue_ready/{id}', [LandingPageC::class, 'queueReady'])->name('queue-ready');
+
 Route::get('/newpatient', [LandingPageC::class, 'newPatient'])->name('new-patient');
 Route::post('/newpatient', [LandingPageC::class, 'newPatientPost'])->name('new-patient');
 
