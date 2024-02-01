@@ -172,7 +172,27 @@ class LandingPageC extends Controller
         return view('landing-page.queue_form');
     }
     public function history(){
-        return view('landing-page.history');
+        $listQueue = $dataResult = QueuePatient::select(
+            // queue data
+            'c_queue.queue as queue',
+            'c_queue.status as status',
+            // patient data
+            'c_patient.patientname as patientName',
+            // service data
+            'c_service.name_service as serviceName',
+            // poli data
+            'c_polis.poliname as poliName',
+            // doctor data
+            'c_doctor.doctorname as doctorName',
+        )
+        ->leftJoin('c_patient','c_queue.patient_id','c_patient.id')
+        ->leftJoin('c_service','c_queue.service_id','c_service.id')
+        ->leftJoin('c_polis','c_service.poli_id','c_polis.id')
+        ->leftJoin('c_doctor','c_service.doctor_id','c_doctor.id')
+        ->whereIn('c_queue.status', [0,1,2])
+        ->get();
+        // dd(json_encode($listQueue));
+        return view('landing-page.history', compact('listQueue'));
     }
 
     function generateRandomString($length) {

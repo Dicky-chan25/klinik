@@ -149,6 +149,18 @@
         color: white;
     }
 
+    /* container-general-header */
+    .container-general-header{
+        margin: auto;
+        margin-top: 2rem;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        padding-bottom: 20rem;
+        max-width: 600px;
+    }
+    /* container-general-header */
+
     /* card regis container */
     .card-regis-container {
         margin-top: -300px !important;
@@ -467,14 +479,10 @@ and also iPads specifically.
     border-radius: 50px;
     display: flex;
     color: #0163F9;
-    text-align: center;
     align-items: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    margin-left: 10px;
-    padding-left: 10px;
-    padding-right: 5px;
-    width: fit-content;
+    justify-content: center !important;
+    width: 80%;
+    margin: auto;
 }
 
 .circle-proccess {
@@ -494,18 +502,14 @@ and also iPads specifically.
 }
 
 .status-table-wait {
-    background-color: #F6F6F6;
+    background-color: #e6e6e6;
     border-radius: 50px;
     display: flex;
     color: #808081;
-    text-align: center;
     align-items: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    margin-left: 10px;
-    padding-left: 10px;
-    padding-right: 5px;
-    width: fit-content;
+    justify-content: center !important;
+    width: 80%;
+    margin: auto;
 }
 
 .circle-wait {
@@ -514,4 +518,31 @@ and also iPads specifically.
     background-color: #808081;
     border-radius: 50px;
 }
-/* STATUS PROCCESS */
+/* STATUS WAITING */
+
+/* STATUS COMPLETED */
+.status-value-table-done {
+    font-family: 'PoppinsRegular' !important;
+    font-size: 12px;
+    margin: 10px;
+    text-align: center;
+}
+
+.status-table-done {
+    background-color: #d5ffd3;
+    border-radius: 50px;
+    display: flex;
+    color: #21c462;
+    align-items: center;
+    justify-content: center !important;
+    width: 80%;
+    margin: auto;
+}
+
+.circle-done {
+    height: 10px;
+    width: 10px;
+    background-color: #21c462;
+    border-radius: 50px;
+}
+/* STATUS COMPLETED */
