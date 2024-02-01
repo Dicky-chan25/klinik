@@ -23,19 +23,18 @@ class NewPatientReq extends FormRequest
     {
         return [
             'fullname' => 'required',
-            'nik' => 'required|unique:c_patient',
+            'identity' => 'required|unique:c_patient',
             'birthplace' => 'required',
             'birthdate' => 'required',
             'gender' => 'required',
             'religion' => 'required',
             'education' => 'required',
             'career' => 'required',
-            'wa' => 'required',
-            'email' => 'required',
+            'wa' => 'required|min:11',
             'address' => 'required',
-            'poli' => 'required',
-            'doctor' => 'required',
+            'service' => 'required',
             'complain' => 'required',
+
         ];
     }
 }

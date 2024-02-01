@@ -50,6 +50,14 @@
         opacity: 1;
     }
 
+    .modal__content__ls {
+        border-radius: 4px;
+        position: relative;
+        width: 900px;
+        max-width: 90%;
+        background: #fff;
+        padding: 1em 2em;
+    }
     .modal__content {
         border-radius: 4px;
         position: relative;
@@ -118,6 +126,7 @@
         font-family: "PoppinsRegular" !important;
         font-size: 14px;
         text-decoration: none;
+        border: none;
     }
 
     .modal-btn-primary:hover {
@@ -173,6 +182,14 @@
         width: 100%;
     }
 
+    .lp-form-service{
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+        justify-content: center;
+        align-items: center;
+    }
+
     .lp-label-form {
         font-family: "PoppinsRegular" !important;
         font-size: 14px;
@@ -192,6 +209,76 @@
         margin-bottom: 1rem;
     }
 
+    .service_value {
+        display: none;
+    }
+    /* List Service */
+    .ls-container{
+       margin-top:10px;
+       margin-bottom:10px;
+    }
+
+    .ls-item-active{
+        border: 1px solid #1a6dc1;
+        background-color: #1a6dc120;
+        width: auto;
+        border-radius: 20px;
+        display: flex;
+        flex-direction: row;
+        padding-top:4px;
+        margin-top:10px;
+        margin-bottom:10px;
+    }
+    .ls-item{
+        border: 1px solid rgb(197, 197, 197);
+        width: auto;
+        border-radius: 20px;
+        display: flex;
+        flex-direction: row;
+        padding-top:4px;
+        margin-top:10px;
+        margin-bottom:10px;
+    }
+    .ls-thumb {
+        width: 70px;
+        margin: 20px;
+    }
+    .ls-img {
+        height: 70px;
+        width: 70px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+    .ls-title {
+        width: 500px;
+        margin: 20px 0;
+    }
+    .ls-title .title {
+        padding-top: 10px;
+        font-family: "PoppinsMedium" !important;
+        font-size: 16px;
+    }
+    .ls-title .sub {
+        font-family: "PoppinsRegular" !important;
+        font-size: 14px;
+    }
+    .ls-title-value {
+        padding-top: 10px;
+        width: 200px;
+        margin: 20px 0;
+    }
+    .ls-title-value .title {
+        font-family: "PoppinsMedium" !important;
+        font-size: 16px;
+    }
+    .ls-choose{
+        margin-top: 40px;
+    }
+    .ls-choose-img {
+        height: 20px;
+    }
+    /* List Service */
+
     .btn-primary:hover {
         background-color: #11508f;
     }
@@ -208,6 +295,22 @@
         text-decoration: none;
         margin-left: 4px;
         margin-right: 4px;
+    }
+    .btn-primary-sm {
+        cursor: pointer;
+        padding: 6px 10px;
+        background-color: #1a6dc1;
+        border-radius: 6px;
+        color: white;
+        font-family: "OpenSansRegular" !important;
+        font-size: 12px;
+        text-decoration: none;
+        margin-left: 4px;
+        margin-right: 4px;
+    }
+    .btn-primary-sm:hover {
+        cursor: pointer;
+        background-color: #1a6dc1;
     }
 
     .btn-secondary {
