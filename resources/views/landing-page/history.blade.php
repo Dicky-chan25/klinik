@@ -39,16 +39,15 @@
                             <p class="value-table-queue">{{ sprintf('%03d', $lq->queue) }}</p>
                         </td>
                         <td>
-                            <p class="value-table">{{ $lq->serviceName }}</p>
+                            <p class="value-table">{{ $lq->patientName }}</p>
                         </td>
                         <td>
-                            <p class="value-table">{{ $lq->poliName }}</p>
+                            <p class="value-table">{{ $lq->poliName }}-{{ $lq->serviceName }}</p>
                         </td>
                         <td>
                             <p class="value-table">{{ $lq->doctorName }}</p>
                         </td>
                         <td>
-                            {{-- <p>asd</p> --}}
                             @if ($lq->status == 0)
                                 <div class="status-table-wait">
                                     <div class="circle-wait"></div>

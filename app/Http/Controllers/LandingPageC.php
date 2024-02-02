@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\NewPatientReq;
+use App\Http\Requests\QueueReq;
 use App\Models\Clinic\Doctor;
 use App\Models\Clinic\MedicalRecord;
 use App\Models\Clinic\Patient;
@@ -58,6 +59,23 @@ class LandingPageC extends Controller
         
     }
 
+    public function queue(){
+        $services = Services::select(
+            'c_service.id as serviceId',
+            'c_service.name_service as nameService',
+            'c_service.price as price',
+            'c_doctor.doctorname as name',
+            'c_schedule.title as nameSchedule',
+            'c_schedule.time_from as fromSchedule',
+            'c_schedule.time_to as toSchedule',
+        )
+        ->join('c_doctor','c_doctor.id','c_service.doctor_id')
+        ->join('c_schedule','c_schedule.id','c_service.schedule_id')
+        ->join('c_polis','c_polis.id','c_service.poli_id')
+        ->get();
+        return view('landing-page.queue_form', compact('services'));
+    }
+
     public function newPatient(){
         $religion =  DB::table('m_religion')->get();
         $education =  DB::table('m_education')->get();
@@ -81,11 +99,89 @@ class LandingPageC extends Controller
             'religion','education','career','services'
         ));
     }
-    public function newPatientPost(Request $req){
-        $queueFinal = 10;
-        Session::flash('success', 'Antrian berhasil dibuat');
-        return redirect()->to('/queue_ready/'.$queueFinal);
-    // public function newPatientPost(NewPatientReq $req){
+
+
+    public function queuePost(QueueReq $req){
+        try {
+            $req->validated();
+            $identity = $req->identity;
+            $wa = $req->wa;
+            $services = $req->service; 
+            $complaint = $req->complain;  
+            
+            // get data from patient table
+            $getPatient = Patient::select()
+                ->where('phone', $wa)
+                ->where('identity', $identity)
+                ->orWhere('bpjs_number', $identity)
+                ->first();
+            
+            if (is_null($getPatient)) {
+                Session::flash('error', 'Anda belum terdaftar, silahkan lakukan registrasi terlebih dahulu');
+                return redirect()->back();
+            }
+
+            $lastInsertId = $getPatient->id;
+            DB::beginTransaction();
+
+            //check queue;
+            //max queue per day = 50 queue
+            $maxQueuePerDay = 50;
+            $totalQueue = QueuePatient::count();
+            $queueFinal = $totalQueue+1;
+            if ($maxQueuePerDay >= $totalQueue) {
+                // insert to queue
+                $queuePatient = new QueuePatient();
+                $queuePatient->queue = $queueFinal;
+                $queuePatient->patient_id = $lastInsertId;
+                $queuePatient->service_id = $services;
+                $queuePatient->status = 0; // proccess
+                $queuePatient->save();
+            } else {
+                DB::rollBack();
+                Session::flash('error', 'Antrian sudah sudah penuh, mohon kembali lagi esok hari');
+                return redirect()->back();
+            }
+
+            // insert to medical record
+            $insertMr = new MedicalRecord();
+            $insertMr->patient_id = $lastInsertId;
+            $insertMr->service_id = $services;
+            $insertMr->complaint = $complaint;
+            $insertMr->status = 0; // proccess
+            $insertMr->save();
+
+            
+            // generate transaction code
+            $dt = Carbon::now()->format('ymdhms');
+            $getRandString  = 'TR-'.$dt.$this->generateRandomString(20);
+            // insert to payment
+            $insertPayment = new Payment();
+            $insertPayment->trx = $getRandString;
+            $insertPayment->patient_id = $lastInsertId;
+            $insertPayment->service_id = $services;
+            $insertPayment->status = 0; // proccess
+            $insertPayment->save();
+        
+            DB::commit();
+
+            Session::flash('success', 'Antrian berhasil dibuat');
+            return redirect()->to('/queue_ready/'.$queueFinal);
+
+        } catch (\Throwable $th) {
+            dd($th);
+            DB::rollBack();
+            //throw $th;
+        }
+    }
+
+
+
+    // public function newPatientPost(Request $req){
+    //     $queueFinal = 10;
+    //     Session::flash('success', 'Antrian berhasil dibuat');
+    //     return redirect()->to('/queue_ready/'.$queueFinal);
+    public function newPatientPost(NewPatientReq $req){
         try {
             $req->validated();
             $bpjs = $req->bpjs;
@@ -101,6 +197,7 @@ class LandingPageC extends Controller
             $email = $req->email;
             $address = $req->address;
             $services = $req->service;   
+            $complaint = $req->complain;
     
             DB::beginTransaction();
             
@@ -126,10 +223,11 @@ class LandingPageC extends Controller
             //max queue per day = 50 queue
             $maxQueuePerDay = 50;
             $totalQueue = QueuePatient::count();
+            $queueFinal = $totalQueue+1;
             if ($maxQueuePerDay >= $totalQueue) {
                 // insert to queue
                 $queuePatient = new QueuePatient();
-                $queuePatient->queue = $totalQueue+1;
+                $queuePatient->queue = $queueFinal;
                 $queuePatient->patient_id = $lastInsertId;
                 $queuePatient->service_id = $services;
                 $queuePatient->status = 0; // proccess
@@ -144,6 +242,7 @@ class LandingPageC extends Controller
             $insertMr = new MedicalRecord();
             $insertMr->patient_id = $lastInsertId;
             $insertMr->service_id = $services;
+            $insertMr->complaint = $complaint;
             $insertMr->status = 0; // proccess
             $insertMr->save();
 
@@ -160,17 +259,17 @@ class LandingPageC extends Controller
             $insertPayment->save();
         
             DB::commit();
+            // Session::flash('success', 'Antrian berhasil dibuat');
+            // return redirect()->route('history');
             Session::flash('success', 'Antrian berhasil dibuat');
-            return redirect()->route('history');
+            return redirect()->to('/queue_ready/'.$queueFinal);
         } catch (\Throwable $th) {
             dd($th);
             DB::rollBack();
             //throw $th;
         }
     }
-    public function queue(){
-        return view('landing-page.queue_form');
-    }
+   
     public function history(){
         $listQueue = $dataResult = QueuePatient::select(
             // queue data

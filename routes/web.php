@@ -31,7 +31,7 @@ Route::get('/newpatient', [LandingPageC::class, 'newPatient'])->name('new-patien
 Route::post('/newpatient', [LandingPageC::class, 'newPatientPost'])->name('new-patient');
 
 Route::get('/queue', [LandingPageC::class, 'queue'])->name('queue');
-Route::post('/queue', [LandingPageC::class, 'queue'])->name('queue');
+Route::post('/queue', [LandingPageC::class, 'queuePost'])->name('queue');
 
 Route::get('/history', [LandingPageC::class, 'history'])->name('history');
 
