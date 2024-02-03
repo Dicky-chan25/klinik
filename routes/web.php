@@ -3,8 +3,6 @@
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\HomeC;
 use App\Http\Controllers\LandingPageC;
-use App\Http\Controllers\Module\DoctorC;
-use App\Http\Controllers\Module\UserC;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,6 +19,15 @@ use Illuminate\Support\Facades\Route;
 require __DIR__ . '/dashboard/settings/users.php';
 require __DIR__ . '/dashboard/settings/userlevels.php';
 require __DIR__ . '/dashboard/settings/menus.php';
+
+require __DIR__ . '/dashboard/dokter.php';
+require __DIR__ . '/dashboard/pasien.php';
+require __DIR__ . '/dashboard/rekammedis.php';
+require __DIR__ . '/dashboard/antrian.php';
+
+require __DIR__ . '/dashboard/obat/obatmasuk.php';
+require __DIR__ . '/dashboard/obat/obatkeluar.php';
+require __DIR__ . '/dashboard/obat/semuaobat.php';
 
 // landing page
 Route::get('/', [LandingPageC::class, 'index']);

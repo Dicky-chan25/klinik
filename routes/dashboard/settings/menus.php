@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\MenuC;
+use App\Http\Controllers\Module\MenuC;
 use Illuminate\Support\Facades\Route;
 
 // after login

@@ -11,6 +11,7 @@ class MedicalRecord extends Model
     protected $table = 'c_medical_record';
 
     protected $fillable = [
+        'rm_code', 
         'payment_id', 
         'patient_id',
         'doctor_id',
@@ -18,7 +19,7 @@ class MedicalRecord extends Model
         'service_id',
         'complaint',
         'diagnose',
-        'information',
+        'action',
         'weight',
         'height',
         'waist',

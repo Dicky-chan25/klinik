@@ -115,7 +115,6 @@
                 @foreach ($education as $edu)
                 <option value="{{$edu->id}}">{{$edu->title}}</option>
                 @endforeach
-                <option value="1">Di Bawah SD</option>
             </select>
             @error('doctor')
             <span style="color: #ff0000;font-size: 12px">{{ $message }}</span>

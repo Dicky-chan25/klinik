@@ -82,13 +82,14 @@ class UserlevelC extends Controller
         $dataDetail = UserLevels::find($id);
         $getMenu = MenuAccess::select(
             'menus.menuname as menuName',
+            'menus.id as menuId',
             'menu_access.id as accessId',
             'menu_access.read as read',
             'menu_access.edit as edit',
             'menu_access.delete as delete',
             'menu_access.read as read',
             'menu_access.create as create',
-        )->join(
+        )->leftJoin(
             'menus', 'menu_access.menu_id', 'menus.id'
         )->where('menu_access.level_id', $id)
         ->get();

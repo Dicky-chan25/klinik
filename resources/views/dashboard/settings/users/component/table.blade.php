@@ -11,11 +11,11 @@
 
             <div class="d-flex justify-content-between my-2">
                 @if ($access->create == 1)
+                <a href="{{ route('users-create') }}" class="text-light">
                     <div class="btn btn-primary">
-                        <a href="{{ route('users-create') }}" class="text-light">
                             Create
-                        </a>
                     </div>
+                </a>
                 @endif
                 <div class="d-flex">
                     <!-- Button Delete -->

@@ -80,7 +80,6 @@ class LandingPageC extends Controller
         $religion =  DB::table('m_religion')->get();
         $education =  DB::table('m_education')->get();
         $career =  DB::table('m_career')->get();
-        // $polis =  Polis::where('status',1)->get();
         $services = Services::select(
             'c_service.id as serviceId',
             'c_service.name_service as nameService',
@@ -143,8 +142,12 @@ class LandingPageC extends Controller
                 return redirect()->back();
             }
 
+            // generate medical record code
+            $dt = Carbon::now()->format('ymdhms');
+            $rmCode  = 'MR-'.$dt.$this->generateRandomString(10);
             // insert to medical record
             $insertMr = new MedicalRecord();
+            $insertMr->rm_code = $rmCode;
             $insertMr->patient_id = $lastInsertId;
             $insertMr->service_id = $services;
             $insertMr->complaint = $complaint;
@@ -238,8 +241,12 @@ class LandingPageC extends Controller
                 return redirect()->back();
             }
 
+            // generate medical record code
+            $dt = Carbon::now()->format('ymdhms');
+            $rmCode  = 'MR-'.$dt.$this->generateRandomString(10);
             // insert to medical record
             $insertMr = new MedicalRecord();
+            $insertMr->rm_code = $rmCode;
             $insertMr->patient_id = $lastInsertId;
             $insertMr->service_id = $services;
             $insertMr->complaint = $complaint;
@@ -249,10 +256,10 @@ class LandingPageC extends Controller
             
             // generate transaction code
             $dt = Carbon::now()->format('ymdhms');
-            $getRandString  = 'TR-'.$dt.$this->generateRandomString(20);
+            $trxCode  = 'TR-'.$dt.$this->generateRandomString(20);
             // insert to payment
             $insertPayment = new Payment();
-            $insertPayment->trx = $getRandString;
+            $insertPayment->trx = $trxCode;
             $insertPayment->patient_id = $lastInsertId;
             $insertPayment->service_id = $services;
             $insertPayment->status = 0; // proccess

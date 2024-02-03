@@ -22,12 +22,11 @@
         @endif
         @if ($main->is_parent == 1)
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo{{$main->id}}">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>{{ $main->menuname }}</span>
                 </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapseTwo{{$main->id}}" class="collapse" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                       @foreach (SiteHelpers::sub_menu() as $sub)
                         @if ($sub->is_parent == $main->id)

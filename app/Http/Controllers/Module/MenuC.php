@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Module;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\MenuReq;
 use App\Models\MenuAccess;
 use App\Models\Menus;
@@ -79,7 +80,6 @@ class MenuC extends Controller
         $dataDetail = Menus::find($id);
         return view('dashboard.settings.menus.edit', compact('dataDetail'));
     }
-
     
     public function detail($id)
     {
