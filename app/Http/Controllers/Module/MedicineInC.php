@@ -122,12 +122,12 @@ class MedicineInC extends Controller
                 $intBarcode = (int)$strBarcode;
                 $finalBarcode = "H".str_pad(($intBarcode+1),10,"0",STR_PAD_LEFT);
                 MedicineStock::insert([
-                'medicine_id' => $medicine,
-                'medicine_s_id' => $lastInsertId,
-                'barcode' => $finalBarcode,
-                'created_by_id' => Auth::user()->id,
-                'status' => 0,
-               ]);
+                    'medicine_id' => $medicine,
+                    'medicine_s_id' => $lastInsertId,
+                    'barcode' => $finalBarcode,
+                    'created_by_id' => Auth::user()->id,
+                    'status' => 0,
+                ]);
             }
 
             DB::commit();

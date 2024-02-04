@@ -16,14 +16,13 @@
     </div>
 </div>
 
-@section('script')
-    <script>
-        const selectedMdc = (name, id) => {
-            document.getElementById('medicineId').setAttribute('value', id)
-            document.getElementById('medicineName').setAttribute('value', name)
-            @this.set('keyword', name);
-            @this.set('keywordId', id);
-            @this.set('isClose', true);
-        }
-    </script>
-@endsection
+<script>
+    const selectedMdc = (name, id) => {
+        document.getElementById('medicineId').setAttribute('value', id)
+        document.getElementById('medicineName').setAttribute('value', name)
+        @this.set('keyword', name);
+        @this.set('keywordId', id);
+        @this.set('isClose', true);
+    }
+</script>
+

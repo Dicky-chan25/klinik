@@ -45,7 +45,7 @@
                                     <span class="badge badge-info p-2">Item Masuk</span>
                                 @endif
                             </td>
-                            <td>{{ date('d-m-Y', strtotime($item->updatedAt)) }}</td>
+                            <td>{{ $item->updatedAt }}</td>
                             <td>
                                 <a href="#" class="btn btn-warning btn-sm">
                                     <div class="text-dark">Reset Item</div>

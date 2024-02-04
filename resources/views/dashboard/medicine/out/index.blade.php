@@ -29,20 +29,39 @@
 @endsection
 
 @section('script')
-<script>
-    var id;
-    var userName;
+    <script>
+        var id;
+        var userName;
 
-    // delete passing data to modal
-    $(".data-delete").on('click', function() {
-        id = $(this).data("delid");
-        userName = $(this).data("deldata");
-        $("#delete-data-name").text('Apakah Anda yakin ingin menghapus ' + userName + '?');
-    });
-    // submit delete function
-    $(".submit-delete").on('click', function() {
-        // validate qty
-        window.location.href='/obat/obatmasuk/delete/'+id
-    });
-</script>
+        // delete passing data to modal
+        $(".data-delete").on('click', function() {
+            id = $(this).data("delid");
+            userName = $(this).data("deldata");
+            $("#delete-data-name").text('Apakah Anda yakin ingin menghapus ' + userName + '?');
+        });
+        // submit delete function
+        $(".submit-delete").on('click', function() {
+            // validate qty
+            window.location.href = '/obat/obatmasuk/delete/' + id
+        });
+    </script>
+
+    {{-- <script>
+        $(".per-item").addClass("active");
+        $(".barcode").css("display","block");
+        $(".product").css("display","none");
+
+        $(".per-item").on('click', function() {
+            $(".per-item").addClass("active");
+            $(".per-qty").removeClass("active");
+            $(".barcode").css("display","block");
+            $(".product").css("display","none");
+        });
+        $(".per-qty").on('click', function() {
+            $(".per-qty").addClass("active");
+            $(".per-item").removeClass("active");
+            $(".product").css("display","block");
+            $(".barcode").css("display","none");
+        });
+    </script> --}}
 @endsection
