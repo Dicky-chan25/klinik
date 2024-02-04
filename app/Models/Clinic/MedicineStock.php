@@ -5,16 +5,15 @@ namespace App\Models\Clinic;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class MedicineIn extends Model
+class MedicineStock extends Model
 {
     use HasFactory;
-    protected $table = 'c_medicine_stock';
+    protected $table = 'c_medicine_stock_d';
 
     protected $fillable = [
         'barcode', 
         'medicine_id', 
-        'supplier',
-        'qty', 
+        'medicine_s_id', 
         'status',
         'created_by_id',
         'updated_by_id',

@@ -29,7 +29,7 @@ class DropdownMedicine extends Component
             if ($this->isClose == true) {
                 $dataRes = [];
             } else {
-                $dataRes = Medicine::where('patientname', 'like', '')->whereRaw($whereDefault)->get();
+                $dataRes = Medicine::where('medicinename','like', '%' . $this->keyword . '%')->whereRaw($whereDefault)->get();
             }
         }
         $this->data = $dataRes;

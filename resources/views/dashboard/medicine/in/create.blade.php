@@ -19,7 +19,7 @@
         </div>
     @endif
 
-    @include('dashboard.settings.menus.component.form')
+    @include('dashboard.medicine.in.component.form')
 @endsection
 
 @section('script')

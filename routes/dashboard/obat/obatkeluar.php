@@ -1,13 +1,12 @@
 <?php
 
-use App\Http\Controllers\Module\MedicineAllC;
 use App\Http\Controllers\Module\MedicineOutC;
 use Illuminate\Support\Facades\Route;
 
 // after login
 Route::group(['middleware' => 'auth'], function() {
     Route::prefix('obat')->group(function () {
-        Route::get('/obatkeluar', [MedicineAllC::class, 'index'])->name('obatkeluar');
+        Route::get('/obatkeluar', [MedicineOutC::class, 'index'])->name('obatkeluar');
         // Route::get('/obatkeluar/create', [MedicineOutC::class, 'create'])->name('obatkeluar-create');
         // Route::post('/obatkeluar/create', [MedicineOutC::class, 'createPost'])->name('obatkeluar-create');
         // Route::get('/obatkeluar/edit/{id}', [MedicineOutC::class, 'edit'])->name('obatkeluar-edit');

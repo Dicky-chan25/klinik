@@ -1,13 +1,15 @@
 
 <div>
-    <input id="patientId" type="text" style="display: none" name="patient" wire:model="keywordId" class="form-control" >
-    <input id="patientName" type="text" wire:change="keywordChange()" wire:model="keyword" class="form-control">
+    <input id="medicineId" type="text" style="display: none" name="medicine" wire:model="keywordId" class="form-control" >
+    <input id="medicineName" type="text" wire:change="keywordChange()" wire:model="keyword" class="form-control">
     <div class="btn btn-primary mt-2">Cari</div>
-    <div class="" id="cardListPatient">
+    <div class="">
         @if ($data != [])
             <div class="container rounded bg-info p-2 my-2">
-                @foreach ($data as $dp)
-                    <p class="text-light" style="cursor: pointer" onClick="selectedPatient('{!!$dp->patientname!!}',{!!$dp->id!!})">{{$dp->patientname}}</p>
+                @foreach ($data as $md)
+                 <div class="" onClick="selectedMdc('{!!$md->medicinename!!}',{!!$md->id!!})">
+                     <p class="text-light" style="cursor: pointer">{{$md->medicinename}} - {{$md->code}}</p>
+                 </div>
                 @endforeach
             </div>
         @endif
@@ -16,9 +18,9 @@
 
 @section('script')
     <script>
-        const selectedPatient = (name, id) => {
-            document.getElementById('patientId').setAttribute('value', id)
-            document.getElementById('patientName').setAttribute('value', name)
+        const selectedMdc = (name, id) => {
+            document.getElementById('medicineId').setAttribute('value', id)
+            document.getElementById('medicineName').setAttribute('value', name)
             @this.set('keyword', name);
             @this.set('keywordId', id);
             @this.set('isClose', true);

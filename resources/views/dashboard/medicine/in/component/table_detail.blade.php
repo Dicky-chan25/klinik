@@ -1,7 +1,7 @@
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Semua User</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Stock Detail</h6>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -11,46 +11,25 @@
             <table class="table" width="100%" cellspacing="0">
                 <thead>
                     <tr>
-                        <th>Nama Menu</th>
-                        <th>route</th>
+                        <th>Barcode</th>
                         <th>status</th>
-                        <th>di buat tanggal</th>
-                        <th>action</th>
+                        <th>masuk tanggal</th>
+                        <th>keluar tanggal</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($dataDetail as $di)
+                    @foreach ($detailStock as $ds)
                         <tr>
-                            <td>{{ $di->menuName }}</td>
-                            <td>{{ $di->routePath }}</td>
+                            <td>{{ $ds->barcode }}</td>
                             <td>
-                                @if ($di->status == 1)
-                                    <span class="badge badge-primary p-2">Aktif</span>
-                                @elseif($di->status == 0)
-                                    <span class="badge badge-secondary p-2">Nonaktif</span>
+                                @if ($ds->status == 1)
+                                    <span class="badge badge-secondary p-2">Item Keluar</span>
+                                @elseif($ds->status == 0)
+                                    <span class="badge badge-info p-2">Item Masuk</span>
                                 @endif
                             </td>
-                            <td>{{ $di->createdAt }}</td>
-                            <td>
-                                <!-- Button Detail -->
-                                @if ($di->isParent == 1)
-                                    <a href="{{ route('menu-detail', ['id' => $di->menuId]) }}" class="btn btn-info">
-                                        <i class="fas fa-list"></i>
-                                    </a>
-                                @elseif($di->isParent == 0)
-                                    <div class="btn btn-secondary"><i class="fas fa-list"></i></div>
-                                @endif
-                                <!-- Button Edit -->
-                                <a href="{{ route('menu-edit', ['id' => $di->menuId]) }}" class="btn btn-warning">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-                                <!-- Button Delete -->
-                                <a class="btn btn-danger menu-delete" href="#" data-target="#deleteUser"
-                                    data-toggle="modal" data-delmenuid="{{ $di->menuId }}"
-                                    data-delmenu="{{ $di->menuName }}">
-                                    <i class="fas fa-trash"></i>
-                                </a>
-                            </td>
+                            <td>{{ date('d-m-Y', strtotime($ds->createdAt))  }}</td>
+                            <td>{{ $ds->status == 0 ? 'Belum Keluar' : date('d-m-Y', strtotime($ds->updatedAt))  }}</td>
                         </tr>
                     @endforeach
                 </tbody>

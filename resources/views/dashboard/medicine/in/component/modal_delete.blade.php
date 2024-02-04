@@ -1,5 +1,5 @@
  <!-- Modal -->
- <div class="modal fade" id="deleteUser">
+ <div class="modal fade" id="deleteData">
     <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
         <div class="modal-header">

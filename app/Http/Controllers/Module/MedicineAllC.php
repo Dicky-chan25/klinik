@@ -84,20 +84,6 @@ class MedicineAllC extends Controller
 
     public function detail($id)
     {
-        //  for ($i=1; $i <= $qty ; $i++) {
-        //     $jmlhbarcode = MasterBarcode::count();
-        //     $barcode = MasterBarcode::orderBy('id', 'DESC')->take(1)->get();
-        //     $lastbarcode = $barcode[0]->barcode;
-        //     $strbarcode = substr($lastbarcode, 1);
-        //     $intbarcode = (int)$strbarcode;
-        //     // dd($intbarcode);
-        //     MasterBarcode::create([
-        //     'barcode' => "H".str_pad(($intbarcode+1),10,"0",STR_PAD_LEFT),
-           
-        //     'status' => 0,
-        //     'id_detail_barang' => $detailbarang->id
-        // ]);
-
         $categoryMdc = MedicineCategory::get();
         $dataMdc = Medicine::find($id);
 

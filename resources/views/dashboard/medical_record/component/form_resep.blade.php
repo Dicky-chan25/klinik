@@ -13,6 +13,7 @@
                     <input name="code" type="text" disabled value="{{ $mCode }}" class="form-control">
                 </div>
                 <div class="form-group">
+                    <label for="medicine">Pilih Obat</label>
                     <livewire:dropdown-medicine />
                 </div>
 

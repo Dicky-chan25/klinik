@@ -3,7 +3,7 @@
 @section('dashboard')
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Menu</h1>
+        <h1 class="h3 mb-0 text-gray-800">Stock Obat Masuk</h1>
     </div>
 
     @if (isset($errors) && $errors->any())
@@ -24,10 +24,8 @@
         </div>
     @endif
 
-    @include('dashboard.settings.menus.component.table')
+    @include('dashboard.medicine.in.component.table')
 @endsection
-
-
 
 @section('script')
 <script>
@@ -35,14 +33,15 @@
     var userName;
 
     // delete passing data to modal
-    $(".menu-delete").on('click', function() {
-        id = $(this).data("delmenuid");
-        userName = $(this).data("delmenu");
+    $(".data-delete").on('click', function() {
+        id = $(this).data("delid");
+        userName = $(this).data("deldata");
         $("#delete-data-name").text('Apakah Anda yakin ingin menghapus ' + userName + '?');
     });
     // submit delete function
     $(".submit-delete").on('click', function() {
-        window.location.href='/settings/menus/delete/'+id
+        // validate qty
+        window.location.href='/obat/obatmasuk/delete/'+id
     });
 </script>
 @endsection

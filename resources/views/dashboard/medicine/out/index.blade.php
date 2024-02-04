@@ -3,7 +3,7 @@
 @section('dashboard')
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Level User</h1>
+        <h1 class="h3 mb-0 text-gray-800">Stock Obat Keluar</h1>
     </div>
 
     @if (isset($errors) && $errors->any())
@@ -24,10 +24,9 @@
         </div>
     @endif
 
-    @include('dashboard.settings.userlevels.component.table')
+    @include('dashboard.medicine.out.component.form')
+    @include('dashboard.medicine.out.component.table')
 @endsection
-
-
 
 @section('script')
 <script>
@@ -35,14 +34,15 @@
     var userName;
 
     // delete passing data to modal
-    $(".userlevel-delete").on('click', function() {
-        id = $(this).data("dellevelid");
-        userName = $(this).data("deluserlevel");
+    $(".data-delete").on('click', function() {
+        id = $(this).data("delid");
+        userName = $(this).data("deldata");
         $("#delete-data-name").text('Apakah Anda yakin ingin menghapus ' + userName + '?');
     });
     // submit delete function
     $(".submit-delete").on('click', function() {
-        window.location.href='/settings/userlevels/delete/'+id
+        // validate qty
+        window.location.href='/obat/obatmasuk/delete/'+id
     });
 </script>
 @endsection
