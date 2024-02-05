@@ -3,7 +3,7 @@
 @section('dashboard')
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Detail Pasien</h1>
+        <h1 class="h3 mb-0 text-gray-800">Detail Rekam Medis</h1>
     </div>
 
     @if (isset($errors) && $errors->any())
@@ -24,125 +24,105 @@
         </div>
     @endif
 
-    <!-- DataTales Example -->
+
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Profil Pasien</h6>
-            {{-- <h6 class="m-0 font-weight-bold text-primary">{{$detailPatient}}</h6> --}}
+            <h6 class="m-0 font-weight-bold text-primary"></h6>
         </div>
-        <div class="card-body">
-            <div class="m-4">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label>Nama Pasien</label>
-                            <input class="form-control" type="text" disabled value="{{ $detailPatient->patientName }}">
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input class="form-control" type="text" disabled value="{{ $detailPatient->email }}">
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label>NIK</label>
-                            <input class="form-control" type="text" disabled value="{{ $detailPatient->identity }}"
-                                input>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label>Nomor BPJS</label>
-                            <input class="form-control" type="text" disabled value="{{ $detailPatient->bpjs_number }}"
-                                input>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label>Tempat/Tgl Lahir</label>
-                            <input class="form-control" type="text" disabled
-                                value="{{ $detailPatient->birthplace . '/' . $detailPatient->birthdate }}" input>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label>Nomor Telpon</label>
-                            <input class="form-control" type="text" disabled value="{{ $detailPatient->phone }}" input>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label>Gender</label>
-                            <input class="form-control" type="text" disabled value="{{ $detailPatient->gender }}" input>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label>Agama</label>
-                            <input class="form-control" type="text" disabled value="{{ $detailPatient->religion }}"
-                                input>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label>Pekerjaan</label>
-                            <input class="form-control" type="text" disabled value="{{ $detailPatient->career }}" input>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label>Pendidikan</label>
-                            <input class="form-control" type="text" disabled value="{{ $detailPatient->education }}"
-                                input>
-                        </div>
-                    </div>
-                </div>
-                <div class="row justify-content-between mr-1 mt-4">
-                    <div class=""></div>
-                    <a class="btn btn-primary text-white ">Tambah Rekam Medis</a>
-                </div>
-            </div>
+        <div class="p-4">
+            <a href="">
+                <div class="btn btn-info">Lihat Tagihan</div>
+            </a>
         </div>
     </div>
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Rekam Medis</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Resep Obat</h6>
         </div>
         <div class="card-body">
+            <div class="d-flex justify-content-between mb-4">
+                {{-- <div class=""></div> --}}
+                <a href="{{ route('rekammedis-create-resep', ['id' => $idMr]) }}">
+                    <div class="btn btn-primary">Tambah Resep Obat</div>
+                </a>
+            </div>
             <div class="table-responsive">
                 <table class="table" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>ID Rekam Medis</th>
-                            <th>Tanggal Periksa</th>
-                            <th>Keluhan</th>
-                            <th>Diagnosa</th>
-                            <th>Tindakan</th>
-                            <th></th>
+                            <th>ID Resep</th>
+                            <th>Nama Obat</th>
+                            <th>Jenis</th>
+                            <th>Umur</th>
+                            <th>Jumlah</th>
+                            <th>Keterangan</th>
+                            <th>Dibuat Tanggal</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($detailMr as $mr)
+                        @foreach ($allPrescription as $ap)
                             <tr>
-                                <td>{{ $mr->rm_code }}</td>
-                                <td>{{ date('d-m-Y', strtotime($mr->created_at)) }}</td>
-                                <td>{{ $mr->complaint  == '' ? 'Belum Ada' : $mr->complaint }}</td>
-                                <td>{{ $mr->diagnose  == '' ? 'Belum Ada' : $mr->diagnose}}</td>
-                                <td>{{ $mr->information  == '' ? 'Belum Ada' : $mr->action }}</td>
+                                <td>{{ $ap->resepCode }}</td>
+                                <td>{{ $ap->nameMedicine }}</td>
+                                <td>{{ $ap->category }}</td>
+                                <td>{{ $ap->ageName }}</td>
+                                <td>{{ $ap->qty }}</td>
+                                <td>{{ $ap->info }}</td>
+                                <td>{{ date('d-m-Y', strtotime($ap->createdAt)) }}</td>
                                 <td>
-                                    <a href="#" class="btn btn-info">
-                                        <i class="fas fa-list"></i>
+                                    <a href="#" class="btn btn-warning">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a href="#" class="btn btn-danger">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Lihat Pemeriksaan Lanjutan</h6>
+        </div>
+        <div class="card-body">
+            <div class="d-flex justify-content-between mb-4">
+                {{-- <div class=""></div> --}}
+                <a href="{{ route('rekammedis-create-inspect', ['id' => $idMr]) }}">
+                    <div class="btn btn-primary">Buat Pemeriksaan Lanjutan</div>
+                </a>
+            </div>
+            <div class="table-responsive">
+                <table class="table" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>ID Resep</th>
+                            <th>Nama Pemeriksaan</th>
+                            <th>Biaya</th>
+                            <th>Keterangan</th>
+                            <th>Dibuat Tanggal</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($allInspect as $ai)
+                            <tr>
+                                <td>{{ $ai->ispCode }}</td>
+                                <td>{{ $ai->ispName }}</td>
+                                <td>Rp. {{ number_format($ai->price) }}</td>
+                                <td>{{ $ai->info }}</td>
+                                <td>{{ date('d-m-Y', strtotime($ai->createdAt)) }}</td>
+                                <td>
+                                    <a href="#" class="btn btn-warning">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a href="#" class="btn btn-danger">
+                                        <i class="fas fa-trash"></i>
                                     </a>
                                 </td>
                             </tr>

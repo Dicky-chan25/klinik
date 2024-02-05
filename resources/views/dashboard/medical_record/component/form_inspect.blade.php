@@ -6,19 +6,27 @@
     </div>
     <div class="card-body">
         <div class="col-lg-6 mx-auto">
-            <form method="POST" action="{{ route('rekammedis-create-resep', ['id' => $idMr]) }}">
+            <form method="POST" action="{{ route('rekammedis-create-inspect', ['id' => $idMr]) }}">
                 @csrf
                 <div class="form-group">
-                    {{-- <label for="code">Kode Resep Obat</label> --}}
+                    {{-- <label for="code">Kode Pemeriksaan</label> --}}
                     <input name="code" type="text" style="display: none" value="{{ $mCode }}">
                 </div>
-                <livewire:dropdown-prescription />
                 <div class="form-group">
-                    <label for="qty">Jumlah Obat</label>
-                    <input @error('qty') style="border:1px solid #ff0000;" @enderror name="qty"
-                        type="number" value="{{ old('qty') }}" class="form-control" id="qty"
-                        placeholder="qty">
-                    @error('qty')
+                    <label for="inspectname">Nama Pemeriksaan Lanjutan</label>
+                    <input @error('inspectname') style="border:1px solid #ff0000;" @enderror name="inspectname"
+                        type="text" value="{{ old('inspectname') }}" class="form-control" id="inspectname"
+                        placeholder="inspectname">
+                    @error('inspectname')
+                        <span class=" text-danger" style="font-size: 12px">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label for="price">Biaya Periksa (RP)</label>
+                    <input @error('price') style="border:1px solid #ff0000;" @enderror name="price"
+                        type="number" value="{{ old('price') }}" class="form-control" id="price"
+                        placeholder="price">
+                    @error('price')
                         <span class=" text-danger" style="font-size: 12px">{{ $message }}</span>
                     @enderror
                 </div>
@@ -34,7 +42,7 @@
                 <br>
                 <div class="justify-content-between d-flex">
                     <div class=""></div>
-                    <button type="submit" class="btn btn-primary">Simpan & Buat Resep Obat</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>
             </form>
         </div>

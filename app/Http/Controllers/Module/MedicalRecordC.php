@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Module;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\InspectionReq;
 use App\Http\Requests\MedicalRecordReq;
+use App\Http\Requests\PrescriptionReq;
 use App\Models\Clinic\Doctor;
+use App\Models\Clinic\Inspection;
 use App\Models\Clinic\MedicalRecord;
 use App\Models\Clinic\Patient;
 use App\Models\Clinic\Polis;
@@ -153,25 +156,135 @@ class MedicalRecordC extends Controller
     }
 
     public function createReceipt($id){
-        $ignoreDelete = "c_prescription.mr_id = '".$id."' AND c_prescription.status in (0,1) AND c_prescription.deleted_at IS NULL";
-        $allPrescription = Prescription::select(
-            'c_prescription.m_code as resepCode',
-            'c_medicine.medicinename as nameMedicine',
-            'c_prescription.qty as qty',
-            'c_prescription.rule as rule',
-            'c_prescription.eating_status as eatStatus',
-        )
-        ->leftJoin('c_medicine', 'c_prescription.medicine_id', 'c_medicine.id')
-        ->whereRaw($ignoreDelete)->get();
-
         $idMr = $id;
         // generate medicine code
         $dt = Carbon::now()->format('ymdhms');
-        $mCode  = 'M-'.$dt.$this->generateRandomString(5);
+        $mCode  = 'PR-'.$dt.$this->generateRandomString(5);
 
         return view('dashboard.medical_record.create_resep', compact(
             'idMr',
-            'mCode'
+            'mCode',
+        ));
+    }
+
+    public function createInspect($id){
+        $idMr = $id;
+        // generate medicine code
+        $dt = Carbon::now()->format('ymdhms');
+        $mCode  = 'ISP-'.$dt.$this->generateRandomString(5);
+
+        return view('dashboard.medical_record.create_inspect', compact(
+            'idMr',
+            'mCode',
+        ));
+    }
+
+    public function createReceiptPost(PrescriptionReq $req, $id){
+        try {
+            $req->validated();
+            $code = $req->code;
+            $medicine = $req->medicine;
+            $prescript = $req->prescript;
+            $qty = $req->qty;
+            $info = $req->info;
+            $mrId = $id;
+            $status = 1;
+
+            DB::beginTransaction();
+            // insert to medical record table
+            $insertPrescript = new Prescription();
+            $insertPrescript->code = $code;
+            $insertPrescript->mr_id = $mrId;
+            $insertPrescript->info = $info;
+            $insertPrescript->qty = $qty; // qty ini akan jadi patokan ubah status setelah pembayaran selesai
+            $insertPrescript->medicine_id = $medicine;
+            $insertPrescript->medicine_d_id = $prescript;
+            $insertPrescript->created_by_id = Auth::user()->id;
+            $insertPrescript->status = $status;
+            $insertPrescript->save();
+
+            DB::commit();
+
+            Session::flash('success', 'Data Resep Baru berhasil dibuat');
+            return redirect()->route('rekammedis-detail', ['id' => $id]);
+
+        } catch (\Throwable $th) {
+            //throw $th;
+            dd($th);
+            DB::rollBack();
+        }
+    }
+    
+    public function createInspectPost(InspectionReq $req, $id){
+        try {
+            $req->validated();
+            $code = $req->code;
+            $inspectname = $req->inspectname;
+            $price = $req->price;
+            $info = $req->info;
+            $mrId = $id;
+            $status = 1;
+
+            DB::beginTransaction();
+            // insert to medical record table
+            $insertInsp = new Inspection();
+            $insertInsp->code = $code;
+            $insertInsp->name = $inspectname;
+            $insertInsp->price = $price;
+            $insertInsp->mr_id = $mrId;
+            $insertInsp->info = $info;
+            $insertInsp->created_by_id = Auth::user()->id;
+            $insertInsp->status = $status;
+            $insertInsp->save();
+
+            DB::commit();
+
+            Session::flash('success', 'Data Pemeriksaan Lanjutan berhasil dibuat');
+            return redirect()->route('rekammedis-detail', ['id' => $id]);
+
+        } catch (\Throwable $th) {
+            //throw $th;
+            dd($th);
+            DB::rollBack();
+        }
+    }
+
+    public function detail($id){
+        $idMr = $id;
+        $dt = Carbon::now()->format('ymdhms');
+        $mCode  = 'PR-'.$dt.$this->generateRandomString(5);
+
+        $ignoreDelete = "c_prescription.mr_id = '".$id."' AND c_prescription.status in (0,1) AND c_prescription.deleted_at IS NULL";
+        $defaultDelete = "mr_id = '".$id."' AND status in (0,1) AND deleted_at IS NULL";
+        $allPrescription = Prescription::select(
+            'c_prescription.code as resepCode',
+            'c_medicine.medicinename as nameMedicine',
+            'c_medicine_age.agename as ageName',
+            'c_medicine_category.title as category',
+            'c_prescription.qty as qty',
+            'c_prescription.info as info',
+            'c_prescription.created_at as createdAt',
+        )
+        ->leftJoin('c_medicine', 'c_prescription.medicine_id', 'c_medicine.id')
+        ->leftJoin('c_medicine_d', 'c_prescription.medicine_d_id', 'c_medicine_d.id')
+        ->leftJoin('c_medicine_age', 'c_medicine_d.age_status', 'c_medicine_age.id')
+        ->leftJoin('c_medicine_category', 'c_medicine_d.m_category_id', 'c_medicine_category.id')
+        ->whereRaw($ignoreDelete)->get();
+
+        $allInspect = Inspection::select(
+            'c_inspection.code as ispCode',
+            'c_inspection.name as ispName',
+            'c_inspection.price as price',
+            'c_inspection.info as info',
+            'c_inspection.created_at as createdAt',
+        )
+        ->whereRaw($defaultDelete)->get();
+
+        return view('dashboard.medical_record.detail', compact(
+            'idMr', 
+            'mCode',
+            'allPrescription',
+            'allInspect',
         ));
     }
 
