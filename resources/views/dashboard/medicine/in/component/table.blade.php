@@ -29,8 +29,12 @@
                 <thead>
                     <tr>
                         <th>Nama Obat</th>
-                        <th>Supplier Obat</th>
-                        <th>Qty</th>
+                        <th>No. Reg</th>
+                        <th>No. Batch</th>
+                        <th>HET</th>
+                        <th>Harga</th>
+                        <th>Kuantiti</th>
+                        <th>Keluar</th>
                         <th>di buat tanggal</th>
                         <th>action</th>
                     </tr>
@@ -39,8 +43,12 @@
                     @foreach ($dataResult as $item)
                         <tr>
                             <td>{{ $item->medsName }}</td>
-                            <td>{{ $item->supplier }}</td>
-                            <td>{{ $item->qty }}</td>
+                            <td>{{ $item->reg }}</td>
+                            <td>{{ $item->batch }}</td>
+                            <td>Rp. {{ number_format((int)$item->het) }}</td>
+                            <td>Rp. {{ number_format((int)$item->price) }}</td>
+                            <td>{{ $item->qty.' '.$item->unit }}</td>
+                            <td>{{ $item->stockout.' '.$item->unit }}</td>
                             <td>{{ date('d-m-Y', strtotime($item->createdAt)) }}</td>
                             <td>
                                 <a href="{{route('obatmasuk-detail',['id' => $item->medsId])}}" class="btn btn-info">
@@ -57,22 +65,21 @@
                                         <i class="fas fa-edit"></i>
                                     </a>
                                 @endif --}}
-                                @if ($access->delete == 1)
-                                    <!-- Button Delete | fitur ini aktif jika di cek dlu stocknya ada yg keluar atau blm -->
+                                {{-- @if ($access->delete == 1)
                                     <a class="btn btn-danger data-delete" href="#" data-target="#deleteData" data-toggle="modal"
                                     data-dellevelid="{{$item->medsId}}" data-deluserlevel="{{$item->medsName}}">
                                         <i class="fas fa-trash"></i>
                                     </a>
-                                @endif
+                                @endif --}}
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
-            <div style="max-width: 700px; overflow-x:auto;">
-                {{ $dataResult->withQueryString()->links() }}
+            <div style="max-width: 100%; overflow-x:auto; display:flex; justify-content:space-between">
                 <p class="text-bold">Showing {{ $dataResult->firstItem() }} to {{ $dataResult->lastItem() }} of
                     {{ $dataResult->total() }}</p>
+                    {{ $dataResult->withQueryString()->links() }}
             </div>
         </div>
     </div>

@@ -22,7 +22,10 @@ class MedicineReq extends FormRequest
     public function rules(): array
     {
         return [
-            'mname' => 'required'
+            'code' => 'required',
+            'mname' => 'required',
+            'sname' => 'required',
+            'scontact' => 'required',
         ];
     }
 }

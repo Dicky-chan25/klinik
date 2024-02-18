@@ -12,10 +12,8 @@
                 <thead>
                     <tr>
                         <th>Dosis</th>
-                        <th>Kategori</th>
                         <th>Rekomendasi Umur</th>
                         <th>Baik Digunakan</th>
-                        <th>Keterangan</th>
                         <th>Di Tambahkan Tanggal</th>
                         <th>Action</th>
                     </tr>
@@ -23,8 +21,7 @@
                 <tbody>
                     @foreach ($detailMdc as $dMdc)
                     <tr>
-                        <td>{{ $dMdc->dose }} x Sehari</td>
-                        <td>{{ $dMdc->categoryName }}</td>
+                        <td>{{ $dMdc->doseMin.' - '.$dMdc->doseMax }} x Sehari</td>
                         <td>{{ $dMdc->ageName }}</td>
                         <td>
                             @if ($dMdc->eating == 1)
@@ -33,7 +30,6 @@
                                 <span class="badge badge-warning p-2">Sesudah Makan</span>
                             @endif
                         </td>
-                        <td style="max-width: 50px">{{$dMdc->info}}</td>
                         <td>{{ date('d-m-Y', strtotime($dMdc->createdAt)) }}</td>
                         <td>
                             <!-- Button Delete -->
@@ -46,11 +42,6 @@
                     @endforeach
                 </tbody>
             </table>
-            <div style="max-width: 700px; overflow-x:auto;">
-                {{ $detailMdc->withQueryString()->links() }}
-                <p class="text-bold">Showing {{ $detailMdc->firstItem() }} to {{ $detailMdc->lastItem() }} of
-                    {{ $detailMdc->total() }}</p>
-            </div>
         </div>
     </div>
 </div>

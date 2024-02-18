@@ -23,8 +23,21 @@ class MedicineInReq extends FormRequest
     {
         return [
             'medicine' => 'required',
+            'noreg' => 'required',
+            'nobatch' => 'required',
+            'pdate' => 'required',
+            'shape' => 'required',
+            'expdate' => 'required',
+            'price' => 'required',
+            'het' => 'required',
+            'category' => 'required',
+            'unit' => 'required',
+            'weight' => 'required',
             'qty' => 'required',
-            'supplier' => 'required'
+            'inputs.*.age' => 'required',
+            'inputs.*.dosemin' => 'required',
+            'inputs.*.dosemax' => 'required',
+            'inputs.*.eating' => 'required',
         ];
     }
 }

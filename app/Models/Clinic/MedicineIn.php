@@ -11,16 +11,24 @@ class MedicineIn extends Model
     protected $table = 'c_medicine_stock';
 
     protected $fillable = [
-        'barcode', 
-        'medicine_id', 
-        'supplier',
-        'qty', 
+        'het_price',
+        'expired_date',
+        'production_date',
+        'batch_no',
+        'reg_no',
+        'medicine_id',
+        'unit',
+        'qty',
         'status',
+        'weight',
+        'shape_category',
+        'm_category_id',
+        'default_price',
         'created_by_id',
         'updated_by_id',
         'deleted_by_id',
         'created_by_at',
         'updated_by_at',
-        'deleted_by_at',		
+        'deleted_by_at',	
     ];
 }

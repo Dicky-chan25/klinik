@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Module;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MedicineInReq;
+use App\Models\Clinic\MedicineCategory;
+use App\Models\Clinic\MedicineDetail;
 use App\Models\Clinic\MedicineIn;
 use App\Models\Clinic\MedicineStock;
 use App\Models\MenuAccess;
@@ -46,7 +48,7 @@ class MedicineInC extends Controller
         }
         $menu = Menus::select('id')->where('routepath', $segment)->first();
         $access = MenuAccess::where('level_id', Auth::user()->level_id)->where('menu_id', $menu->id)->first();
-        
+
         // filter and search detection
         $fromdate = $request->fromDate == null ? '' : $request->fromDate;
         $todate = $request->toDate == null ? '' : $request->toDate;
@@ -55,14 +57,29 @@ class MedicineInC extends Controller
         // $dataResult = [];
         $dataResult = MedicineIn::select(
             'c_medicine_stock.id as medsId',
-            'c_medicine_stock.supplier as supplier',
+            'c_medicine_stock.reg_no as reg',
+            'm_unit.title as unit',
+            'c_medicine_stock.batch_no as batch',
+            'c_medicine_stock.het_price as het',
+            'c_medicine_stock.default_price as price',
             'c_medicine.medicinename as medsName',
+            'c_medicine.supplier as supplier',
             'c_medicine_stock.qty as qty',
             'c_medicine.created_at as createdAt',
+            DB::raw('(
+                SELECT
+                    COUNT(*)
+                FROM
+                    c_medicine_stock_d
+                WHERE
+                    c_medicine_stock_d.medicine_s_id = c_medicine_stock.id
+                    AND c_medicine_stock_d.status = 1
+            ) as stockout')
         )
-        ->leftJoin('c_medicine','c_medicine_stock.medicine_id' ,'c_medicine.id')
-        ->whereRaw($this->filter($fromdate, $todate, $search))
-        ->paginate(10);
+            ->leftJoin('c_medicine', 'c_medicine_stock.medicine_id', 'c_medicine.id')
+            ->leftJoin('m_unit', 'c_medicine_stock.unit', 'm_unit.id')
+            ->whereRaw($this->filter($fromdate, $todate, $search))
+            ->paginate(10);
 
         return view('dashboard.medicine.in.index', compact(
             'dataResult',
@@ -74,8 +91,17 @@ class MedicineInC extends Controller
     }
 
     public function create()
-    {    
-        return view('dashboard.medicine.in.create');
+    {
+        $categoryMdc = MedicineCategory::get();
+        $mAgeRange = DB::table('m_age_range')->get();
+        $mUnit = DB::table('m_unit')->get();
+        $mShape = DB::table('m_medicine_shape')->get();
+        return view('dashboard.medicine.in.create', compact(
+            'categoryMdc',
+            'mAgeRange',
+            'mUnit',
+            'mShape',
+        ));
     }
 
     public function detail($id)
@@ -87,40 +113,74 @@ class MedicineInC extends Controller
             'c_medicine_stock_d.created_at as createdAt',
             'c_medicine_stock_d.updated_at as updatedAt',
         )
-        ->where('medicine_s_id', $id)
-        ->whereRaw('status in (0,1) AND deleted_at IS NULL')
-        ->paginate(5);
-         
+            ->where('medicine_s_id', $id)
+            ->whereRaw('status in (0,1) AND deleted_at IS NULL')
+            ->paginate(5);
+
         return view('dashboard.medicine.in.detail', compact(
             'detailStock',
         ));
     }
 
-    public function createPost(MedicineInReq $req){
+    public function createPost(MedicineInReq $req)
+    {
         try {
             $req->validated();
             $medicine = $req->medicine;
-            $supplier = $req->supplier;
+            $noreg = $req->noreg;
+            $nobatch = $req->nobatch;
+            $pdate = $req->pdate;
+            $expdate = $req->expdate;
+            $price = $req->price;
+            $het = $req->het;
+            $category = $req->category;
+            $unit = $req->unit;
+            $weight = $req->weight;
             $qty = $req->qty;
+            $shape = $req->shape;
+            $inputs = $req->inputs;
             $status = 1;
 
             DB::beginTransaction();
             // insert to medical record table
             $insertStockMdc = new MedicineIn();
             $insertStockMdc->medicine_id = $medicine;
-            $insertStockMdc->supplier = $supplier;
+            $insertStockMdc->medicine_id = $medicine;
             $insertStockMdc->qty = $qty;
+            $insertStockMdc->het_price = $het;
+            $insertStockMdc->expired_date = $expdate;
+            $insertStockMdc->production_date = $pdate;
+            $insertStockMdc->batch_no = $nobatch;
+            $insertStockMdc->reg_no = $noreg;
+            $insertStockMdc->unit = $unit;
+            $insertStockMdc->weight = $weight;
+            $insertStockMdc->shape_category = $shape;
+            $insertStockMdc->m_category_id = $category;
+            $insertStockMdc->default_price = $price;
             $insertStockMdc->created_by_id = Auth::user()->id;
             $insertStockMdc->status = $status;
             $insertStockMdc->save();
             $lastInsertId = $insertStockMdc->id;
 
-            for ($i=0; $i < $qty; $i++) { 
+            // insert detail medicine
+            foreach ($inputs as $value) {
+                # code...
+                MedicineDetail::insert([
+                    'medicine_id' => $medicine,
+                    'created_by_id' => Auth::user()->id,
+                    'dose_min' => $value['dosemin'],
+                    'dose_max' => $value['dosemax'],
+                    'age' => $value['age'],
+                    'eating' => $value['eating'],
+                    'status' => 1,
+                ]);
+            }
+
+            for ($i = 0; $i < $qty; $i++) {
                 $barcodeLast = MedicineStock::orderBy('id', 'DESC')->first();
                 $strBarcode = is_null($barcodeLast) ? '0000000001' : substr($barcodeLast->barcode, 2); // remove character H-
-                // dd($strBarcode);
                 $intBarcode = (int)$strBarcode;
-                $finalBarcode = "H".str_pad(($intBarcode+1),10,"0",STR_PAD_LEFT);
+                $finalBarcode = "H" . str_pad(($intBarcode + 1), 10, "0", STR_PAD_LEFT);
                 MedicineStock::insert([
                     'medicine_id' => $medicine,
                     'medicine_s_id' => $lastInsertId,
@@ -131,10 +191,9 @@ class MedicineInC extends Controller
             }
 
             DB::commit();
-            
+
             Session::flash('success', 'Data Stock Obat Baru berhasil dibuat');
             return redirect()->route('obatmasuk');
-
         } catch (\Throwable $th) {
             dd($th);
             DB::rollBack();
@@ -148,15 +207,15 @@ class MedicineInC extends Controller
         // dd($id);
         try {
             $countStock = MedicineStock::where('medicine_id', $id)
-            ->where('status', 1)
-            ->count();
+                ->where('status', 1)
+                ->count();
             // dd($checkInStock);
             if ($countStock == 0) {
                 # code...
                 DB::beginTransaction();
                 MedicineIn::where('id', $id)->update([
                     'status' => 0, //deactive
-                    'deleted_by_id' => Auth::user()->id, 
+                    'deleted_by_id' => Auth::user()->id,
                     'deleted_at' => Carbon::now()
                 ]);
 
@@ -167,7 +226,7 @@ class MedicineInC extends Controller
                 Session::flash('error', 'Sudah Ada Barang Keluar, Stock ini tidak bisa dihapus dari sistem');
                 return redirect()->back();
             }
-            
+
             Session::flash('success', 'Stock berhasil di delete');
             return redirect()->back();
         } catch (\Throwable $th) {

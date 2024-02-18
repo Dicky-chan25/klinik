@@ -21,6 +21,7 @@ class User extends Authenticatable
         'firstname',
         'lastname',
         'username',
+        'doctorcode',
         'level_id',
         'email',
         'password',

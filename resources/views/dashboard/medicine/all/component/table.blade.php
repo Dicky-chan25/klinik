@@ -31,6 +31,8 @@
                     <tr>
                         <th>Kode Obat</th>
                         <th>Nama Obat</th>
+                        <th>Nama Supplier</th>
+                        <th>Kontak Supplier</th>
                         <th>Status</th>
                         <th>Di Tambahkan Tanggal</th>
                         <th>Action</th>
@@ -41,6 +43,8 @@
                     <tr>
                         <td>{{ $item->code }}</td>
                         <td>{{ $item->medName }}</td>
+                        <td>{{ $item->sName }}</td>
+                        <td>{{ $item->sContact }}</td>
                         <td>
                             @if ($item->status == 1)
                                 <span class="badge badge-primary p-2">Aktif</span>
@@ -72,11 +76,13 @@
                     @endforeach
                 </tbody>
             </table>
-            <div style="max-width: 700px; overflow-x:auto;">
-                {{ $dataResult->withQueryString()->links() }}
+            <div style="max-width: 100%; overflow-x:auto; display:flex; justify-content:space-between">
                 <p class="text-bold">Showing {{ $dataResult->firstItem() }} to {{ $dataResult->lastItem() }} of
                     {{ $dataResult->total() }}</p>
+                    {{ $dataResult->withQueryString()->links() }}
             </div>
         </div>
     </div>
 </div>
+
+

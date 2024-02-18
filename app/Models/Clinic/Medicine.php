@@ -13,6 +13,8 @@ class Medicine extends Model
     protected $fillable = [
         'code', 
         'medicinename', 
+        'supplier', 
+        'supplier_contact', 
         'image',
         'status',
         'created_by_id',

@@ -19,8 +19,25 @@
                         <span class=" text-danger" style="font-size: 12px">{{ $message }}</span>
                     @enderror
                 </div>
-                {{-- <button type="submit" class="btn btn-primary">Simpan & Kembali</button> --}}
-                <button type="submit" class="btn btn-primary">Simpan & Lanjutkan</button>
+                <div class="form-group">
+                    <label for="sname">Nama Supplier</label>
+                    <input @error('sname') style="border:1px solid #ff0000;" @enderror name="sname" type="text"
+                        value="{{ old('sname') }}" class="form-control" id="sname" placeholder="sname">
+                    @error('sname')
+                        <span class=" text-danger" style="font-size: 12px">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label for="scontact">Kontak Supplier</label>
+                    <input @error('scontact') style="border:1px solid #ff0000;" @enderror name="scontact" type="number"
+                        value="{{ old('scontact') }}" class="form-control" id="scontact" placeholder="scontact">
+                    @error('scontact')
+                        <span class=" text-danger" style="font-size: 12px">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="d-flex justify-content-between">
+                    <button type="submit" name="type" value="0" class="btn btn-info">Simpan & Kembali</button>
+                </div>
             </form>
         </div>
     </div>

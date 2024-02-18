@@ -8,7 +8,7 @@
             <div class="container rounded bg-info p-2 my-2">
                 @foreach ($data as $md)
                  <div class="" onClick="selectedMdc('{!!$md->medicinename!!}',{!!$md->id!!})">
-                     <p class="text-light" style="cursor: pointer">{{$md->medicinename}} - {{$md->code}}</p>
+                     <p class="text-light" style="cursor: pointer">{{$md->code}} - {{$md->medicinename}} - {{$md->supplier}}</p>
                  </div>
                 @endforeach
             </div>

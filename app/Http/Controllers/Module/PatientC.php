@@ -54,7 +54,7 @@ class PatientC extends Controller
             'c_patient.patientname as patientName',
             'c_patient.birthdate as birthDate',
             'c_patient.identity as identity',
-            'c_patient.bpjs_number as bpjsNo',
+            'c_patient.bpjs as bpjsNo',
             'c_patient.phone as phone',
             'c_patient.gender as gender',
             'c_patient.status as status',
@@ -79,7 +79,7 @@ class PatientC extends Controller
             'c_patient.email as email',
             'c_patient.identity as identity',
             'c_patient.identity as identity',
-            'c_patient.bpjs_number as bpjs_number',
+            'c_patient.bpjs as bpjs',
             'c_patient.birthplace as birthplace',
             'c_patient.birthdate as birthdate',
             'c_patient.phone as phone',
@@ -106,8 +106,11 @@ class PatientC extends Controller
     public function createPost(PatientReq $req){
         try {
             $req->validated();
+            $satusehat = $req->satusehat;
             $bpjs = $req->bpjs;
+            $language = $req->language;
             $fullname = $req->fullname;
+            $language = $req->language;
             $identity = $req->identity;
             $birthplace = $req->birthplace;
             $birthdate = $req->birthdate;
@@ -122,7 +125,9 @@ class PatientC extends Controller
             DB::beginTransaction();
             // insert to patient table
             $insertPatient = new Patient();
-            $insertPatient->bpjs_number = $bpjs;
+            $insertPatient->satusehat = $satusehat;
+            $insertPatient->bpjs = $bpjs;
+            $insertPatient->language = $language;
             $insertPatient->patientname = $fullname;
             $insertPatient->address = $address;
             $insertPatient->email = $email;
@@ -188,7 +193,7 @@ class PatientC extends Controller
             $address = $req->address;
 
             Patient::where('id',$id)->update([
-                'bpjs_number' => $bpjs,
+                'bpjs' => $bpjs,
                 'patientname' => $fullname,
                 'birthplace' => $birthplace,
                 'birthdate' => $birthdate,

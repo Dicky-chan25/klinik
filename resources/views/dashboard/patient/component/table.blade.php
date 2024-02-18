@@ -44,7 +44,7 @@
                         <td>{{ $paItem->patientName }}</td>
                         <td>{{ Carbon\Carbon::parse($paItem->birthDate)->age }}</td>
                         <td>{{ $paItem->identity }}</td>
-                        <td>{{ $paItem->bpjs_number == '' ? 'Tidak Ada' : $paItem->bpjs_number }}</td>
+                        <td>{{ $paItem->bpjs == '' ? 'Tidak Ada' : $paItem->bpjs }}</td>
                         <td>{{ $paItem->phone }}</td>
                         <td>{{ $paItem->gender == 1 ? 'Pria' : ($paItem->gender == 2 ? 'Wanita' : 'Tidak Ada')  }}</td>
                         <td>
@@ -72,10 +72,10 @@
                     @endforeach
                 </tbody>
             </table>
-            <div style="max-width: 700px; overflow-x:auto;">
-                {{ $dataResult->withQueryString()->links() }}
+            <div style="max-width: 100%; overflow-x:auto; display:flex; justify-content:space-between">
                 <p class="text-bold">Showing {{ $dataResult->firstItem() }} to {{ $dataResult->lastItem() }} of
                     {{ $dataResult->total() }}</p>
+                    {{ $dataResult->withQueryString()->links() }}
             </div>
         </div>
     </div>

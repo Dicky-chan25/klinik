@@ -55,10 +55,10 @@
                     @endforeach
                 </tbody>
             </table>
-            <div style="max-width: 700px; overflow-x:auto;">
-                {{ $dataResult->withQueryString()->links() }}
+            <div style="max-width: 100%; overflow-x:auto; display:flex; justify-content:space-between">
                 <p class="text-bold">Showing {{ $dataResult->firstItem() }} to {{ $dataResult->lastItem() }} of
                     {{ $dataResult->total() }}</p>
+                    {{ $dataResult->withQueryString()->links() }}
             </div>
         </div>
     </div>

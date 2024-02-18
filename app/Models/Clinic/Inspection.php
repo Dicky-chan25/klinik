@@ -12,10 +12,9 @@ class Inspection extends Model
 
     protected $fillable = [
         'code',
-        'name',
         'info',
-        'price',
         'mr_id',
+        'inspect_id',
         'status',
         'created_by_id',
         'updated_by_id',
@@ -23,6 +22,5 @@ class Inspection extends Model
         'created_by_at',
         'updated_by_at',
         'deleted_by_at',
-
     ];
 }

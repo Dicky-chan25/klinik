@@ -22,11 +22,15 @@ class PrescriptionReq extends FormRequest
     public function rules(): array
     {
         return [
-            'medicine' => 'required',
-            'prescript' => 'required',
-            'qty' => 'required',
-            'info' => 'required',
-            'code' => 'required'
+            'prescript.*.mdc_reg' => 'required',
+            'prescript.*.mdc_name' => 'required',
+            'prescript.*.mdc_id' => 'required',
+            'prescript.*.stock_id' => 'required',
+            'prescript.*.qty' => 'required',
+            'prescript.*.dose' => 'required',
+            'prescript.*.time' => 'required',
+            'prescript.*.eating' => 'required',
+            'prescript.*.total' => 'required',
         ];
     }
 }

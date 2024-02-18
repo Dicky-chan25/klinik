@@ -8,15 +8,20 @@ use Illuminate\Database\Eloquent\Model;
 class Prescription extends Model
 {
     use HasFactory;
-    protected $table = 'c_prescription';
+    protected $table = 'c_medical_r_doctor_rx';
 
     protected $fillable = [
         'code',
+        'status',
+        'dose',
+        'doctor_id',
         'mr_id',
         'medicine_id',
-        'medicine_d_id',
+        'medicine_s_id',
         'qty',
-        'info',
+        'time',
+        'eating',
+        'total',
         'created_by_id',
         'updated_by_id',
         'deleted_by_id',

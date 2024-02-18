@@ -11,14 +11,15 @@ class Patient extends Model
     protected $table = 'c_patient';
 
     protected $fillable = [
-        'bpjs_number', 
+        'satusehat', 
+        'language',
+        'bpjs', 
         'patientname',
         'address',
         'birthdate',
         'birthplace',
         'identity',
         'phone',
-        'bpjs_number',
         'religion_id',
         'career_id',
         'education_id',

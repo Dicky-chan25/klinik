@@ -23,15 +23,15 @@ class MedicalRecordReq extends FormRequest
     {
         return [
             'patient' => 'required',
-            // 'doctor' => 'required',
             'service' => 'required',
             'poli' => 'required',
-            'blood' => 'required',
-            'weight' => 'required|max:3',
-            'height' => 'required|max:3',
-            'waist' => 'required|max:3',
-            'complain' => 'required',
-            'diagnose' => 'required',
+            // 'doctor' => 'required',
+            // 'blood' => 'required',
+            // 'weight' => 'required|max:3',
+            // 'height' => 'required|max:3',
+            // 'waist' => 'required|max:3',
+            // 'complain' => 'required',
+            // 'diagnose' => 'required',
             // 'action' => 'required',
         ];
     }

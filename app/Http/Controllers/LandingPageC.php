@@ -9,6 +9,7 @@ use App\Models\Clinic\MedicalRecord;
 use App\Models\Clinic\Patient;
 use App\Models\Clinic\Payment;
 use App\Models\Clinic\Polis;
+use App\Models\Clinic\Visitor;
 use App\Models\QueuePatient;
 use App\Models\Services;
 use Carbon\Carbon;
@@ -26,7 +27,7 @@ class LandingPageC extends Controller
 
         try {
             //code...
-            $dataResult = QueuePatient::select(
+            $dataResult = Visitor::select(
                 // queue data
                 'c_queue.queue as queue',
                 // patient data
@@ -112,7 +113,7 @@ class LandingPageC extends Controller
             $getPatient = Patient::select()
                 ->where('phone', $wa)
                 ->where('identity', $identity)
-                ->orWhere('bpjs_number', $identity)
+                ->orWhere('bpjs', $identity)
                 ->first();
             
             if (is_null($getPatient)) {
@@ -126,11 +127,11 @@ class LandingPageC extends Controller
             //check queue;
             //max queue per day = 50 queue
             $maxQueuePerDay = 50;
-            $totalQueue = QueuePatient::count();
+            $totalQueue = Visitor::count();
             $queueFinal = $totalQueue+1;
             if ($maxQueuePerDay >= $totalQueue) {
                 // insert to queue
-                $queuePatient = new QueuePatient();
+                $queuePatient = new Visitor();
                 $queuePatient->queue = $queueFinal;
                 $queuePatient->patient_id = $lastInsertId;
                 $queuePatient->service_id = $services;
@@ -206,7 +207,7 @@ class LandingPageC extends Controller
             
             // insert to patient table
             $insertPatient = new Patient();
-            $insertPatient->bpjs_number = $bpjs;
+            $insertPatient->bpjs = $bpjs;
             $insertPatient->patientname = $fullname;
             $insertPatient->address = $address;
             $insertPatient->email = $email;
@@ -225,11 +226,11 @@ class LandingPageC extends Controller
             //check queue;
             //max queue per day = 50 queue
             $maxQueuePerDay = 50;
-            $totalQueue = QueuePatient::count();
+            $totalQueue = Visitor::count();
             $queueFinal = $totalQueue+1;
             if ($maxQueuePerDay >= $totalQueue) {
                 // insert to queue
-                $queuePatient = new QueuePatient();
+                $queuePatient = new Visitor();
                 $queuePatient->queue = $queueFinal;
                 $queuePatient->patient_id = $lastInsertId;
                 $queuePatient->service_id = $services;
@@ -252,18 +253,19 @@ class LandingPageC extends Controller
             $insertMr->complaint = $complaint;
             $insertMr->status = 0; // proccess
             $insertMr->save();
+            // $lastInsertMrId = $insertMr->id;
 
             
             // generate transaction code
-            $dt = Carbon::now()->format('ymdhms');
-            $trxCode  = 'TR-'.$dt.$this->generateRandomString(20);
-            // insert to payment
-            $insertPayment = new Payment();
-            $insertPayment->trx = $trxCode;
-            $insertPayment->patient_id = $lastInsertId;
-            $insertPayment->service_id = $services;
-            $insertPayment->status = 0; // proccess
-            $insertPayment->save();
+            // $dt = Carbon::now()->format('ymdhms');
+            // $trxCode  = 'TR-'.$dt.$this->generateRandomString(20);
+            // // insert to payment
+            // $insertPayment = new Payment();
+            // $insertPayment->trx = $trxCode;
+            // $insertPayment->patient_id = $lastInsertId;
+            // $insertPayment->service_id = $services;
+            // $insertPayment->status = 0; // proccess
+            // $insertPayment->save();
         
             DB::commit();
             // Session::flash('success', 'Antrian berhasil dibuat');
@@ -278,26 +280,27 @@ class LandingPageC extends Controller
     }
    
     public function history(){
-        $listQueue = $dataResult = QueuePatient::select(
-            // queue data
-            'c_queue.queue as queue',
-            'c_queue.status as status',
-            // patient data
-            'c_patient.patientname as patientName',
-            // service data
-            'c_service.name_service as serviceName',
-            // poli data
-            'c_polis.poliname as poliName',
-            // doctor data
-            'c_doctor.doctorname as doctorName',
-        )
-        ->leftJoin('c_patient','c_queue.patient_id','c_patient.id')
-        ->leftJoin('c_service','c_queue.service_id','c_service.id')
-        ->leftJoin('c_polis','c_service.poli_id','c_polis.id')
-        ->leftJoin('c_doctor','c_service.doctor_id','c_doctor.id')
-        ->whereIn('c_queue.status', [0,1,2])
-        ->get();
+        // $listQueue = $dataResult = QueuePatient::select(
+        //     // queue data
+        //     'c_queue.queue as queue',
+        //     'c_queue.status as status',
+        //     // patient data
+        //     'c_patient.patientname as patientName',
+        //     // service data
+        //     'c_service.name_service as serviceName',
+        //     // poli data
+        //     'c_polis.poliname as poliName',
+        //     // doctor data
+        //     'c_doctor.doctorname as doctorName',
+        // )
+        // ->leftJoin('c_patient','c_queue.patient_id','c_patient.id')
+        // ->leftJoin('c_service','c_queue.service_id','c_service.id')
+        // ->leftJoin('c_polis','c_service.poli_id','c_polis.id')
+        // ->leftJoin('c_doctor','c_service.doctor_id','c_doctor.id')
+        // ->whereIn('c_queue.status', [0,1,2])
+        // ->get();
         // dd(json_encode($listQueue));
+        $listQueue = [];
         return view('landing-page.history', compact('listQueue'));
     }
 

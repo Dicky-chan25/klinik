@@ -8,6 +8,7 @@ use App\Http\Requests\MedicineReq;
 use App\Models\Clinic\Medicine;
 use App\Models\Clinic\MedicineCategory;
 use App\Models\Clinic\MedicineDetail;
+use App\Models\Clinic\MedicineIn;
 use App\Models\MenuAccess;
 use App\Models\Menus;
 use Carbon\Carbon;
@@ -54,11 +55,12 @@ class MedicineAllC extends Controller
         $todate = $request->toDate == null ? '' : $request->toDate;
         $search = $request->search == null ? '' : $request->search;
 
-        // $dataResult = [];
         $dataResult = Medicine::select(
             'c_medicine.id as medId',
             'c_medicine.code as code',
             'c_medicine.medicinename as medName',
+            'c_medicine.supplier as sName',
+            'c_medicine.supplier_contact as sContact',
             'c_medicine.status as status',
             'c_medicine.created_at as createdAt',
         )->whereRaw($this->filter($fromdate, $todate, $search))
@@ -82,47 +84,15 @@ class MedicineAllC extends Controller
         return view('dashboard.medicine.all.create', compact('mdcCode'));
     }
 
-    public function detail($id)
-    {
-        $categoryMdc = MedicineCategory::get();
-        $dataMdc = Medicine::find($id);
-
-        $detailMdc = MedicineDetail::select(
-            'c_medicine_d.id as id',
-            'c_medicine_d.dose as dose',
-            'c_medicine_d.info as info',
-            'c_medicine_d.eating_status as eating',
-            'c_medicine_d.created_at as createdAt',
-            'c_medicine_category.title as categoryName',
-            'c_medicine_age.agename as ageName',
-        )
-        ->leftJoin('c_medicine_category','c_medicine_d.m_category_id','c_medicine_category.id')
-        ->leftJoin('c_medicine_age','c_medicine_d.age_status','c_medicine_age.id')
-        ->where('c_medicine_d.medicine_id', $id)
-        ->whereRaw('c_medicine_d.status in (0,1) AND c_medicine_d.deleted_at IS NULL')
-        ->paginate(5);
-         
-        return view('dashboard.medicine.all.detail', compact(
-            'id',
-            'dataMdc',
-            'detailMdc',
-            'categoryMdc',
-        ));
-    }
-
-    // public function edit($id)
-    // {
-    //     $dataUserLevel = UserLevels::get();
-    //     $dataDetail = User::find($id);
-    //     return view('dashboard.settings.users.edit', compact('dataUserLevel', 'dataDetail'));
-    // }
-
     public function createPost(MedicineReq $req)
     {
         try {
             $req->validated();
             $code = $req->code;
             $mname = $req->mname;
+            $sname = $req->sname;
+            $scontact = $req->scontact;
+            $type = $req->type;
             $status = 1;
 
             DB::beginTransaction();
@@ -130,6 +100,8 @@ class MedicineAllC extends Controller
             $insertMdc = new Medicine();
             $insertMdc->code = $code;
             $insertMdc->medicinename = $mname;
+            $insertMdc->supplier = $sname; 
+            $insertMdc->supplier_contact = $scontact; 
             $insertMdc->created_by_id = Auth::user()->id;
             $insertMdc->status = $status;
             $insertMdc->save();
@@ -138,44 +110,9 @@ class MedicineAllC extends Controller
             DB::commit();
             
             Session::flash('success', 'Data Obat Baru berhasil dibuat');
-            return redirect()->route('semuaobat-detail', ['id' => $lastInsertId]);
+            return redirect()->route('semuaobat');
 
         } catch (\Throwable $th) {
-            Session::flash('error', 'Something Error, Please Refresh Page');
-            return back();
-        }
-    }
-
-    public function detailPost(MedicineDetailReq $req, $id)
-    {
-        try {
-            $req->validated();
-            $dose = $req->dose;
-            $age = $req->age;
-            $eating = $req->eating;
-            $category = $req->category;
-            $info = $req->info;
-
-            DB::beginTransaction();
-            // insert to medical record table
-            $insertDetailMdc = new MedicineDetail();
-            $insertDetailMdc->medicine_id = $id;
-            $insertDetailMdc->dose = $dose;
-            $insertDetailMdc->info = $info;
-            $insertDetailMdc->age_status = $age;
-            $insertDetailMdc->eating_status = $eating;
-            $insertDetailMdc->m_category_id = $category;
-            $insertDetailMdc->created_by_id = Auth::user()->id;
-            $insertDetailMdc->status = 1;
-            $insertDetailMdc->save();
-
-            DB::commit();
-            
-            Session::flash('success', 'Data Detail Obat berhasil dibuat');
-            return redirect()->back();
-
-        } catch (\Throwable $th) {
-            dd($th);
             Session::flash('error', 'Something Error, Please Refresh Page');
             return back();
         }
@@ -201,11 +138,11 @@ class MedicineAllC extends Controller
     {
         try {
             //code...
-            MedicineDetail::where('id', $id)->update([
-                'status' => 0, //deactive
-                'deleted_by_id' => Auth::user()->id, 
-                'deleted_at' => Carbon::now()
-            ]);
+            // MedicineDetail::where('id', $id)->update([
+            //     'status' => 0, //deactive
+            //     'deleted_by_id' => Auth::user()->id, 
+            //     'deleted_at' => Carbon::now()
+            // ]);
             Session::flash('success', 'Deleted Successfully');
             return back();
         } catch (\Throwable $th) {
@@ -213,6 +150,70 @@ class MedicineAllC extends Controller
             //throw $th;
         }
     }
+
+
+
+public function detailPost(MedicineDetailReq $req, $id)
+{
+    try {
+        $req->validated();
+        $dose = $req->dose;
+        $age = $req->age;
+        $eating = $req->eating;
+        $category = $req->category;
+        $info = $req->info;
+
+        DB::beginTransaction();
+        // insert to medical record table
+        // $insertDetailMdc = new MedicineDetail();
+        // $insertDetailMdc->medicine_id = $id;
+        // $insertDetailMdc->dose = $dose;
+        // $insertDetailMdc->info = $info;
+        // $insertDetailMdc->age_status = $age;
+        // $insertDetailMdc->eating_status = $eating;
+        // $insertDetailMdc->m_category_id = $category;
+        // $insertDetailMdc->created_by_id = Auth::user()->id;
+        // $insertDetailMdc->status = 1;
+        // $insertDetailMdc->save();
+
+        DB::commit();
+        
+        Session::flash('success', 'Data Detail Obat berhasil dibuat');
+        return redirect()->back();
+
+    } catch (\Throwable $th) {
+        dd($th);
+        Session::flash('error', 'Something Error, Please Refresh Page');
+        return back();
+    }
+}
+
+public function detail($id)
+{
+    $categoryMdc = MedicineCategory::get();
+    $dataMdc = Medicine::find($id);
+
+    $detailMdc = MedicineDetail::select(
+        'c_medicine_d.id as id',
+        'c_medicine_d.dose_min as doseMin',
+        'c_medicine_d.dose_max as doseMax',
+        'c_medicine_d.eating as eating',
+        'c_medicine_d.created_at as createdAt',
+        'm_age_range.agename as ageName',
+    )
+    ->leftJoin('m_age_range','c_medicine_d.age','m_age_range.id')
+    ->where('c_medicine_d.medicine_id', $id)
+    ->whereRaw('c_medicine_d.status in (0,1) AND c_medicine_d.deleted_at IS NULL')
+    ->get();
+
+     
+    return view('dashboard.medicine.all.detail', compact(
+        'id',
+        'dataMdc',
+        'detailMdc',
+        'categoryMdc',
+    ));
+}
 
     function generateRandomString($length) {
         $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';

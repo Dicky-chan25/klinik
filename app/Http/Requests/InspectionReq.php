@@ -23,8 +23,8 @@ class InspectionReq extends FormRequest
     {
         return [
             'code' => 'required',
-            'inspectname' => 'required',
-            'price' => 'required',
+            'inspect' => 'required',
+            // 'price' => 'required',
             'info' => 'required',
         ];
     }

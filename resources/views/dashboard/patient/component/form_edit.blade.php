@@ -26,7 +26,7 @@
                 <div class="form-group">
                     <label for="bpjs">Nomor BPJS (opsional)</label>
                     <input @error('bpjs') style="border:1px solid #ff0000;" @enderror name="bpjs" type="number"
-                        value="{{ $dataDetail->bpjs_number }}" class="form-control" id="bpjs" placeholder="bpjs">
+                        value="{{ $dataDetail->bpjs }}" class="form-control" id="bpjs" placeholder="bpjs">
                     @error('bpjs')
                         <span class=" text-danger" style="font-size: 12px">{{ $message }}</span>
                     @enderror

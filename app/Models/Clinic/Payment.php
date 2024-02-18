@@ -12,8 +12,9 @@ class Payment extends Model
 
     protected $fillable = [
         'trx', 
-        'patient_id',
-        'service_id',
+        'rm_id',
+        'total_price',
+        'return',
         'nominal',
         'discount',
         'method',
