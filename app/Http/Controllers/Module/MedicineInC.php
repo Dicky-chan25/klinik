@@ -65,7 +65,7 @@ class MedicineInC extends Controller
             'c_medicine.medicinename as medsName',
             'c_medicine.supplier as supplier',
             'c_medicine_stock.qty as qty',
-            'c_medicine.created_at as createdAt',
+            'c_medicine_stock.expired_date as expAt',
             DB::raw('(
                 SELECT
                     COUNT(*)

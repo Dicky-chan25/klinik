@@ -55,20 +55,23 @@
                                 <span class="badge badge-secondary p-2">Nonaktif</span>
                             @endif
                         </td>
-                        <td>{{ date('d-m-Y', strtotime($saItem->createdAt)) }}</td>
                         <td>
                             {{-- not ready --}}
                             {{-- <a href="{{route('pegawai-detail',['id'=>$saItem->id ])}}" class="btn btn-info">
                                 <i class="fas fa-list"></i>
                             </a> --}}
                             {{-- get by role user --}}
-                            {{-- <a href="{{route('pegawai-edit',['id'=>$saItem->id ])}}" class="btn btn-warning">
+                            @if ($access->edit == 1)
+                            <a href="{{route('tindakan-edit',['id'=>$saItem->id ])}}" class="btn btn-warning">
                                 <i class="fas fa-edit"></i>
                             </a>
-                            <a class="btn btn-danger userlevel-delete" href="#" data-target="#deleteUser" data-toggle="modal"
-                                data-dellevelid="{{$saItem->levelId}}" data-deluserlevel="{{$saItem->levelName}}">
+                            @endif
+                            @if ($access->delete == 1)
+                            <a class="btn btn-danger data-delete" href="#" data-target="#deleteData" data-toggle="modal"
+                                data-delid="{{$saItem->id}}" data-delname="{{$saItem->title}}">
                                 <i class="fas fa-trash"></i>
-                            </a> --}}
+                            </a> 
+                            @endif
                         </td>
                     </tr>
                     @endforeach

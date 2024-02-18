@@ -35,8 +35,8 @@
                         <th>Harga</th>
                         <th>Kuantiti</th>
                         <th>Keluar</th>
-                        <th>di buat tanggal</th>
-                        <th>action</th>
+                        <th>Tgl Kadaluwarsa</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -49,12 +49,12 @@
                             <td>Rp. {{ number_format((int)$item->price) }}</td>
                             <td>{{ $item->qty.' '.$item->unit }}</td>
                             <td>{{ $item->stockout.' '.$item->unit }}</td>
-                            <td>{{ date('d-m-Y', strtotime($item->createdAt)) }}</td>
+                            <td>{{ date('d-m-Y', strtotime($item->expAt)) }}</td>
                             <td>
-                                <a href="{{route('obatmasuk-detail',['id' => $item->medsId])}}" class="btn btn-info">
+                                {{-- <a href="{{route('obatmasuk-detail',['id' => $item->medsId])}}" class="btn btn-info">
                                     <i class="fas fa-list"></i>
-                                </a>
-                                {{-- @if ($access->edit == 1)
+                                </a> --}}
+                                @if ($access->edit == 1)
                                     <!-- Button Edit | fitur ini aktif jika di cek dlu stocknya ada yg keluar atau blm , apabila blm, full edit-->
                                     <a class="btn btn-warning user-delete" href="#" data-target="#deleteUser" data-toggle="modal"
                                         data-editid="{{$item->medsId}}" 
@@ -64,13 +64,13 @@
                                         >
                                         <i class="fas fa-edit"></i>
                                     </a>
-                                @endif --}}
-                                {{-- @if ($access->delete == 1)
+                                @endif
+                                @if ($access->delete == 1)
                                     <a class="btn btn-danger data-delete" href="#" data-target="#deleteData" data-toggle="modal"
                                     data-dellevelid="{{$item->medsId}}" data-deluserlevel="{{$item->medsName}}">
                                         <i class="fas fa-trash"></i>
                                     </a>
-                                @endif --}}
+                                @endif
                             </td>
                         </tr>
                     @endforeach
