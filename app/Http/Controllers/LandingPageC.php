@@ -35,13 +35,13 @@ class LandingPageC extends Controller
                 // service data
                 'c_service.name_service as serviceName',
                 // poli data
-                'c_polis.poliname as poliName',
+                'm_polis.poliname as poliName',
                 // doctor data
                 'c_doctor.doctorname as doctorName',
             )
             ->leftJoin('c_patient','c_queue.patient_id','c_patient.id')
             ->leftJoin('c_service','c_queue.service_id','c_service.id')
-            ->leftJoin('c_polis','c_service.poli_id','c_polis.id')
+            ->leftJoin('m_polis','c_service.poli_id','m_polis.id')
             ->leftJoin('c_doctor','c_service.doctor_id','c_doctor.id')
             ->where('c_queue.queue', $id)
             ->first();
@@ -66,13 +66,13 @@ class LandingPageC extends Controller
             'c_service.name_service as nameService',
             'c_service.price as price',
             'c_doctor.doctorname as name',
-            'c_schedule.title as nameSchedule',
-            'c_schedule.time_from as fromSchedule',
-            'c_schedule.time_to as toSchedule',
+            'c_dr_schedule.title as nameSchedule',
+            'c_dr_schedule.time_from as fromSchedule',
+            'c_dr_schedule.time_to as toSchedule',
         )
         ->join('c_doctor','c_doctor.id','c_service.doctor_id')
-        ->join('c_schedule','c_schedule.id','c_service.schedule_id')
-        ->join('c_polis','c_polis.id','c_service.poli_id')
+        ->join('c_dr_schedule','c_dr_schedule.id','c_service.schedule_id')
+        ->join('m_polis','m_polis.id','c_service.poli_id')
         ->get();
         return view('landing-page.queue_form', compact('services'));
     }
@@ -86,13 +86,13 @@ class LandingPageC extends Controller
             'c_service.name_service as nameService',
             'c_service.price as price',
             'c_doctor.doctorname as name',
-            'c_schedule.title as nameSchedule',
-            'c_schedule.time_from as fromSchedule',
-            'c_schedule.time_to as toSchedule',
+            'c_dr_schedule.title as nameSchedule',
+            'c_dr_schedule.time_from as fromSchedule',
+            'c_dr_schedule.time_to as toSchedule',
         )
         ->join('c_doctor','c_doctor.id','c_service.doctor_id')
-        ->join('c_schedule','c_schedule.id','c_service.schedule_id')
-        ->join('c_polis','c_polis.id','c_service.poli_id')
+        ->join('c_dr_schedule','c_dr_schedule.id','c_service.schedule_id')
+        ->join('m_polis','m_polis.id','c_service.poli_id')
         ->get();
 
         return view('landing-page.new_patient', compact(
@@ -289,13 +289,13 @@ class LandingPageC extends Controller
         //     // service data
         //     'c_service.name_service as serviceName',
         //     // poli data
-        //     'c_polis.poliname as poliName',
+        //     'm_polis.poliname as poliName',
         //     // doctor data
         //     'c_doctor.doctorname as doctorName',
         // )
         // ->leftJoin('c_patient','c_queue.patient_id','c_patient.id')
         // ->leftJoin('c_service','c_queue.service_id','c_service.id')
-        // ->leftJoin('c_polis','c_service.poli_id','c_polis.id')
+        // ->leftJoin('m_polis','c_service.poli_id','m_polis.id')
         // ->leftJoin('c_doctor','c_service.doctor_id','c_doctor.id')
         // ->whereIn('c_queue.status', [0,1,2])
         // ->get();

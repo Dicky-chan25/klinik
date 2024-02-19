@@ -296,13 +296,13 @@ class MedicalRecordC extends Controller
             'c_medical_record.rm_code as code',
             'c_medical_record.status as status',
             'c_patient.patientname as patientName',
-            'c_polis.poliname as poliName',
+            'm_polis.poliname as poliName',
             'c_service.name_service as serviceName',
         )
         // patient
         ->leftJoin('c_patient','c_medical_record.patient_id','c_patient.id')
         // poli
-        ->leftJoin('c_polis','c_medical_record.poli_id','c_polis.id')
+        ->leftJoin('m_polis','c_medical_record.poli_id','m_polis.id')
         // service
         ->leftJoin('c_service','c_medical_record.service_id','c_service.id')
         ->where('c_medical_record.id', $id)
@@ -329,7 +329,7 @@ class MedicalRecordC extends Controller
             'c_medical_record.diagnose as diagnose',
             'c_medical_record.status as status',
             'c_patient.patientname as patientName',
-            'c_polis.poliname as poliName',
+            'm_polis.poliname as poliName',
             'c_service.name_service as serviceName',
             'm_blood.title as blood',
             'c_doctor.doctorname as doctorName',
@@ -337,7 +337,7 @@ class MedicalRecordC extends Controller
         // patient
         ->leftJoin('c_patient','c_medical_record.patient_id','c_patient.id')
         // poli
-        ->leftJoin('c_polis','c_medical_record.poli_id','c_polis.id')
+        ->leftJoin('m_polis','c_medical_record.poli_id','m_polis.id')
         // doctor
         ->leftJoin('c_doctor','c_medical_record.doctor_id','c_doctor.id')
         // blood
@@ -373,7 +373,7 @@ class MedicalRecordC extends Controller
             'c_medical_record.action as action',
             'c_medical_record.status as status',
             'c_patient.patientname as patientName',
-            'c_polis.poliname as poliName',
+            'm_polis.poliname as poliName',
             'c_service.name_service as serviceName',
             'm_blood.title as blood',
             'c_doctor.doctorname as doctorName',
@@ -381,7 +381,7 @@ class MedicalRecordC extends Controller
         // patient
         ->leftJoin('c_patient','c_medical_record.patient_id','c_patient.id')
         // poli
-        ->leftJoin('c_polis','c_medical_record.poli_id','c_polis.id')
+        ->leftJoin('m_polis','c_medical_record.poli_id','m_polis.id')
         // doctor
         ->leftJoin('c_doctor','c_medical_record.doctor_id','c_doctor.id')
         // blood
@@ -440,7 +440,7 @@ class MedicalRecordC extends Controller
             'c_medical_record.action as action',
             'c_medical_record.status as status',
             'c_patient.patientname as patientName',
-            'c_polis.poliname as poliName',
+            'm_polis.poliname as poliName',
             'c_service.name_service as serviceName',
             'm_blood.title as blood',
             'c_doctor.doctorname as doctorName',
@@ -449,7 +449,7 @@ class MedicalRecordC extends Controller
         // patient
         ->leftJoin('c_patient','c_medical_record.patient_id','c_patient.id')
         // poli
-        ->leftJoin('c_polis','c_medical_record.poli_id','c_polis.id')
+        ->leftJoin('m_polis','c_medical_record.poli_id','m_polis.id')
         // doctor
         ->leftJoin('c_doctor','c_medical_record.doctor_id','c_doctor.id')
         // blood
@@ -647,7 +647,7 @@ class MedicalRecordC extends Controller
             'c_medical_record.status as status',
             'c_patient.patientname as patientName',
             'c_doctor.doctorname as doctorName',
-            'c_polis.poliname as poliName',
+            'm_polis.poliname as poliName',
             'c_service.name_service as serviceName',
             'm_blood.title as blood',
         )
@@ -660,7 +660,7 @@ class MedicalRecordC extends Controller
         // blood
         ->leftJoin('m_blood','c_medical_record.blood_id','m_blood.id')
         // poli
-        ->leftJoin('c_polis','c_medical_record.poli_id','c_polis.id')
+        ->leftJoin('m_polis','c_medical_record.poli_id','m_polis.id')
         // service
         ->leftJoin('c_service','c_medical_record.service_id','c_service.id')
         ->where('c_medical_record.id', $id)
@@ -867,7 +867,7 @@ class MedicalRecordC extends Controller
             'c_visitor.created_at as createdAt',
             'c_visitor.method as method',
             'c_visitor.payment_method as paymentMethod',
-            'c_polis.poliname as poliName',
+            'm_polis.poliname as poliName',
             'c_service.name_service as serviceName',
             'c_visitor.payment_method as payment',
             'c_visitor.first_diagnose as fdiagnose',
@@ -877,7 +877,7 @@ class MedicalRecordC extends Controller
         // patient visitor join
         ->leftJoin('c_visitor','c_medical_record.visitor_id','c_visitor.id')
         // patient poli join
-        ->leftJoin('c_polis','c_visitor.poli_id','c_polis.id')
+        ->leftJoin('m_polis','c_visitor.poli_id','m_polis.id')
         // patient service join
         ->leftJoin('c_service','c_visitor.service_id','c_service.id')
         ->where('c_medical_record.id', $id)

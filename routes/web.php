@@ -1,15 +1,16 @@
 <?php
 
 use App\Http\Controllers\Api\Doctor\CPPTController;
+use App\Http\Controllers\Api\Doctor\DoctorC;
 use App\Http\Controllers\Api\Doctor\IcdController;
 use App\Http\Controllers\Api\Doctor\LaboratoryC;
 use App\Http\Controllers\Api\Doctor\MedicEquipC;
 use App\Http\Controllers\Api\Doctor\PrescriptionC;
 use App\Http\Controllers\Api\Doctor\RadiologyC;
+use App\Http\Controllers\Api\StaffC;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\HomeC;
 use App\Http\Controllers\LandingPageC;
-use App\Http\Controllers\Module\DoctorC;
 use App\Models\Api\Doctor\LetterC;
 use Illuminate\Support\Facades\Route;
 
@@ -62,6 +63,7 @@ Route::group(['middleware' => 'guest'], function() {
     Route::get('/login', [AuthController::class, 'login'])->name('login');
     Route::post('/login', [AuthController::class, 'loginPost'])->name('login');
 });
+
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // after login
@@ -70,6 +72,11 @@ Route::group(['middleware' => 'auth'], function() {
 
     // API doctor
     Route::get('/doctor', [DoctorC::class, 'getData'])->name('doctor-load');
+    Route::get('/specialize', [DoctorC::class, 'getDataSpecialize'])->name('specialize-load');
+    Route::get('/dr_account', [DoctorC::class, 'getDataUser'])->name('dr-account-load');
+   
+    // API staff
+    Route::get('/staff', [StaffC::class, 'getData'])->name('staff-load');
     
     // API prescript
     Route::get('/prescript/{rmId}', [PrescriptionC::class, 'getData'])->name('prescript-load');

@@ -22,3 +22,79 @@
     @include('dashboard.doctor.component.form')
     
 @endsection
+
+@section('script')
+    <script>
+        $(document).ready(function(){
+            $("#selectStaff").on('select2:select', function (e) {
+                $('.codeStaff').val(e.params.data.code)
+            });
+            $("#selectStaff").select2({
+                placeholder:'Pilih Pegawai Dokter',
+                theme: 'bootstrap-5',
+                ajax: {
+                    url: "{{route('staff-load')}}",
+                    dataType: 'json',
+                    data: function(term) {
+                        return term;
+                    },
+                    processResults: function(data){
+                        return {
+                            results: $.map(data, function(item){
+                                return {
+                                    id: item.id,
+                                    text: item.name,
+                                    code: item.code
+                                }
+                            })
+                        }
+                    }
+                }
+            })
+            $("#selectSpecialize").select2({
+                placeholder:'Pilih Spesialisasi Dokter',
+                theme: 'bootstrap-5',
+                ajax: {
+                    url: "{{route('specialize-load')}}",
+                    dataType: 'json',
+                    data: function(term) {
+                        return term;
+                    },
+                    processResults: function(data){
+                        return {
+                            results: $.map(data, function(item){
+                                return {
+                                    id: item.id,
+                                    text: item.title,
+                                    code: item.code
+                                }
+                            })
+                        }
+                    }
+                }
+            })
+            $("#selectUser").select2({
+                placeholder:'Pilih Akun Teregistrasi',
+                theme: 'bootstrap-5',
+                ajax: {
+                    url: "{{route('dr-account-load')}}",
+                    dataType: 'json',
+                    data: function(term) {
+                        return term;
+                    },
+                    processResults: function(data){
+                        return {
+                            results: $.map(data, function(item){
+                                return {
+                                    id: item.id,
+                                    text: `${item.email} - (${item.doctorcode})`,
+                                    code: item.code
+                                }
+                            })
+                        }
+                    }
+                }
+            })
+        })
+    </script>
+@endsection

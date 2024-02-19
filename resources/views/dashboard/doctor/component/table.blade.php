@@ -28,10 +28,11 @@
                 <thead>
                     <tr>
                         <th>Nama Dokter</th>
-                        <th>ID Dokter</th>
-                        <th>Gender</th>
-                        <th>No. Telp</th>
-                        <th>Email</th>
+                        <th>STR</th>
+                        <th>SIP</th>
+                        <th>Spesialisasi</th>
+                        <th>Komisi</th>
+                        <th>Terakhir Diubah</th>
                         <th>Status</th>
                         <th>Action</th>
                     </tr>
@@ -39,11 +40,12 @@
                 <tbody>
                     @foreach ($dataResult as $saItem)
                     <tr>
-                        <td>{{ $saItem->doctorname }}</td>
-                        <td>{{ $saItem->code }}</td>
-                        <td>{{ $saItem->gender == 1 ? 'Pria' : ($saItem->gender == 2 ? 'Wanita' : 'Tidak Ada')  }}</td>
-                        <td>{{ $saItem->hp }}</td>
-                        <td>{{ $saItem->email }}</td>
+                        <td>{{ $saItem->name }}</td>
+                        <td>{{ $saItem->str }}</td>
+                        <td>{{ $saItem->sip }}</td>
+                        <td>{{ $saItem->spName }}</td>
+                        <td>Rp. {{ number_format($saItem->price) }}</td>
+                        <td>{{ date('d-m-Y', strtotime($saItem->updatedAt)) }}</td>
                         <td>
                             @if ($saItem->status == 1)
                                 <span class="badge badge-primary p-2">Aktif</span>
@@ -53,20 +55,20 @@
                         </td>
                         <td>
                             {{-- not ready --}}
-                            {{-- <a href="{{route('pegawai-detail',['id'=>$saItem->id ])}}" class="btn btn-info">
+                            <a href="{{route('dokter-detail',['id'=>$saItem->id ])}}" class="btn btn-info">
                                 <i class="fas fa-list"></i>
-                            </a> --}}
+                            </a>
                             {{-- get by role user --}}
                             @if ($access->edit == 1)
-                            <a href="{{route('dokter-edit',['id'=>$saItem->id ])}}" class="btn btn-warning">
-                                <i class="fas fa-edit"></i>
-                            </a>
+                                <a href="{{route('dokter-edit',['id'=>$saItem->id ])}}" class="btn btn-warning">
+                                    <i class="fas fa-edit"></i>
+                                </a>
                             @endif
                             @if ($access->delete == 1)
-                            <a class="btn btn-danger data-delete" href="#" data-target="#deleteData" data-toggle="modal"
-                                data-delid="{{$saItem->id}}" data-delname="{{$saItem->title}}">
-                                <i class="fas fa-trash"></i>
-                            </a> 
+                                <a class="btn btn-danger data-delete" href="#" data-target="#deleteData" data-toggle="modal"
+                                    data-delid="{{$saItem->id}}" data-delname="{{$saItem->title}}">
+                                    <i class="fas fa-trash"></i>
+                                </a> 
                             @endif
                         </td>
                     </tr>

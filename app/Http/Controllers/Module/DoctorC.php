@@ -15,21 +15,18 @@ use Illuminate\Support\Facades\Session;
 
 class DoctorC extends Controller
 {
-    // public function index(){
-    //     return view('dashboard.doctor.index');
-    // }
     public function filter($fromdate, $todate, $search)
     {
         $dateFilter = '';
         $searchFilter = '';
-        $endWhereQry = 'status in (0,1) AND deleted_at IS NULL';
+        $endWhereQry = 'c_doctor.status in (0,1) AND c_doctor.deleted_at IS NULL';
         if ($fromdate != null && $todate != null) {
             $filterfromdate = implode(' ', [str_replace('-', '/', $fromdate), '00:00:00']);
             $filtertodate = implode(' ', [str_replace('-', '/', $todate), '23:59:00']);
-            $dateFilter = "DATE(created_at) BETWEEN '$filterfromdate' AND '$filtertodate' AND ";
+            $dateFilter = "DATE(c_doctor.created_at) BETWEEN '$filterfromdate' AND '$filtertodate' AND ";
         }
         if ($search != '') {
-            $searchFilter = "name LIKE '$search%' AND ";
+            $searchFilter = "m_staff.name LIKE '$search%' AND ";
         }
 
         $query = $dateFilter . $searchFilter . $endWhereQry;
@@ -52,8 +49,20 @@ class DoctorC extends Controller
         $todate = $request->toDate == null ? '' : $request->toDate;
         $search = $request->search == null ? '' : $request->search;
 
-        $dataResult = Doctor::whereRaw($this->filter($fromdate, $todate, $search))
-        ->orderBy('updated_at')
+        $dataResult = Doctor::select(
+            'm_staff.name as name',
+            'c_doctor.str as str',
+            'c_doctor.id as id',
+            'c_doctor.sip as sip',
+            'c_doctor.price as price',
+            'm_specialize.title as spName',
+            'c_doctor.status as status',
+            'c_doctor.updated_at as updatedAt',
+        )
+        ->leftJoin('m_staff', 'c_doctor.staff_id', 'm_staff.id')
+        ->leftJoin('m_specialize','c_doctor.specialize', 'm_specialize.id')
+        ->whereRaw($this->filter($fromdate, $todate, $search))
+        ->orderBy('c_doctor.updated_at')
         ->paginate(10);
 
         return view('dashboard.doctor.index', compact(
@@ -65,32 +74,118 @@ class DoctorC extends Controller
         ));
     }
 
-    public function createPost(DoctorReq $req){
+    public function detail($id){
+        $detailData = Doctor::select(
+            'c_doctor.id as id',
+            'c_doctor.photo as pic',
+            'c_doctor.price as price',
+            'c_doctor.about as about',
+            'c_doctor.str as str',
+            'c_doctor.sip as sip',
+            'm_staff.code as code',
+            'm_staff.name as name',
+            'm_staff.address as address',
+            'm_staff.email as email',
+            'm_staff.phone as phone',
+            'm_staff.identity as identity',
+            'm_staff.birthdate as birthdate',
+            'm_staff.birthplace as birthplace',
+            'm_specialize.title as spTitle',
+        )
+        ->leftJoin('m_staff','c_doctor.staff_id', 'm_staff.id')
+        ->leftJoin('m_specialize','c_doctor.specialize', 'm_specialize.id')
+        ->where('c_doctor.id', $id)
+        ->first();
+
+        $days = DB::table('m_day')->get();
+        $schedule = DB::table('c_dr_schedule')->select(
+            'm_day.title as dayTitle',
+            'c_dr_schedule.id as id',
+            'c_dr_schedule.time_from as timefrom',
+            'c_dr_schedule.time_to as timeto'
+        )
+        ->leftJoin('m_day', 'c_dr_schedule.day_id', 'm_day.id')
+        ->where('c_dr_schedule.doctor_id', $id)
+        ->where('c_dr_schedule.status', 1)
+        ->get();
+
+        return view('dashboard.doctor.detail', compact(
+            'detailData',
+            'days',
+            'schedule'
+        ));
+    }
+
+    public function createSchedulePost(Request $req, $id){
         try {
-            $req->validated();
-            $name=$req->name;
-            $price=$req->price;
-            $code=$req->code;
-            $normal=$req->normal;
-            $category=$req->lab_category;
+            $req->validate([
+                'day' => 'required',
+                'firstTime' => 'required',
+                'endTime' => 'required',
+            ]);
 
+            $day = $req->day;
+            $ftime = $req->firstTime;
+            $etime = $req->endTime;
+            
             DB::beginTransaction();
-
-            // insert to action table
-            $inAct = new Doctor();
-            $inAct->code = $code;
-            $inAct->name = $name;
-            $inAct->price = $price;
-            $inAct->category = $category;
-            $inAct->normal_value = $normal;
-            $inAct->status = 1;
-            $inAct->created_by_id = Auth::user()->id;
-            $inAct->save();
+            
+            // insert to table
+            $inDr = DB::table('c_dr_schedule')->insert([
+                'day_id' => $day,
+                'time_from' => $ftime,
+                'time_to' => $etime,
+                'status' => '1',
+                'created_by_id' => Auth::user()->id,
+                'doctor_id' => $id
+            ]);
 
             DB::commit();
 
-            Session::flash('success', 'Data Laborat Baru berhasil dibuat');
-            return redirect()->route('laborat');
+            Session::flash('success', 'Data Schedule Berhasil Dibuat');
+            return redirect()->back();
+
+        } catch (\Throwable $th) {
+            //throw $th;
+            dd($th);
+            DB::rollBack();
+        }
+    }
+    public function createPost(DoctorReq $req){
+        try {
+            $req->validated();
+
+            $staff = $req->staff_id;
+            $sip = $req->sip;
+            $str = $req->str;
+            $info = $req->info;
+            $specialize = $req->specialize;
+            $price = $req->price;
+            $user = $req->user_id;
+            $pic = $req->pic;
+            
+            DB::beginTransaction();
+            
+            $picName = time().'.'.$pic->extension();  
+            $pic->move(public_path('img/doctor'), $picName);
+            // insert to action table
+            $inDr = new Doctor();
+            $inDr->price = $price;
+            $inDr->str = $str;
+            $inDr->info = $info;
+            $inDr->photo = $picName;
+            $inDr->sip = $sip;
+            $inDr->specialize = $specialize;
+            $inDr->staff_id = $staff;
+            $inDr->user_id = $user;
+            $inDr->status = 1;
+            $inDr->created_by_id = Auth::user()->id;
+            $inDr->save();
+
+            DB::commit();
+
+            Session::flash('success', 'Data Dokter Berhasil Dibuat');
+            return redirect()->route('dokter');
 
         } catch (\Throwable $th) {
             //throw $th;
@@ -127,6 +222,25 @@ class DoctorC extends Controller
             DB::commit();
             Session::flash('success', 'Data Laborat berhasil dihapus');
             return redirect()->route('laborat');
+
+        } catch (\Throwable $th) {
+            //throw $th;
+            DB::rollBack();
+        }
+    }
+
+    public function deleteSchedule($id){
+        try {
+            //code...
+            DB::beginTransaction();
+            DB::table('c_dr_schedule')->where('id', $id)->update([
+                'status' => 0, //deactive
+                'deleted_by_id' => Auth::user()->id,
+                'deleted_at' => Carbon::now()
+            ]);
+            DB::commit();
+            Session::flash('success', 'Data Jadwal berhasil dihapus');
+            return redirect()->back();
 
         } catch (\Throwable $th) {
             //throw $th;
@@ -181,9 +295,4 @@ class DoctorC extends Controller
         return $randomString;
     }
 
-    public function getData(){
-        $data = Doctor::whereIn('status', [0,1])->where('doctorname', 'LIKE', '%'.request()->query('term').'%')->get();
-        // dd($data);
-        return response()->json($data);
-    }
 }

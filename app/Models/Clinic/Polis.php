@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Polis extends Model
 {
     use HasFactory;
-    protected $table = 'c_polis';
+    protected $table = 'm_polis';
 
     protected $fillable = [
         'poliname', 

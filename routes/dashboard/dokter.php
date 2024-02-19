@@ -11,6 +11,9 @@ Route::group(['middleware' => 'auth'], function() {
     
     Route::get('/dokter/create', [DoctorC::class, 'create'])->name('dokter-create');
     Route::post('/dokter/create', [DoctorC::class, 'createPost'])->name('dokter-create');
+   
+    Route::post('/dokter/create/{id}/schedule', [DoctorC::class, 'createSchedulePost'])->name('dokter-schedule-create');
+    Route::get('/dokter/delete/{id}/schedule', [DoctorC::class, 'deleteSchedule'])->name('dokter-schedule-delete');
     
     Route::get('/dokter/{id}', [DoctorC::class, 'edit'])->name('dokter-edit');
     Route::post('/dokter/{id}', [DoctorC::class, 'editPut'])->name('dokter-edit-submit');
