@@ -31,7 +31,7 @@
             {{-- <h6 class="m-0 font-weight-bold text-primary">{{$detailPatient}}</h6> --}}
         </div>
         <div class="card-body">
-            <div class="m-4">
+            <div class="m-2">
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="form-group">
@@ -81,7 +81,7 @@
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label>Gender</label>
-                            <input class="form-control" type="text" disabled value="{{ $detailPatient->gender }}" input>
+                            <input class="form-control" type="text" disabled value="{{ $detailPatient->gender == '1' ? 'Laki-Laki' : 'Perempuan' }}" input>
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -107,10 +107,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="row justify-content-between mr-1 mt-4">
+                {{-- <div class="row justify-content-between mr-1 mt-4">
                     <div class=""></div>
                     <a class="btn btn-primary text-white ">Tambah Rekam Medis</a>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>

@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
 
 class DoctorC extends Controller
@@ -251,10 +252,9 @@ class DoctorC extends Controller
     public function edit($id)
     {
         $dataDetail = Doctor::find($id);
-        $labCategory = DB::table('c_lab_category')->get();
         
         return view('dashboard.doctor.edit', 
-            compact('dataDetail','labCategory')
+            compact('dataDetail')
         );
     }
 
@@ -262,22 +262,36 @@ class DoctorC extends Controller
     {
         try {
             $detailData = Doctor::where('id', $id)->first();
-            $name = $req->name;
-            $category = $req->lab_category;
+            $pic = $req->pic;
+            $str = $req->str;
+            $sip = $req->sip;
             $price = $req->price;
-            $normal = $req->normal;
             $status = $req->status == null || $req->status == false ? 0 : 1;
 
+            if ($pic != null) {
+                // delete old image
+                $image_path = "img/doctor/".$detailData->photo;
+                if(File::exists($image_path)) {
+                    File::delete($image_path);
+                }
+                // insert new image
+                $picName = time().'.'.$pic->extension();  
+                $pic->move(public_path('img/doctor'), $picName);
+                // send to database
+                Doctor::where('id',$detailData->id)->update([
+                    'photo' => $picName
+                ]);
+            }
+
             Doctor::where('id',$detailData->id)->update([
-                'name' => $name == null ? $detailData->name : $name,
-                'category' => $category == null ? $detailData->category : $category,
-                'normal_value' => $normal == null ? $detailData->normal_value : $normal,
+                'str' => $str == null ? $detailData->str : $str,
+                'sip' => $sip == null ? $detailData->sip : $sip,
                 'price' => $price == null ? $detailData->price : $price,
                 'status' => $status,
             ]);
 
-            Session::flash('success', 'Ubah Laborat Berhasil');
-            return redirect()->route('laborat');
+            Session::flash('success', 'Ubah Dokter Berhasil');
+            return redirect()->route('dokter');
         } catch (\Throwable $th) {
             dd($th);
             Session::flash('error', 'Something Error, Please Refresh Page');
@@ -294,5 +308,11 @@ class DoctorC extends Controller
         }
         return $randomString;
     }
+
+    function clean($string) {
+        $string = str_replace(' ', '-', $string); // Replaces all spaces with hyphens.
+     
+        return preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.
+     }
 
 }

@@ -60,6 +60,7 @@ class PatientC extends Controller
             'c_patient.status as status',
             'c_patient.created_at as createdAt',
         )->whereRaw($this->filter($fromdate, $todate, $search))
+        ->orderBy('c_patient.updated_at', 'desc')
         ->paginate(10);
 
         return view('dashboard.patient.index', compact(
