@@ -11,6 +11,7 @@ use App\Models\UserLevels;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
@@ -153,11 +154,20 @@ class UserC extends Controller
 
     public function delete($id)
     {
-        User::where('id', $id)->update([
-            'deleted_by_id' => Auth::user()->id, 
-            'deleted_at' => Carbon::now()
-        ]);
-        Session::flash('success', 'Deleted Successfully');
-        return back();
+        try {
+            //code...
+            DB::beginTransaction();
+            User::where('id', $id)->update([
+                'status' => 0, //deactive
+                'deleted_by_id' => Auth::user()->id, 
+                'deleted_at' => Carbon::now()
+            ]);
+            DB::commit();
+            Session::flash('success', 'Deleted Successfully');
+            return back();
+        } catch (\Throwable $th) {
+            //throw $th;
+            DB::rollBack();
+        }
     }
 }

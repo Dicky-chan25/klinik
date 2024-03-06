@@ -19,6 +19,6 @@
         </div>
     @endif
     
-    @include('dashboard.visitor.component.form')
+    @include('dashboard.registration.component.form')
     
 @endsection

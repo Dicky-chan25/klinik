@@ -3,7 +3,7 @@
 @section('dashboard')
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Kunjungan</h1>
+        <h1 class="h3 mb-0 text-gray-800">Data Masuk Pendaftaran Pasien Berobat</h1>
     </div>
 
     @if (isset($errors) && $errors->any())
@@ -24,25 +24,25 @@
         </div>
     @endif
 
-    @include('dashboard.visitor.component.table')
+    @include('dashboard.master_data.patient_registered.component.table')
 @endsection
 
 
 
 @section('script')
 <script>
-    // var id;
-    // var userName;
+    var id;
+    var name;
 
-    // // delete passing data to modal
-    // $(".userpatient-delete").on('click', function() {
-    //     id = $(this).data("delpatientid");
-    //     userName = $(this).data("deluserpatient");
-    //     $("#delete-data-name").text('Apakah Anda yakin ingin menghapus ' + userName + '?');
-    // });
-    // // submit delete function
-    // $(".submit-delete").on('click', function() {
-    //     window.location.href='/settings/userpatients/delete/'+id
-    // });
+    // delete passing data to modal
+    $(".data-delete").on('click', function() {
+        id = $(this).data("delid");
+        name = $(this).data("delname");
+        $("#delete-data-name").text('Apakah Anda yakin ingin menghapus ' + name + '?');
+    });
+    // submit delete function
+    $(".submit-delete").on('click', function() {
+        window.location.href='/pendaftaranpasien/delete/'+id
+    });
 </script>
 @endsection

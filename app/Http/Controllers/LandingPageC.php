@@ -35,7 +35,7 @@ class LandingPageC extends Controller
                 // service data
                 'c_service.name_service as serviceName',
                 // poli data
-                'm_polis.poliname as poliName',
+                'm_polis.title as poliName',
                 // doctor data
                 'c_doctor.doctorname as doctorName',
             )
@@ -289,7 +289,7 @@ class LandingPageC extends Controller
         //     // service data
         //     'c_service.name_service as serviceName',
         //     // poli data
-        //     'm_polis.poliname as poliName',
+        //     'm_polis.title as poliName',
         //     // doctor data
         //     'c_doctor.doctorname as doctorName',
         // )

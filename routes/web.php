@@ -7,10 +7,12 @@ use App\Http\Controllers\Api\Doctor\LaboratoryC;
 use App\Http\Controllers\Api\Doctor\MedicEquipC;
 use App\Http\Controllers\Api\Doctor\PrescriptionC;
 use App\Http\Controllers\Api\Doctor\RadiologyC;
+use App\Http\Controllers\Api\PatientC;
 use App\Http\Controllers\Api\StaffC;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\HomeC;
 use App\Http\Controllers\LandingPageC;
+use App\Http\Controllers\PdfController;
 use App\Models\Api\Doctor\LetterC;
 use Illuminate\Support\Facades\Route;
 
@@ -33,15 +35,20 @@ require __DIR__ . '/dashboard/pegawai.php';
 require __DIR__ . '/dashboard/dokter.php';
 require __DIR__ . '/dashboard/pasien.php';
 require __DIR__ . '/dashboard/rekammedis.php';
-require __DIR__ . '/dashboard/antrian.php';
+require __DIR__ . '/dashboard/pendaftaran.php';
 require __DIR__ . '/dashboard/transaksi.php';
+require __DIR__ . '/dashboard/supplier.php';
+require __DIR__ . '/dashboard/rawatpasien.php';
 
 require __DIR__ . '/dashboard/datamaster/laborat.php';
 require __DIR__ . '/dashboard/datamaster/tindakan.php';
+require __DIR__ . '/dashboard/datamaster/pendaftaranpasien.php';
 
 require __DIR__ . '/dashboard/obat/obatmasuk.php';
 require __DIR__ . '/dashboard/obat/obatkeluar.php';
 require __DIR__ . '/dashboard/obat/semuaobat.php';
+
+require __DIR__ . '/dashboard/cetak.php';
 
 // landing page
 Route::get('/', [LandingPageC::class, 'index']);
@@ -77,6 +84,8 @@ Route::group(['middleware' => 'auth'], function() {
    
     // API staff
     Route::get('/staff', [StaffC::class, 'getData'])->name('staff-load');
+    // API patient
+    Route::get('/patient', [PatientC::class, 'getData'])->name('patient-load');
     
     // API prescript
     Route::get('/prescript/{rmId}', [PrescriptionC::class, 'getData'])->name('prescript-load');

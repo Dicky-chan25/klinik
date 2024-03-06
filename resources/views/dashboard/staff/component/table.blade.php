@@ -62,15 +62,15 @@
                             </a> --}}
                             {{-- get by role user --}}
                             @if ($access->edit == 1)
-                            <a href="{{route('tindakan-edit',['id'=>$saItem->id ])}}" class="btn btn-warning">
-                                <i class="fas fa-edit"></i>
-                            </a>
+                                <a href="{{route('tindakan-edit',['id'=>$saItem->id ])}}" class="btn btn-warning">
+                                    <i class="fas fa-edit"></i>
+                                </a>
                             @endif
                             @if ($access->delete == 1)
-                            <a class="btn btn-danger data-delete" href="#" data-target="#deleteData" data-toggle="modal"
-                                data-delid="{{$saItem->id}}" data-delname="{{$saItem->title}}">
-                                <i class="fas fa-trash"></i>
-                            </a> 
+                                <a class="btn btn-danger data-delete" href="#" data-target="#deleteData" data-toggle="modal"
+                                    data-delid="{{$saItem->id}}" data-delname="{{$saItem->title}}">
+                                    <i class="fas fa-trash"></i>
+                                </a> 
                             @endif
                         </td>
                     </tr>

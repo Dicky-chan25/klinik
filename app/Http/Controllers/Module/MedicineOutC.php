@@ -57,7 +57,7 @@ class MedicineOutC extends Controller
             'c_medicine_stock_d.id as barId',
             'c_medicine_stock_d.barcode as barcode',
             'c_medicine_stock_d.status as status',
-            'c_medicine_stock.supplier as supplier',
+            'c_medicine.supplier as supplier',
             'c_medicine.medicinename as medsName',
             'c_medicine.updated_at as updatedAt',
         )

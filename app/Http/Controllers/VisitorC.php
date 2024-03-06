@@ -60,7 +60,7 @@ class VisitorC extends Controller
             'c_visitor.status as status',
             'c_visitor.queue_no as queueNo',
             'c_patient.patientname as patientName',
-            'm_polis.poliname as poliName',
+            'm_polis.title as poliName',
             'c_service.name_service as serviceName',
         )
         ->leftJoin('c_patient', 'c_visitor.patient_id', 'c_patient.id')

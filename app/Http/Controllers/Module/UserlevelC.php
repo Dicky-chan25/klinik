@@ -154,6 +154,7 @@ class UserlevelC extends Controller
     public function delete($id)
     {
         UserLevels::where('id', $id)->update([
+            'status' => 0, //deactive
             'deleted_by_id' => Auth::user()->id, 
             'deleted_at' => Carbon::now()
         ]);

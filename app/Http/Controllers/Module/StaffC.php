@@ -94,7 +94,7 @@ class StaffC extends Controller
             $intCode = (int)$strCode;
             $finalCode = $codeStaffRole->code . str_pad(($intCode + 1), 5, "0", STR_PAD_LEFT);
                 
-            // insert to patient table
+            // insert to staff table
             $inStaff = new Staff();
             $inStaff->code = $finalCode;
             $inStaff->role = $role;

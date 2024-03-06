@@ -147,6 +147,7 @@ class MenuC extends Controller
     public function delete($id)
     {
         Menus::where('id', $id)->update([
+            'status' => 0, //deactive
             'deleted_by_id' => Auth::user()->id, 
             'deleted_at' => Carbon::now()
         ]);
