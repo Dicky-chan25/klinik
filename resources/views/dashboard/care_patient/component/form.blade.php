@@ -25,7 +25,7 @@
                         <div class="d-flex" style="gap:1rem">
                             <div class="form-control" style="background-color: #E9ECF4">
                                 {{ $detailData->birthplace }}</div>
-                            <div class="form-control" style="background-color: #E9ECF4">
+                             style="background-color: #E9ECF4">
                                 {{ $detailData->birthdate }}</div>
                         </div>
                     </div>

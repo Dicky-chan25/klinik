@@ -11,7 +11,7 @@
                         <div class="form-group">
                             <label for="reg_code">Kode Registrasi</label>
                             <div class="form-control" style="background-color: #E9ECF4">{{ $finalReg }}</div>
-                            <input name="reg_code" type="text" style="display: none" value="{{ $finalRm }}">
+                            <input name="reg_code" type="text" style="display: none" value="{{ $finalReg }}">
                         </div>
                     </div>
                     <div class="col-lg-4">
@@ -26,6 +26,43 @@
                             <label for="queue_no">Nomor Antrian</label>
                             <div class="form-control" style="background-color: #E9ECF4">{{ $countReg }}</div>
                             <input name="queue_no" type="text" style="display: none" value="{{ $countReg }}">
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <div class="col-lg">
+                        <div class="form-group">
+                            <label for="rm_code">Kode Assesment</label>
+                            <div class="form-control" style="background-color: #E9ECF4">{{ $finalAss }}</div>
+                            <input name="ass_code" type="text" style="display: none" value="{{ $finalAss }}">
+                        </div>
+                    </div>
+                    <div class="col-lg">
+                        <div class="form-group">
+                            <label for="rm_code">Kode Obat Non Racik</label>
+                            <div class="form-control" style="background-color: #E9ECF4">{{ $finalOnr }}</div>
+                            <input name="onr_code" type="text" style="display: none" value="{{ $finalOnr }}">
+                        </div>
+                    </div>
+                    <div class="col-lg">
+                        <div class="form-group">
+                            <label for="rm_code">Kode Obat Racik</label>
+                            <div class="form-control" style="background-color: #E9ECF4">{{ $finalOr }}</div>
+                            <input name="or_code" type="text" style="display: none" value="{{ $finalOr }}">
+                        </div>
+                    </div>
+                    <div class="col-lg">
+                        <div class="form-group">
+                            <label for="rm_code">Kode Tindakan</label>
+                            <div class="form-control" style="background-color: #E9ECF4">{{ $finalAct }}</div>
+                            <input name="act_code" type="text" style="display: none" value="{{ $finalAct }}">
+                        </div>
+                    </div>
+                    <div class="col-lg">
+                        <div class="form-group">
+                            <label for="rm_code">Kode Laborat</label>
+                            <div class="form-control" style="background-color: #E9ECF4">{{ $finalLab }}</div>
+                            <input name="lab_code" type="text" style="display: none" value="{{ $finalLab }}">
                         </div>
                     </div>
                 </div>

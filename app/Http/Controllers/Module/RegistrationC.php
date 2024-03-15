@@ -73,7 +73,7 @@ class RegistrationC extends Controller
                 'c_patient.phone as phone',
                 'c_patient.identity as identity',
                 'c_patient.gender as gender',
-                'c_medical_record.rm_code as code',
+                'c_medical_record.code as code',
                 'c_medical_record.status as mrStatus',
                 'c_patient.status as pStatus',
             )
@@ -81,6 +81,21 @@ class RegistrationC extends Controller
             ->whereRaw($this->search($search))
             ->groupBy('c_medical_record.id')
             ->paginate(5);
+
+            // MedicalRecord::select(
+            //     'c_patient.id as id',
+            //     'c_patient.patientname as name',
+            //     'c_patient.phone as phone',
+            //     'c_patient.identity as identity',
+            //     'c_patient.gender as gender',
+            //     'c_medical_record.code as code',
+            //     'c_medical_record.status as mrStatus',
+            //     'c_patient.status as pStatus',
+            // )->rightJoin('c_patient', function($join) use($search) {
+            //     $join->on('c_patient.id', 'c_medical_record.patient_id', 'c_patient.id')
+            //     ->whereRaw($this->search($search));
+            // })
+            // ->paginate(5);
         }
 
         $dataResult = Registration::select(
@@ -95,7 +110,9 @@ class RegistrationC extends Controller
         )
         ->leftJoin('c_patient', 'c_registration.patient_id', 'c_patient.id')
         ->whereRaw('c_registration.is_submit = 0 AND c_registration.status in (0,1) AND c_registration.deleted_at IS NULL')
+        // ->whereRaw('c_registration.is_submit = 0 AND c_registration.status in (0,1) AND c_registration.deleted_at IS NULL')
         ->paginate(5);
+
 
         return view('dashboard.registration.index', compact(
             'searchResult',
@@ -123,10 +140,10 @@ class RegistrationC extends Controller
         $intReg = (int)$strReg === 1 ? (int)$strReg : (int)$strReg + 1;
         $finalReg = (int)$strReg === 1 ? "REG" . date("dmy") . str_pad(($intReg), 5, "0", STR_PAD_LEFT) : "REG" . $intReg;
 
-        $rmLast = Registration::orderBy('id', 'DESC')->first();
-        $strRm = is_null($rmLast) ? '00001' : substr($rmLast->reg_no, 3); // remove character H-
-        $intRm = (int)$strRm === 1 ? (int)$strRm : (int)$strRm + 1;
-        $finalRm = (int)$strRm === 1 ? "RM" . date("dmy") . str_pad(($intRm + 1), 5, "0", STR_PAD_LEFT) : 'RM'.$intRm;
+        // $rmLast = Registration::orderBy('id', 'DESC')->first();
+        // $strRm = is_null($rmLast) ? '00001' : substr($rmLast->reg_no, 3); // remove character H-
+        // $intRm = (int)$strRm === 1 ? (int)$strRm : (int)$strRm + 1;
+        // $finalRm = (int)$strRm === 1 ? "RM" . date("dmy") . str_pad(($intRm + 1), 5, "0", STR_PAD_LEFT) : 'RM'.$intRm;
 
         $totalReg = Registration::count();
         $countReg = $totalReg + 1;

@@ -31,7 +31,7 @@
                       @foreach (SiteHelpers::sub_menu() as $sub)
                         @if ($sub->is_parent == $main->id)
                           <a href="{{route($sub->routepath)}}">
-                            <h6 class="collapse-header mx-2 @if (Request::segment(2) == $sub->routepath) bg-primary text-light  @endif">{{$sub->menuname}}</h6>
+                            <p style="margin:10px;padding-left:10px;color:grey;text-decoration:none" class="mx-2 @if (Request::segment(2) == $sub->routepath) bg-primary text-light  @endif">{{$sub->menuname}}</p>
                           </a>
                         @endif
                       @endforeach

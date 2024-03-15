@@ -11,25 +11,17 @@ class MedicalRecord extends Model
     protected $table = 'c_medical_record';
 
     protected $fillable = [
-        'rm_code', 
-        'age',
+        'reg_no',
+        'code',
         'patient_id',
-        'visitor_id',
         'doctor_id',
-        'blood_id',
-        'service_id',
-        'complaint',
-        'diagnose',
-        'action',
-        'weight',
-        'height',
-        'waist',
+        'care_status',
         'status',
         'created_by_id',
         'updated_by_id',
         'deleted_by_id',
         'created_by_at',
         'updated_by_at',
-        'deleted_by_at',
+        'deleted_by_at',		
     ];
 }

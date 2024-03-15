@@ -4,7 +4,7 @@
         <h6 class="m-0 font-weight-bold text-primary">Semua Data Rawat Pasien Hari Ini</h6>
     </div>
     <div class="card-body">
-        <a href="" class="btn btn-primary float-right mb-4">Pendaftaran Pasien</a>
+        <a href="{{route('pendaftaranpasien')}}" class="btn btn-primary float-right mb-4">Pendaftaran Pasien</a>
         <div class="table table-responsive">
             <table class="table" width="100%" cellspacing="0">
                 <thead>
@@ -31,37 +31,37 @@
                             <td>{{ $ddt->createdAt }}</td>
                             <td>
                                 @if ($ddt->nursingStatus === 1)
-                                    <div class="btn btn-secondary btn-sm">
+                                    <div class="btn btn-primary btn-sm">
                                         <i class="fa fa-stethoscope"></i>
-                                        Belum Diperiksa
+                                        <span class="ml-2">Belum Diperiksa</span>
                                     </div>
                                 @else
                                     <div class="btn btn-success btn-sm">
                                         <i class="fa fa-check-circle"></i>
-                                        Sudah Diperiksa
+                                        <span class="ml-2">Sudah Diperiksa</span>
                                     </div>
                                 @endif
                             </td>
                             <td class="table-action">
-                                <a href="" class="btn btn-sm btn-info">
+                                <a href="{{route('rawatpasien-assesment', ['id' => $ddt->id])}}" class="btn btn-sm btn-info">
                                     <i class="fa fa-plus-square"></i>
-                                    Assesment
+                                    <span class="ml-2">Periksa</span>
                                 </a>
                                 @if ($ddt->isCall === 0)
                                     <a href="#" class="btn btn-sm btn-primary play-audio"
                                         data-callid="{{ $ddt->id }}">
                                         <i class="fa fa-volume-up"></i>
-                                        Panggil
+                                        <span class="ml-2">Panggil</span>
                                     </a>
                                 @else
                                     <div class="btn btn-sm btn-secondary">
                                         <i class="fa fa-check-circle"></i>
-                                        Sudah Panggil
+                                        <span class="ml-2">Sudah Panggil</span>
                                     </div>
                                 @endif
                                 <a href="" class="btn btn-sm btn-danger">
                                     <i class="fas fa-trash"></i>
-                                    Hapus
+                                    <span class="ml-2">Hapus</span>
                                 </a>
                             </td>
                         </tr>

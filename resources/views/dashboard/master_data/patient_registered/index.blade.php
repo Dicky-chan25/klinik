@@ -24,6 +24,8 @@
         </div>
     @endif
 
+    @include('dashboard.master_data.patient_registered.component.modal_confirm')
+    @include('dashboard.master_data.patient_registered.component.modal_delete')
     @include('dashboard.master_data.patient_registered.component.table')
 @endsection
 
@@ -42,7 +44,18 @@
     });
     // submit delete function
     $(".submit-delete").on('click', function() {
-        window.location.href='/pendaftaranpasien/delete/'+id
+        window.location.href='/datamaster/pendaftaranpasien/delete/'+id
+    });
+
+    // delete passing data to modal
+    $(".data-confirm").on('click', function() {
+        id = $(this).data("confirmid");
+        name = $(this).data("confirmname");
+        $("#confirm-data-name").text('Apakah Anda yakin ingin menambahakn ' + name + ' ke dalam antrian rawat pasien ?');
+    });
+    // submit delete function
+    $(".submit-confirm").on('click', function() {
+        window.location.href='/datamaster/pendaftaranpasien/confirm/'+id
     });
 </script>
 @endsection

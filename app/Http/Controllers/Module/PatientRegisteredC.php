@@ -6,6 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\RegistrationReq;
 use App\Models\Clinic\Doctor;
 use App\Models\Clinic\MedicalRecord;
+use App\Models\Clinic\MedicalRecord\Action;
+use App\Models\Clinic\MedicalRecord\Assesment;
+use App\Models\Clinic\MedicalRecord\Laborat;
+use App\Models\Clinic\MedicalRecord\ObatNonRacik;
+use App\Models\Clinic\MedicalRecord\ObatRacik;
 use App\Models\Clinic\Patient;
 use App\Models\Clinic\Registration;
 use App\Models\MenuAccess;
@@ -69,15 +74,48 @@ class PatientRegisteredC extends Controller
         )->leftJoin('m_career', 'c_patient.career_id', 'm_career.id')
             ->first();
 
+        // registration code
         $regLast = Registration::orderBy('id', 'DESC')->first();
-        $strReg = is_null($regLast) ? '00001' : substr($regLast->reg_no, 3); // remove character H-
+        $strReg = is_null($regLast) ? '00001' : substr($regLast->reg_no, 3);
         $intReg = (int)$strReg === 1 ? (int)$strReg : (int)$strReg + 1;
         $finalReg = (int)$strReg === 1 ? "REG" . date("dmy") . str_pad(($intReg), 5, "0", STR_PAD_LEFT) : "REG" . $intReg;
 
-        $rmLast = Registration::orderBy('id', 'DESC')->first();
-        $strRm = is_null($rmLast) ? '00001' : substr($rmLast->reg_no, 3); // remove character H-
+        // medical record code
+        $rmLast = MedicalRecord::orderBy('id', 'DESC')->first();
+        $strRm = is_null($rmLast) ? '00001' : substr($rmLast->code, 3);
         $intRm = (int)$strRm === 1 ? (int)$strRm : (int)$strRm + 1;
-        $finalRm = (int)$strRm === 1 ? "RM" . date("dmy") . str_pad(($intRm + 1), 5, "0", STR_PAD_LEFT) : 'RM'.$intRm;
+        $finalRm = (int)$strRm === 1 ? "RM" . date("dmy") . str_pad(($intRm), 5, "0", STR_PAD_LEFT) : 'RM'.$intRm;
+        
+        // assesment code
+        $assLast = Assesment::orderBy('id', 'DESC')->first();
+        $strAss = is_null($assLast) ? '00001' : substr($assLast->code, 3);
+        $intAss = (int)$strAss === 1 ? (int)$strAss : (int)$strAss + 1;
+        $finalAss = (int)$strAss === 1 ? "ASS" . date("dmy") . str_pad(($intAss), 5, "0", STR_PAD_LEFT) : 'ASS'.$intAss;
+
+        // obat nonracikan code
+        $onrLast = ObatNonRacik::orderBy('id', 'DESC')->first();
+        $strOnr = is_null($onrLast) ? '00001' : substr($onrLast->code, 3);
+        $intOnr = (int)$strOnr === 1 ? (int)$strOnr : (int)$strOnr + 1;
+        $finalOnr = (int)$strOnr === 1 ? "ONR" . date("dmy") . str_pad(($intOnr), 5, "0", STR_PAD_LEFT) : 'ONR'.$intOnr;
+
+        // obat racikan code        
+        $orLast = ObatRacik::orderBy('id', 'DESC')->first();
+        $strOr = is_null($orLast) ? '00001' : substr($orLast->code, 3);
+        $intOr = (int)$strOr === 1 ? (int)$strOr : (int)$strOr + 1;
+        $finalOr = (int)$strOr === 1 ? "OR" . date("dmy") . str_pad(($intOr), 5, "0", STR_PAD_LEFT) : 'OR'.$intOr;
+
+        // tindakan code        
+        $actLast = Action::orderBy('id', 'DESC')->first();
+        $strAct = is_null($actLast) ? '00001' : substr($actLast->code, 3);
+        $intAct = (int)$strAct === 1 ? (int)$strAct : (int)$strAct + 1;
+        $finalAct = (int)$strOr === 1 ? "ACT" . date("dmy") . str_pad(($intAct), 5, "0", STR_PAD_LEFT) : 'ACT'.$intAct;
+
+        // laborat code
+        $labLast = Laborat::orderBy('id', 'DESC')->first();
+        $strLab = is_null($labLast) ? '00001' : substr($labLast->code, 3);
+        $intLab = (int)$strLab === 1 ? (int)$strLab : (int)$strLab + 1;
+        $finalLab = (int)$strOr === 1 ? "ACT" . date("dmy") . str_pad(($intLab), 5, "0", STR_PAD_LEFT) : 'ACT'.$intLab;
+
 
         $totalReg = Registration::count();
         $countReg = $totalReg + 1;
@@ -94,6 +132,11 @@ class PatientRegisteredC extends Controller
             'finalReg',
             'countReg',
             'finalRm',
+            'finalAss',
+            'finalOnr',
+            'finalOr',
+            'finalAct',
+            'finalLab',
             'allDoctor'
         ));
     }
@@ -106,6 +149,11 @@ class PatientRegisteredC extends Controller
             $queue_no = $req->queue_no;
             $reg_code = $req->reg_code;
             $rm_code = $req->rm_code;
+            $ass_code = $req->ass_code;
+            $onr_code = $req->onr_code;
+            $or_code = $req->or_code;
+            $act_code = $req->act_code;
+            $lab_code = $req->lab_code;
             $payment_method = $req->payment_method;
             $entry_method = $req->entry_method;
             $nursing_status = $req->nursing_status;
@@ -120,9 +168,14 @@ class PatientRegisteredC extends Controller
             // insert to registration table
             $inReg = new Registration();
             $inReg->queue_no = $queue_no;
-            $inReg->rm_code = $rm_code;
             $inReg->alergy = $alergy;
             $inReg->reg_no = $reg_code;
+            $inReg->rm_code = $rm_code;
+            $inReg->ass_code = $ass_code;
+            $inReg->onr_code = $onr_code;
+            $inReg->or_code = $or_code;
+            $inReg->act_code = $act_code;
+            $inReg->lab_code = $lab_code;
             $inReg->doctor_id = $doctor_id;
             $inReg->patient_id = $patientId;
             $inReg->payment_method = $payment_method;
@@ -162,6 +215,82 @@ class PatientRegisteredC extends Controller
             DB::commit();
 
             Session::flash('success', 'Deleted Successfully');
+            return back();
+        } catch (\Throwable $th) {
+            //throw $th;
+            dd($th);
+            DB::rollBack();
+            return redirect()->back();
+        }
+    }
+
+    public function confirm($id)
+    {
+        try {
+            //code...
+            DB::beginTransaction();
+
+            Registration::where('id', $id)->update([
+                'is_submit' => 1, // process to queue
+                'updated_by_id' => Auth::user()->id,
+                'updated_at' => Carbon::now()
+            ]);
+
+            $detailData = Registration::find($id);
+
+            // insert new row for medical record
+            $dataMr = MedicalRecord::insertGetId([
+                'reg_no'=>$detailData->reg_no,
+                'code'=>$detailData->rm_code,
+                'patient_id'=>$detailData->patient_id,
+                'doctor_id'=>$detailData->doctor_id,
+                'status' => 1,
+                'created_by_id' => Auth::user()->id,
+            ]);
+
+            // insert new row for assesment
+            Assesment::insert([
+                'rm_id'=>$dataMr,
+                'code'=>$detailData->ass_code,
+                'status' => 1,
+                'created_by_id' => Auth::user()->id,
+            ]);
+            
+            // insert new row for obat nonracikan
+            ObatNonRacik::insert([
+                'rm_id'=>$dataMr,
+                'code'=>$detailData->onr_code,
+                'status' => 1,
+                'created_by_id' => Auth::user()->id,
+            ]);
+
+            // insert new row for obat racikan
+            ObatRacik::insert([
+                'rm_id'=>$dataMr,
+                'code'=>$detailData->or_code,
+                'status' => 1,
+                'created_by_id' => Auth::user()->id,
+            ]);
+
+            // insert new row for action
+            Action::insert([
+                'rm_id'=>$dataMr,
+                'code'=>$detailData->act_code,
+                'status' => 1,
+                'created_by_id' => Auth::user()->id,
+            ]);
+
+            // insert new row for laborat
+            Laborat::insert([
+                'rm_id'=>$dataMr,
+                'code'=>$detailData->lab_code,
+                'status' => 1,
+                'created_by_id' => Auth::user()->id,
+            ]);
+
+            DB::commit();
+
+            Session::flash('success', 'Updated Successfully');
             return back();
         } catch (\Throwable $th) {
             //throw $th;

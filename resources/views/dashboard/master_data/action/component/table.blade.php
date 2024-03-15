@@ -41,7 +41,7 @@
                     @foreach ($dataResult as $aaItem)
                     <tr>
                         <td>{{ $aaItem->code }}</td>
-                        <td>{{ $aaItem->title }}</td>
+                        <td>{{ $aaItem->name }}</td>
                         <td>Rp. {{ number_format($aaItem->price) }}</td>
                         <td>{{ date('d-m-Y', strtotime($aaItem->created_at)) }}</td>
                         <td>

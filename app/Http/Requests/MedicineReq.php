@@ -23,9 +23,14 @@ class MedicineReq extends FormRequest
     {
         return [
             'code' => 'required',
+            'code_mdc' => 'required',
             'mname' => 'required',
-            'sname' => 'required',
-            'scontact' => 'required',
+            'supplier_id' => 'required',
+            'exp_date' => 'required',
+            'price' => 'required',
+            'qty' => 'required',
+            'unit' => 'required',
+            'category' => 'required',
         ];
     }
 }

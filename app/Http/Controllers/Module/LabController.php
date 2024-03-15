@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Module;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LaboratoryReq;
 use App\Models\Clinic\Laboratory;
+use App\Models\Clinic\MedicalRecord\Laborat;
 use App\Models\MenuAccess;
 use App\Models\Menus;
 use Carbon\Carbon;
@@ -49,7 +50,7 @@ class LabController extends Controller
         $todate = $request->toDate == null ? '' : $request->toDate;
         $search = $request->search == null ? '' : $request->search;
 
-        $dataResult = Laboratory::whereRaw($this->filter($fromdate, $todate, $search))
+        $dataResult = Laborat::whereRaw($this->filter($fromdate, $todate, $search))
         ->orderBy('updated_at')
         ->paginate(10);
 
@@ -74,7 +75,7 @@ class LabController extends Controller
             DB::beginTransaction();
 
             // insert to action table
-            $inAct = new Laboratory();
+            $inAct = new Laborat();
             $inAct->code = $code;
             $inAct->name = $name;
             $inAct->price = $price;
@@ -99,7 +100,7 @@ class LabController extends Controller
         $staffRole =  DB::table('m_staff_role')->get();
         // generate code
 
-        $codeLast = Laboratory::orderBy('id', 'DESC')->first();
+        $codeLast = Laborat::orderBy('id', 'DESC')->first();
         $strCode = is_null($codeLast) ? '000001' : substr($codeLast->code, 3); // remove character H-
         $intCode = (int)$strCode;
         $actCode = "LBR" . str_pad(($intCode + 1), 6, "0", STR_PAD_LEFT);
@@ -116,7 +117,7 @@ class LabController extends Controller
         try {
             //code...
             DB::beginTransaction();
-            Laboratory::where('id', $id)->update([
+            Laborat::where('id', $id)->update([
                 'status' => 0, //deactive
                 'deleted_by_id' => Auth::user()->id,
                 'deleted_at' => Carbon::now()
@@ -133,7 +134,7 @@ class LabController extends Controller
 
     public function edit($id)
     {
-        $dataDetail = Laboratory::find($id);
+        $dataDetail = Laborat::find($id);
         $labCategory = DB::table('c_lab_category')->get();
         
         return view('dashboard.master_data.laboratory.edit', 
@@ -144,14 +145,14 @@ class LabController extends Controller
     public function editPut(Request $req, $id)
     {
         try {
-            $detailData = Laboratory::where('id', $id)->first();
+            $detailData = Laborat::where('id', $id)->first();
             $name = $req->name;
             $category = $req->lab_category;
             $price = $req->price;
             $normal = $req->normal;
             $status = $req->status == null || $req->status == false ? 0 : 1;
 
-            Laboratory::where('id',$detailData->id)->update([
+            Laborat::where('id',$detailData->id)->update([
                 'name' => $name == null ? $detailData->name : $name,
                 'category' => $category == null ? $detailData->category : $category,
                 'normal_value' => $normal == null ? $detailData->normal_value : $normal,

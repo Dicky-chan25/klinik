@@ -13,6 +13,11 @@ class Registration extends Model
     protected $fillable = [
         'queue_no', 
         'rm_code', 
+        'ass_code', 
+        'onr_code', 
+        'or_code', 
+        'act_code', 
+        'lab_code', 
         'alergy', 
         'reg_no', 
         'doctor_id', 

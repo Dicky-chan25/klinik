@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Module;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ActionReq;
 use App\Models\Clinic\Action;
+use App\Models\Clinic\ActionPlan;
 use App\Models\MenuAccess;
 use App\Models\Menus;
 use Carbon\Carbon;
@@ -49,7 +50,7 @@ class ActionC extends Controller
         $todate = $request->toDate == null ? '' : $request->toDate;
         $search = $request->search == null ? '' : $request->search;
 
-        $dataResult = Action::whereRaw($this->filter($fromdate, $todate, $search))
+        $dataResult = ActionPlan::whereRaw($this->filter($fromdate, $todate, $search))
         ->paginate(10);
 
         return view('dashboard.master_data.action.index', compact(
@@ -71,9 +72,9 @@ class ActionC extends Controller
             DB::beginTransaction();
 
             // insert to action table
-            $inAct = new Action();
+            $inAct = new ActionPlan();
             $inAct->code = $code;
-            $inAct->title = $name;
+            $inAct->name = $name;
             $inAct->price = $price;
             $inAct->status = 1;
             $inAct->created_by_id = Auth::user()->id;
@@ -93,7 +94,11 @@ class ActionC extends Controller
     public function create(){
         $staffRole =  DB::table('m_staff_role')->get();
         // generate code
-        $actCode  = 'ACT'.$this->generateRandomString(5);
+        $codeLast = ActionPlan::orderBy('id', 'DESC')->first();
+        $strCode = is_null($codeLast) ? '00001' : substr($codeLast->code, 3);
+        $intCode = (int)$strCode === 1 ? (int)$strCode : (int)$strCode + 1;
+        $actCode = (int)$strCode === 1 ? "ACP" . date("dmy") . str_pad(($intCode), 5, "0", STR_PAD_LEFT) : 'ACT'.$intCode;
+
         
         return view('dashboard.master_data.action.create', compact(
             'staffRole',
@@ -105,7 +110,7 @@ class ActionC extends Controller
         try {
             //code...
             DB::beginTransaction();
-            Action::where('id', $id)->update([
+            ActionPlan::where('id', $id)->update([
                 'status' => 0, //deactive
                 'deleted_by_id' => Auth::user()->id,
                 'deleted_at' => Carbon::now()
@@ -122,7 +127,7 @@ class ActionC extends Controller
 
     public function edit($id)
     {
-        $dataDetail = Action::find($id);
+        $dataDetail = ActionPlan::find($id);
         return view('dashboard.master_data.action.edit', 
             compact('dataDetail')
         );
@@ -131,12 +136,12 @@ class ActionC extends Controller
     public function editPut(Request $req, $id)
     {
         try {
-            $detailData = Action::where('id', $id)->first();
+            $detailData = ActionPlan::where('id', $id)->first();
             $name = $req->name;
             $price = $req->price;
             $status = $req->status == null || $req->status == false ? 0 : 1;
 
-            Action::where('id',$detailData->id)->update([
+            ActionPlan::where('id',$detailData->id)->update([
                 'title' => $name == null ? $detailData->name : $name,
                 'price' => $price == null ? $detailData->price : $price,
                 'status' => $status,
@@ -151,13 +156,13 @@ class ActionC extends Controller
         }
     }
 
-    function generateRandomString($length) {
-        $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $charactersLength = strlen($characters);
-        $randomString = '';
-        for ($i = 0; $i < $length; $i++) {
-            $randomString .= $characters[random_int(0, $charactersLength - 1)];
-        }
-        return $randomString;
-    }
+    // function generateRandomString($length) {
+    //     $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    //     $charactersLength = strlen($characters);
+    //     $randomString = '';
+    //     for ($i = 0; $i < $length; $i++) {
+    //         $randomString .= $characters[random_int(0, $charactersLength - 1)];
+    //     }
+    //     return $randomString;
+    // }
 }

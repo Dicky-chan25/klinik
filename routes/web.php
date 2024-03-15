@@ -7,8 +7,10 @@ use App\Http\Controllers\Api\Doctor\LaboratoryC;
 use App\Http\Controllers\Api\Doctor\MedicEquipC;
 use App\Http\Controllers\Api\Doctor\PrescriptionC;
 use App\Http\Controllers\Api\Doctor\RadiologyC;
+use App\Http\Controllers\Api\MedicineC;
 use App\Http\Controllers\Api\PatientC;
 use App\Http\Controllers\Api\StaffC;
+use App\Http\Controllers\Api\SupplierC;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\HomeC;
 use App\Http\Controllers\LandingPageC;
@@ -43,10 +45,12 @@ require __DIR__ . '/dashboard/rawatpasien.php';
 require __DIR__ . '/dashboard/datamaster/laborat.php';
 require __DIR__ . '/dashboard/datamaster/tindakan.php';
 require __DIR__ . '/dashboard/datamaster/pendaftaranpasien.php';
+require __DIR__ . '/dashboard/datamaster/obatracik.php';
 
-require __DIR__ . '/dashboard/obat/obatmasuk.php';
-require __DIR__ . '/dashboard/obat/obatkeluar.php';
-require __DIR__ . '/dashboard/obat/semuaobat.php';
+require __DIR__ . '/dashboard/obat.php';
+// require __DIR__ . '/dashboard/obat/obatmasuk.php';
+// require __DIR__ . '/dashboard/obat/obatkeluar.php';
+// require __DIR__ . '/dashboard/obat/semuaobat.php';
 
 require __DIR__ . '/dashboard/cetak.php';
 
@@ -86,6 +90,12 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/staff', [StaffC::class, 'getData'])->name('staff-load');
     // API patient
     Route::get('/patient', [PatientC::class, 'getData'])->name('patient-load');
+    // API supplier
+    Route::get('/supplier-list', [SupplierC::class, 'getData'])->name('supplier-load');
+    // API obat non racik
+    Route::get('/obat-non-racik', [MedicineC::class, 'getDataOnr'])->name('obat-non-racik');
+    // API obat racik
+    Route::get('/obat-racik', [MedicineC::class, 'getDataOr'])->name('obat-racik');
     
     // API prescript
     Route::get('/prescript/{rmId}', [PrescriptionC::class, 'getData'])->name('prescript-load');
